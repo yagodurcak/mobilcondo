@@ -1,0 +1,103 @@
+.Containers{
+    background-image: url("../../IMG/Dashboard\ Login.jpg");
+    background-size: cover;
+ height: 100vh;
+ width: 100vw;
+ display: grid;
+ justify-content: center;
+ align-items: center;
+ align-content: center;
+}
+
+
+.formContainer{
+   height: 21.875rem;
+   /* background-color: #317143 */
+  
+}
+
+/* form {
+    max-width: 250rem;
+    margin: auto;
+ } */
+.inputContainer i {
+    position: absolute;
+    margin-top: 1.875rem;
+    /* height: 0.625rem; */
+
+    
+ }
+ .inputContainer {
+    width: 100%;
+    /* margin-bottom: 0.625rem; */
+    display: flex;
+    align-content: center;
+    align-items: center;
+
+
+ }
+ .icon {
+    padding: 1.875rem;
+   color: white;
+   width: 1.875rem;
+   text-align: left;
+ }
+ .Field {
+    width: fit-content;
+    padding: 1.25rem 2.5rem;
+    text-align: center;
+    font-size: 1.25rem;
+    font-weight: 500;
+    height: fit-content;
+
+    background-color: transparent;
+    border: 0.0625rem solid white;
+    border-radius: 0.625rem;
+    /* padding-left: 0.625rem; */
+    color: white;
+    font-size: 1rem;
+    font-weight: 500;
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;  
+ }
+ .Field::placeholder {
+    color: white;
+    /* font-size: 1.5em; */
+ }
+
+ .boton{
+     margin-top: 1.25rem;
+     background-color: white;
+     padding: 0.9375rem;
+     width: 100%;
+     height: fit-content;
+     border-radius: 0.625rem;
+     font-size: 0.9375rem;
+     font-family: 'Montserrat', sans-serif;
+     font-weight: 600;
+     color: #317143;
+     cursor: pointer;
+ }
+
+ .ForgotContainer{
+     margin-top: 1.25rem;
+     display: flex;
+     justify-content: end;
+   
+ }
+ .ForgotContainer a{
+    text-decoration: none;
+   
+ }
+
+ .forgot{
+     font-size: 1.25rem;
+     font-family: 'Montserrat', sans-serif;
+     font-weight: 400;
+     color: white;
+     text-decoration: none;
+ }
+
+ .tamañoTabla{
+   height: 50vh;
+}
