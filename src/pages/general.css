@@ -12,6 +12,7 @@ html *{
 .profile-page .page-header {
     height: 200px;
     background-position:center;
+    /* background-color: blue; */
 
 }
 
@@ -29,6 +30,7 @@ html *{
     z-index: 1;
     width: 100%;
     height: 100%;
+    max-height: 500%;
     display: block;
     left: 0;
     top: 0;
@@ -41,7 +43,7 @@ html *{
 }
 
 .main-raised {
-    margin: -50px 30px 0;
+    margin: -50px 30px 200px 30px ;
 
     border-radius: 6px;
     height: 100%;
@@ -135,3 +137,143 @@ p {
     cursor: pointer;
     /* padding: 0.625rem 0rem; */
 }
+
+.navbar {
+    border-bottom: solid 1px #EBEBEB;
+    background-color: #FAFAFA;
+  }
+  
+  .bottom-tab-nav {
+    border-top: solid 1px #EBEBEB;
+  }
+  
+  .nav-link,
+  .bottom-nav-link {
+    color: #858383;
+  }
+  
+  .bottom-nav-link.active {
+    color: #5DB075;
+  }
+  
+  .bottom-tab-label {
+    font-size: 12px;
+  } 
+.logo{
+   
+    font-size: 40px;
+}
+.Contenedor{
+    height: 120%;
+    /* color: #5DB075; */
+    }
+.verde{
+    height: 200px;
+    /* background-color: #5DB075; */
+    color: white;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+}
+
+.blanco{
+    height: fit-content;
+    max-width: 500%;
+    background-color: white;
+    
+}
+.btn1{
+    background-color:  #317143;
+    border-radius: 30px;
+    color: white;
+    padding: 5px 40px;
+    width: fit-content;
+}
+.btn2{
+    background-color:  #317143;
+    border-radius: 30px;
+    color: white;
+    padding: 5px 10px;
+    width: fit-content;
+}
+
+.seccion{
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    text-align: justify;
+}
+
+.Item-Description{
+    font-weight: 400;
+    font-family: 'Inter', sans-serif;
+    
+}
+.DateItem{
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    
+}
+
+.boton-centrar{
+    display: grid;
+    justify-content: center;
+}
+
+.linea-seccion{
+/* height: 10px; */
+margin: 0px auto;
+width: 80%;
+
+border: 1px solid #D1D1D1;
+}
+.linea-seccion2{
+/* height: 10px; */
+margin: 0px auto;
+width: 80%;
+
+border: 3px solid #317143;
+}
+
+.Item-Title{
+    font-weight: 600;
+}
+.calendario{
+    height: 50vh;
+    
+}
+
+.FullCalendar{
+    position: relative;
+    z-index: 0;
+
+}
+
+.input-container{
+    height: 100%;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+.input-container .react-datepicker-wrapper {
+    margin: 1px 0;
+    width: 100%;
+    border: 3px solid #317143;
+  }
+
+  .botonCentrar{
+      display: grid;
+      justify-content: center;
+      align-items: center;
+  }
+  .blind{
+      display: none;
+  }
+
+/* .modalStyle{
+    height: 50px;
+} */

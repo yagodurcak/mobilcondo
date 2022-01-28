@@ -3,9 +3,12 @@ import "./general.css";
 import React, {useContext, useEffect, useState} from 'react';
 
 import Navigation from "../components/BottomNavigation";
-import SimpleBottomNavigation from "../components/BottomNavigation";
 import perfil from "../IMG/perfil.jpg"
 import { userContext } from '../context/UserContext';
+
+// import Navigation from "../components/BottomNavigation";
+
+
 
 function Home() {
 
@@ -69,6 +72,7 @@ function Home() {
                                  <h3 className="description">Dni: <span>{dataUser.document}</span></h3>
                                  <h3 className="description">Correo: <span>{dataUser.email}</span></h3>
                                  <h3 className="description">Teléfono: <span>{dataUser.phone}</span></h3>
+             
                                  </div> : 
                                          <div>
                                          <h3 className="description">Manzana: <span>{dataUser.name}</span></h3>
@@ -92,7 +96,8 @@ function Home() {
                 </div>
                 </div>
                 </div>;
-        <Navigation/>
+                    // <Navigation/>
+
 }
 
 export default Home;
