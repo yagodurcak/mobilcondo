@@ -1,19 +1,12 @@
-import '../pages/general.css'
-import "@fullcalendar/daygrid/main.css";
-import "@fullcalendar/timegrid/main.css";
-import "react-datepicker/dist/react-datepicker.css";
-import "react-datetime/css/react-datetime.css";
+// import "react-datepicker/dist/react-datepicker.css";
+
+import "react-datepicker/dist/react-datepicker.css"
 
 import React, {useContext, useEffect, useRef, useState} from 'react';
 
 import AgregarEvento from './AgregarEvento'
 import DatePicker from "react-datepicker";
-import Datetime from 'react-datetime';
-import FullCalendar from '@fullcalendar/react' // must go before plugins
 import axios from 'axios'
-import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
-import esLocale from '@fullcalendar/core/locales/es';
-import listPlugin from '@fullcalendar/list'; //For List View
 import moment from "moment"
 import { userContext } from '../context/UserContext';
 
@@ -28,20 +21,6 @@ function Calendario() {
     const [checkInDate, setCheckInDate] = useState(null);
   const [checkOutDate, setCheckOutDate] = useState(null);
   const [startDate, setStartDate] = useState(new Date());
-  const [title, setTitle] = useState("")
-  const [start, setStart] = useState(new Date())
-  const [end, setEnd] = useState(new Date())
-
-  const onSubmit = (e) => {
-      e.preventDefault()
-      onEventAdded({
-          title,
-          start,
-          end
-      })
-      handleEventAdd()
-     
-  }
     const onEventAdded = event => {
         let calendarApi = calendarRef.current.getApi()
         calendarApi.addEvent({
@@ -50,7 +29,14 @@ function Calendario() {
             title: event.title}
         )
     }
-
+    const handleCheckInDate = (date) => {
+        setCheckInDate(date);
+        setCheckOutDate(null);
+      };
+    
+      const handleCheckOutDate = (date) => {
+        setCheckOutDate(date);
+      };
 
     const handleEventAdd = async (data) => {
         console.log((data.event));
@@ -96,27 +82,49 @@ function Calendario() {
          <div className='container'>
              <div className="input-container">
                      <div>
+              <h4 className='DateItem pt-3'>Reserva desde:</h4>
+              <DatePicker
+        selected={startDate}
+        onChange={(date) => setStartDate(date)}
+        showTimeSelect
+        timeFormat="HH:mm"
+        timeIntervals={15}
+        timeCaption="time"
+        dateFormat="MMMM d, yyyy h:mm aa"
+        onChange={handleCheckInDate}
+              />
+                     </div>
+                     <div>
+                     <h4 className='DateItem pt-3'>Reserva hasta: </h4>
+              <DatePicker
+                   selected={startDate}
+                   onChange={(date) => setStartDate(date)}
+                   showTimeSelect
+                   timeFormat="HH:mm"
+                   timeIntervals={15}
+                   timeCaption="time"
+                   dateFormat="MMMM d, yyyy h:mm aa"
+                selected={checkOutDate}
+                minDate={checkInDate}
+                onChange={handleCheckOutDate}
+              />
+                     </div>
+                   </div>
+                   {checkInDate && checkOutDate && (
+                     <div className="summary">
+              <p>
+                You book a hotel from {moment(checkInDate).format("LL")} to{" "}
+                {moment(checkOutDate).format("LL")}.
+              </p>
+                     </div>
+                   )}
 
-                     <form action="" onSubmit={onSubmit}>
-                <input type="text"  onChange={e => setTitle(e.target.value)} />
-                <div>
-                    <label htmlFor="">Inicio</label>
-                    <Datetime value={start} onChange={date => setStart(date)} />
-                </div>
-                <div>
-                    <label htmlFor="">Final</label>
-                    <Datetime value={end} onChange={date => setEnd(date)} />
-                </div>
-                <button className='btn1 mt-3'>Reservar Espacio</button>
-            </form>
                    <div className='botonCentrar pt-3'>
-   
+         <button className='btn1 mt-2' onClick={()=> setModalOpen(true)}>Agregar Evento</button>
+                       <button className='btn1 mt-5' onClick={handleEventAdd()}>Reservar</button></div>
          </div>
-         <AgregarEvento onEventAdded={event => onEventAdded(event)}/>
+         <AgregarEvento isOpen={modalOpen} onClose={()=> setModalOpen(false)} onEventAdded={event => onEventAdded(event)}/>
 
-      </div>
-      </div>
-      </div>
       </div>
       </div>
 

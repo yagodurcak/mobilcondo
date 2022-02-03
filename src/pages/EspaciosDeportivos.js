@@ -1,9 +1,5 @@
 import "../pages/general.css"
 
-import {
-  Link,
-  NavLink,
-} from "react-router-dom";
 import React, {useContext, useEffect, useRef, useState} from 'react';
 
 import AgregarEvento from '../components/AgregarEvento'
@@ -160,11 +156,18 @@ console.log(info);
             <h6 className="Item-Title">Normas de uso:</h6>
             <p className="Item-Description">{ casa.space.rulesOfUse }</p>
             </div>
+            
+            {/* <div className="boton-centrar"><button className="btn1">     <Link to="/Calendario" style={{ textDecoration: 'none' }}>
+                <NavLink className="logoContainter1 text-white" to="/Calendario" activeClassName='is-active' style={{ textDecoration: 'none' }}>
+                  
+                  RESERVAR
+               
+                </NavLink>
+              </Link></button></div> */}
             <div className="boton-centrar">
-              <button className="btn1" onClick={()=> DatosEspDep(casa.space)}>    RESERVAR
-        
-
-              </button></div>
+              <button className="btn1" onClick={()=> DatosEspDep(casa.space)}>    RESERVAR </button>
+    
+              </div>
                           <AgregarEvento info={info} isOpen={modalOpen} onClose={()=> setModalOpen(false)} onEventAdded={event => onEventAdded(event)}/>
           </div>
           

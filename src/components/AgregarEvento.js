@@ -1,4 +1,5 @@
 import '../pages/general.css'
+import "../../node_modules/react-datetime/css/react-datetime.css"
 
 import React, {useEffect, useState} from 'react'
 

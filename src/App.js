@@ -9,6 +9,7 @@ import {
 import Calendar from './pages/Calendar';
 import Canchas from './pages/login/Canchas';
 import ConfirmReserve from './pages/ConfirmReserve';
+import ElegirTipoVisita from './pages/ElegirTipoVisita';
 import Espacios from './pages/Espacios';
 import EspaciosDeportivos from './pages/EspaciosDeportivos';
 import Home from './pages/Home';
@@ -17,9 +18,11 @@ import Login from './pages/login/Login';
 import MisReservas from './pages/MisReservas';
 import Navigation from './components/BottomNavigation';
 import Pagos from './pages/Pagos';
+import Proveedores from './pages/Proveedores';
 import ReservaEspacios from './pages/ReservaEspacios';
 import Tramites from './pages/Tramites';
 import UserProvider from './context/UserContext';
+import Visitas from './pages/Visitas';
 
 function App() {
   return (
@@ -67,6 +70,15 @@ function App() {
               </Route>
               <Route exact path="/MisReservas">
               <MisReservas/>
+              </Route>
+              <Route exact path="/Visitas">
+              <Visitas/>
+              </Route>
+              <Route exact path="/ElegirTipoVisita">
+              <ElegirTipoVisita/>
+              </Route>
+              <Route exact path="/Proveedores">
+              <Proveedores/>
               </Route>
             </div>
     </div>
