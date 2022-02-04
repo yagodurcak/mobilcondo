@@ -22,7 +22,7 @@ import { set } from "date-fns";
 import { userContext } from '../context/UserContext';
 import visitas from "../IMG/VISITAS.png"
 
-function Pagos() {
+function Gastos() {
   const [modalOpen, setModalOpen] = useState(false)
   const [data, setData] = useState([])
   const calendarRef = useRef(null)
@@ -32,9 +32,9 @@ const [End, setEnd] = useState("");
 
 
 
-    const buscarLuz = async() => {
+    const buscarTipo = async() => {
           
-      const url = `https://back2.tinpad.com.pe/public/api/light-expenditure`;
+      const url = `https://back2.tinpad.com.pe/public/api/reservation`;
   
       const headers = {
           'Content-Type': 'application/json',
@@ -44,48 +44,12 @@ const [End, setEnd] = useState("");
   
   
       const rtdo = await axios.get(url, {headers})
-      console.log(rtdo.data.data);
       setdataUser(JSON.parse(localStorage.getItem('user')))
-      setData(rtdo.data.data)
-      // setData((rtdo.data.data).filter(artista=> artista.user.id !== dataUser.id));
-    }
-    const buscarAgua = async() => {
-          
-      const url = `https://back2.tinpad.com.pe/public/api/water-expenditure`;
-  
-      const headers = {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' +  localStorage.getItem('Authorization'),
-  
-      }
-  
-  
-      const rtdo = await axios.get(url, {headers})
-      console.log(rtdo.data.data);
-      setdataUser(JSON.parse(localStorage.getItem('user')))
-      setData(rtdo.data.data)
-      // setData((rtdo.data.data).filter(artista=> artista.user.id !== dataUser.id));
-    }
-    const buscarCondo = async() => {
-          
-      const url = `https://back2.tinpad.com.pe/public/api/condominium-expense`;
-  
-      const headers = {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' +  localStorage.getItem('Authorization'),
-  
-      }
-  
-  
-      const rtdo = await axios.get(url, {headers})
-      console.log(rtdo.data.data);
-      setdataUser(JSON.parse(localStorage.getItem('user')))
-      setData(rtdo.data.data)
-      // setData((rtdo.data.data).filter(artista=> artista.user.id !== dataUser.id));
+      setData((rtdo.data.data).filter(artista=> artista.user.id === dataUser.id));
     }
 
   useEffect(() => {
-   buscarLuz()
+   buscarTipo()
 
   }, []);
 
@@ -98,19 +62,19 @@ const [End, setEnd] = useState("");
     {data.map(casa => (  <div>
         <div className="seccion">
           <div className="row mt-3">
-            <h3>{casa.consume}</h3>
+            <h3>{casa.space.description}</h3>
 
             <div className="row mt-3">
        
-                <p className="Item-Title">Inicio de reserva: <span className="Item-Description">{casa.id} hs</span></p>
-                {/* <p className="Item-Title">Fin de reserva: <span className="Item-Description">{moment(data.end).format('LLL')} hs</span></p> */}
+                <p className="Item-Title">Inicio de reserva: <span className="Item-Description">{moment(data.start).format('LLL')} hs</span></p>
+                <p className="Item-Title">Fin de reserva: <span className="Item-Description">{moment(data.end).format('LLL')} hs</span></p>
 
                 {/* <p className="Item-Title">Fin de reserva: <span className="Item-Description">{End} hs</span></p> */}
 
             </div>
             <div className="row">
             <h6 className="Item-Title">Normas de uso:</h6>
-            {/* <p className="Item-Description">{ casa.space.rulesOfUse }</p> */}
+            <p className="Item-Description">{ casa.space.rulesOfUse }</p>
             </div>
          
           </div>
@@ -127,4 +91,4 @@ const [End, setEnd] = useState("");
   </div>;
 }
 
-export default Pagos;
+export default Gastos;

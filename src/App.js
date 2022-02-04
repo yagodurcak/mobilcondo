@@ -12,6 +12,7 @@ import ConfirmReserve from './pages/ConfirmReserve';
 import ElegirTipoVisita from './pages/ElegirTipoVisita';
 import Espacios from './pages/Espacios';
 import EspaciosDeportivos from './pages/EspaciosDeportivos';
+import Gastos from './pages/Gastos';
 import Home from './pages/Home';
 import Informes from './pages/Informes';
 import Login from './pages/login/Login';
@@ -79,6 +80,9 @@ function App() {
               </Route>
               <Route exact path="/Proveedores">
               <Proveedores/>
+              </Route>
+              <Route exact path="/Gastos">
+              <Gastos/>
               </Route>
             </div>
     </div>

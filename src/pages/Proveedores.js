@@ -13,6 +13,7 @@ import ModalDetails from "../components/ModalDetails";
 import axios from "axios"
 import es from "date-fns/locale/es"; // the locale you want
 import {makeStyles} from '@material-ui/core/styles';
+import moment from "moment";
 import { userContext } from "../context/UserContext"
 
 // i    mport Visita from "../IMG/Visitacomunes.png"
@@ -45,10 +46,11 @@ function Proveedores() {
     const [propietario, setPropietario] = useState({});
     const [listo, setListo] = useState(false);
     const [error, setError] = useState(false);
-    const [startDate, setStartDate] = useState();
+    const [startDate, setStartDate] = useState(new Date);
     const [selectedPdf, setSelectedPdf] = useState();
     const [selectedPdfPost, setSelectedPdfPost] = useState([]);
     const [selectedFilesPost, setSelectedFilesPost] = useState([]);
+    const [listo1, setListo1] = useState(false)
     const [info, setInfo] = useState({
 
         name: "",
@@ -67,6 +69,8 @@ function Proveedores() {
           setSelectedPdf(e.target.files[0].name);
           console.log(e.target.files[0]);
           setSelectedPdfPost(e.target.files[0])
+          setListo1(true)
+
         }
 
     };
@@ -116,26 +120,40 @@ console.log(dataUser.id);
   
 
       const peticionPost=async()=>{
-        console.log("post2");
+        console.log(endDate);
+
+        const fechas = moment(startDate).format("YYYY-MM-DD")
+        const fechas2 = moment(endDate).format("YYYY-MM-DD")
       
         const f = new FormData()   
       
       
         
 
-                if (selectedPdfPost) {
+                if (listo1 === true) {
                   
                   f.append("file", selectedPdfPost)
+                  f.append("startingdate", fechas)
+                  f.append("endingdate", fechas2)
+                  f.append("name", info.name)
+                  f.append("document", parseInt(info.document) ) 
+                  f.append("quantity", info.quantity) 
+                  f.append("userId", dataUser.id) 
+                  f.append("type", info.type) 
+                  f.append("visibility", "1") 
+                }else{
+                    f.append("startingdate", fechas)
+                    f.append("endingdate", fechas2)
+                    f.append("name", info.name)
+                    f.append("document", parseInt(info.document) ) 
+                    f.append("quantity", info.quantity) 
+                    f.append("userId", dataUser.id) 
+                    f.append("type", info.type) 
+    
                 }
       
       
-            f.append("startingdate", info.startingdate)
-            f.append("endingdate", info.endingdate)
-            f.append("name", info.name)
-            f.append("document", parseInt(info.document) ) 
-            f.append("quantity", info.quantity) 
-            f.append("userId", dataUser.id) 
-            f.append("visibility", "1") 
+  
             
       
           // console.log(f);
@@ -162,6 +180,7 @@ console.log(dataUser.id);
       
         // console.log(filesImg);
           buscarTipo()
+          setListo1(false)
         }
 
         const handleChangeInsert = (e) => {
@@ -205,9 +224,24 @@ console.log(dataUser.id);
             setSelectedPdf();
         };
 
+        // console.log(startDate);
+       
+        const [endDate, setEndDate] = useState(new Date);
+        const onChange = (dates) => {
+          const [start, end] = dates;
+          setStartDate(start);
+          setEndDate(end);
+          console.log(endDate);
+        };
+        const ChangeDate = (date) => {
+            setStartDate(date);
+            setEndDate(date);
+        }
+        
+
         const gustos = [
-            { value: 'Eventual', label: 'Eventual' },
-            { value: 'Permanente', label: 'Permanente' }
+            { value: 'eventual', label: 'Eventual' },
+            { value: 'permanente', label: 'Permanente' }
           ]
           registerLocale("es", es); // register it with the name you want
 
@@ -227,6 +261,9 @@ console.log(dataUser.id);
 
                           <TextField name="quantity" type="number" onChange={handleChangeInsert} label="Cantidad de personas*" />
 
+                          <TextField name="licensePlate" onChange={handleChangeInsert} label="Patente*" />
+
+
                           <select name="type" className="mt-4" onChange={handleChangeInsert}>
 
                               <option value=""> Seleccione tipo de visita</option>
@@ -234,31 +271,52 @@ console.log(dataUser.id);
                                   <option key={fbb.value} value={fbb.value}>{fbb.value}</option>
                               )};
                           </select>
-                          {info.type === "Eventual" ? (<div>
-                              <label htmlFor="" className='mt-3 label'>Fecha de Inicio*</label>   <div className="border mt-2">
-                                  <input type="date" className={styles.inputMaterial} name="startingdate" onChange={handleChangeInsert} label="Fecha de Publicación*" />
-                              </div>
-                          </div>) : (<div>
-                              <label htmlFor="" className='mt-3 label'>Fecha de Inicio*</label>   <div className="border mt-2">
-                                  <input type="date" className={styles.inputMaterial} name="startingdate" onChange={handleChangeInsert} label="Fecha de Publicación*" />
-                              </div>
-                              <label htmlFor="" className='mt-3 label'>Fecha de Fin*</label>
+                          {info.type === "eventual" ? (
+                          <div>
+                              <h4 htmlFor="" className='mt-3 font-weight-bold'>Elige el día</h4>  
+                              <div className="border">
+                              <DatePicker 
+                              selected={startDate} 
+                              endDate={startDate}
+                              onChange={(date) => ChangeDate(date)} 
+                              inline />
+                                                  </div>
+                          </div>
+         
+                          ) : 
+                          
+                          
+                          (<div>
+                  
+                              <h4 htmlFor="" className='mt-3 font-weight-bold'>ELige rango de días*</h4>
+
+                              <div className="border">
+                                      <DatePicker
+                                          selected={startDate}
+                                          onChange={onChange}
+                                          startDate={startDate}
+                                          endDate={endDate}
+                                          selectsRange
+                                          inline
+                                      />                              </div>
+                              {/* <label htmlFor="" className='mt-3 label'>Fecha de Fin*</label>
 
 
                               <div className="border mt-2">
                                   <input type="date" className={styles.inputMaterial} name="endingdate" onChange={handleChangeInsert} label="Fecha de Publicación*" />
-                              </div>  </div>)}
-
+                              </div>   */}
+                              </div>)}
 
                           <div className=''>
                               <input type="file" onChange={pdfChange} id="file" name='sctr' />
+                              <label htmlFor="" className='mt-3 label'>Adjuntar SCTR</label>
                               <div className="label-holder">
                                   <label htmlFor="file" className="label1">
                                       <i className="material-icons">attach_file</i>
                                   </label>
                               </div>
                               {selectedPdf && (
-                                  <div className='eliminarImg mt-5'>
+                                  <div className='eliminarImg mt-1'>
                                       <h6 ><span className="detailsInfo">{selectedPdf}</span></h6>
                                       <button onClick={removeSelectedPdf} style={styles.delete} className="text-white">
                                           Eliminar
@@ -267,7 +325,7 @@ console.log(dataUser.id);
                               )}
                           </div>
 
-                          {/* <DatePicker name="date" locale="es" selected={info.date}  dateFormat="dd/MM/yyyy" onChange={(date)=>handleChangeInsert(date)} /> */}
+
                           {/* <input type="text" className={styles.inputMaterial} name="role" value="2" className="hide" onChange={handleChangeInsert}/> */}
                           {/* <input type="text" className={styles.inputMaterial} name="role" value="2" className="hide" onChange={handleChangeInsert}/> */}
                           <br /><br />
@@ -285,6 +343,7 @@ console.log(dataUser.id);
     <div className='verde text-center'>  <h1>Registra tus proveedores  </h1></div>
     <div className='blanco'>
       <div className="container">
+          <h1 className="text-center pt-5">Historial de Proveedores</h1>
         <div className="d-flex justify-content-end"><button className="btn2 mt-3" onClick={()=>abrirCerrarModalInsertar()}>Agregar Proveedores</button></div>
         
         {listo ?
@@ -298,10 +357,10 @@ console.log(dataUser.id);
                 <div className="row mt-3">
 
                   <p className="Item-Title">Documento: <span className="Item-Description">{casa.document}</span></p>
-                  <p className="Item-Title">Patente: <span className="Item-Description">{casa.licensePlate}</span></p>
+                  <p className="Item-Title">Placa: <span className="Item-Description">{casa.licensePlate}</span></p>
                   <p className="Item-Title">Tipo de visita: <span className="Item-Description">{casa.type}</span></p>
-                  <p className="Item-Title">Fecha de inicio: <span className="Item-Description">{casa.startingdate}</span></p>
-                  <p className="Item-Title">Fecha de fin: <span className="Item-Description">{casa.endingdate}</span></p>
+                  <p className="Item-Title">Fecha de inicio: <span className="Item-Description">{moment(casa.startingdate).format("DD-MM-YYYY")}</span></p>
+                  <p className="Item-Title">Fecha de fin: <span className="Item-Description">{moment(casa.endingdate).format("DD-MM-YYYY")}</span></p>
                   <p className="Item-Title">Cantidad de trabajadores: <span className="Item-Description">{casa.quantity}</span></p>
   
 

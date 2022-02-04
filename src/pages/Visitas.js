@@ -13,6 +13,7 @@ import ModalDetails from "../components/ModalDetails";
 import axios from "axios"
 import es from "date-fns/locale/es"; // the locale you want
 import {makeStyles} from '@material-ui/core/styles';
+import moment from "moment";
 import { userContext } from "../context/UserContext"
 
 // i    mport Visita from "../IMG/Visitacomunes.png"
@@ -52,7 +53,7 @@ function Visitas() {
         lastName: "",
         document:"",
         licensePlate:"",
-        date:"",
+ 
         quantity: "10"
         
       })
@@ -127,7 +128,10 @@ console.log(data);
           'Authorization': 'Bearer ' +  localStorage.getItem('Authorization'),
     
       }
-          await axios.post("https://back2.tinpad.com.pe/public/api/guest", {...info, propertyId: propietario.propertyId}, {headers})
+
+
+      const fechas = moment(startDate).format("YYYY-MM-DD")
+          await axios.post("https://back2.tinpad.com.pe/public/api/guest", {...info, propertyId: propietario.propertyId, date: fechas}, {headers})
           .then(response=>{
             // setdata(data.concat(response.data));
             // abrirCerrarModalInsertar();
@@ -197,14 +201,19 @@ console.log(data);
                   <br />
                   <TextField name="licensePlate" onChange={handleChangeInsert} label="Patente*" />
 
-                  <label htmlFor="" className='mt-5 label'>Fecha*</label>
+                  <div>
+                              <label htmlFor="" className='mt-3 label'>Fecha</label>  
+                              <div className="border">
+                              <DatePicker 
+                              selected={startDate} 
+                         
+                              onChange={(date) => setStartDate(date)} 
+                              inline />
+                                                  </div>
+                          </div>
 
 
-                  <div className="border mt-2">
-                  <input type="date" className={styles.inputMaterial} name="date" onChange={handleChangeInsert} label="Fecha de Publicación*"  />
-
-                    {/* <DatePicker name="date" locale="es" selected={info.date}  dateFormat="dd/MM/yyyy" onChange={(date)=>handleChangeInsert(date)} /> */}
-                  </div>
+          
                   {/* <input type="text" className={styles.inputMaterial} name="role" value="2" className="hide" onChange={handleChangeInsert}/> */}
                   {/* <input type="text" className={styles.inputMaterial} name="role" value="2" className="hide" onChange={handleChangeInsert}/> */}
                   <br /><br />
@@ -234,8 +243,8 @@ console.log(data);
                 <div className="row mt-3">
 
                   <p className="Item-Title">Documento: <span className="Item-Description">{casa.document}</span></p>
-                  <p className="Item-Title">Patente: <span className="Item-Description">{casa.licensePlate}</span></p>
-                  <p className="Item-Title">Fecha: <span className="Item-Description">{casa.date}</span></p>
+                  <p className="Item-Title">Placa: <span className="Item-Description">{casa.licensePlate}</span></p>
+                  <p className="Item-Title">Fecha: <span className="Item-Description">{moment(casa.date).format("DD-MM-YYYY")}</span></p>
                   <p className="Item-Title">Tipo de visita: <span className="Item-Description">Invitado</span></p>
 
                   {/* <p className="Item-Title">Fin de reserva: <span className="Item-Description">{End} hs</span></p> */}
