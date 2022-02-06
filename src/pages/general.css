@@ -336,3 +336,24 @@ border: 3px solid #317143;
     color: aliceblue;
         
     }
+
+.linkdownload{
+    text-decoration: none;
+    color: #317143;
+}
+.linkdownload i{
+    color: #317143;
+    font-size: 30px;
+}
+
+.formstyle{
+    display: flex ;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.selectstyle{
+    /* background-color: #317143; */
+    height: 40px;
+    /* color: white; */
+}

@@ -4,6 +4,7 @@ import React, {useContext, useEffect, useRef, useState} from 'react';
 
 import AgregarEvento from '../components/AgregarEvento'
 import FullCalendar from '@fullcalendar/react' // must go before plugins
+import ModalDetails2 from "../components/ModalDetails2";
 import axios from "axios"
 import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
 import deportivo from "../IMG/deportivo.png"
@@ -11,11 +12,33 @@ import esLocale from '@fullcalendar/core/locales/es';
 import espacios from "../IMG/espacioscomunes.png"
 import esparcimiento   from "../IMG/esparcimiento.png"
 import listPlugin from '@fullcalendar/list'; //For List View
+import {makeStyles} from '@material-ui/core/styles';
 import moment from "moment"
 import recreativos from "../IMG/recreativos.png"
 import { set } from "date-fns";
 import { userContext } from '../context/UserContext';
 import visitas from "../IMG/VISITAS.png"
+
+const useStyles = makeStyles((theme) => ({
+    modal: {
+      position: 'absolute',
+      width: 400,
+      backgroundColor: theme.palette.background.paper,
+      border: '2px solid #000',
+      boxShadow: theme.shadows[5],
+      padding: theme.spacing(2, 4, 3),
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+    //   display: "grid"
+    },
+    iconos:{
+      cursor: 'pointer'
+    }, 
+    inputMaterial:{
+      width: '100%'
+    }
+  }));
 
 function Noticias() {
   const [modalOpen, setModalOpen] = useState(false)
@@ -23,6 +46,7 @@ function Noticias() {
   const calendarRef = useRef(null)
   const { dataUser, setdataUser } = useContext(userContext);
   const [respuesta, setRespuesta] = useState("");
+  const [showModalDetails, setShowModalDetails] = useState(false);
 const [exito, setExito] = useState(false);
     const onEventAdded = event => {
       let calendarApi = calendarRef.current.getApi()
@@ -38,7 +62,19 @@ const [exito, setExito] = useState(false);
         console.log(event.title)
   }
  
+  const [info, setInfo] = useState({
+    title: "",
+    description: "",
+    file:"" ,  
+    publicationDate: ""     
 
+  })
+
+  console.log(info);
+    
+  const abrirCerrarModalDetails=()=>{
+    setShowModalDetails(!showModalDetails);
+  }
     const buscarTipo = async() => {
           
       const url = `https://back2.tinpad.com.pe/public/api/new-release`;
@@ -62,19 +98,37 @@ const [exito, setExito] = useState(false);
    buscarTipo()
   }, []);
 
-  const [info, setInfo] = useState({
 
-    description: "",
-    spaceId: ""
-  })
+  const styles= useStyles();
+
+  
+  const bodyDetails =(
+    <div className={styles.modal}>
+        <div className="estilosmodalDetails text-center">
+   
+            <h2 className="text-center">{info&&info.title}</h2>
+            <h6 className="text-center">{info&&info.publicationDate}</h6>
+            <h6 className="text-center">{info&&info.description}</h6>
+            <a href={"https://back2.tinpad.com.pe/public/" + info.file} target="_blank"  className="linkdownload" >
+                <i className="material-icons file_download">file_download</i></a>
 
 
+        </div>
+    </div>
+    )
 
+    const seleccionarUser=(user, caso)=>{
+
+        setInfo(user);
+        // console.log(info.property.block);
+        abrirCerrarModalDetails()
+    
+      }
 // console.log(info);
 
     return <div className="Contenedor" >
 
-      <div className='verde text-center'>  <h1>Reservar Espacio</h1></div>
+      <div className='verde text-center'>  <h1>Noticias</h1></div>
       <div className='blanco'>
 
 
@@ -89,11 +143,11 @@ const [exito, setExito] = useState(false);
               </div>
          
                 <div className="row ">
-                <p className="Item-Title">{casa.description}</p>
-
-                <p className="Item-Title">Fecha: {casa.publicationDate}</p>
-                <p className="Item-Title">Descargar: <a href="https://back2.tinpad.com.pe/public/${casa.publicationDate}">ver</a></p>
-
+                <div className="d-flex justify-content-between">
+                    <h6 className="Item-Title">Fecha: {casa.publicationDate}</h6>
+               <button className="linkdownload" onClick={()=>seleccionarUser(casa) }><i className="material-icons visibility">visibility</i></button>
+               <a href={"https://back2.tinpad.com.pe/public/" + casa.file} target="_blank"  className="linkdownload" ><i className="material-icons file_download">file_download</i></a>
+                </div>
 
                 </div>
              
@@ -113,6 +167,14 @@ const [exito, setExito] = useState(false);
     
    
     </div>
+    <ModalDetails2
+            showModalDetails={showModalDetails}
+            functionShow= {abrirCerrarModalDetails}
+            // handleChangeInsert={handleChangeInsert}
+            // onSubmitEditar={onSubmitEditar}
+            info={info}
+            bodyDetails={bodyDetails}
+            />
     
   </div>;
 }

@@ -23,71 +23,140 @@ import { userContext } from '../context/UserContext';
 import visitas from "../IMG/VISITAS.png"
 
 function Gastos() {
+
   const [modalOpen, setModalOpen] = useState(false)
   const [data, setData] = useState([])
+  const [dataProperty, setDataProperty] = useState({})
   const calendarRef = useRef(null)
   const { dataUser, setdataUser } = useContext(userContext);
   const [Start, setStart] = useState("");
 const [End, setEnd] = useState("");
+const [mesSelected, setMesSelected] = useState(null);
+const [añoSelected, setAñoSelected] = useState(null);
+const fecha = new Date()
+const fecha1 =  moment(fecha).format("YYYY-MM-DD")
+const fecha2 =  moment(fecha).format("MM")
 
 
 
-    const buscarTipo = async() => {
+const [info, setInfo] = useState({
+  propertyId: 106,
+  year: 2022,
+  month:2
+});
+
+
+
+    const buscarTipo = async(e) => {
+
+      e.preventDefault();
           
-      const url = `https://back2.tinpad.com.pe/public/api/reservation`;
+      const url = `https://back2.tinpad.com.pe/public/api/get-receipt`;
   
       const headers = {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer ' +  localStorage.getItem('Authorization'),
   
-      }
+      } 
   
-  
-      const rtdo = await axios.get(url, {headers})
-      setdataUser(JSON.parse(localStorage.getItem('user')))
-      setData((rtdo.data.data).filter(artista=> artista.user.id === dataUser.id));
+      const rtdo = await axios.post(url,{
+        propertyId: 106,
+        year: añoSelected,
+        month:mesSelected
+      }, {headers})
+      setData(rtdo.data.data)
+      console.log(rtdo.data.data);
     }
+    useEffect(() => {
+      setdataUser(JSON.parse(localStorage.getItem('user')))
+      setDataProperty(JSON.parse(localStorage.getItem('propiedad')))
+     }, []);
 
   useEffect(() => {
    buscarTipo()
 
-  }, []);
+  }, [dataUser]);
 
+
+        const mes = [
+            { value: 1, label: 'Enero' },
+            { value: 2, label: 'Febrero' },
+            { value: 3, label: 'Marzo' },
+            { value: 4, label: 'Abril' },
+            { value: 5, label: 'Mayo' },
+            { value: 6, label: 'Junio' },
+            { value: 7, label: 'Julio' },
+            { value: 8, label: 'Agosto' },
+            { value: 9, label: 'Septiembre' },
+            { value: 10, label: 'Octubre' },
+            { value: 11, label: 'Noviembre' },
+            { value: 12, label: 'Diciembre' }
+           
+          ]
+
+        const Año = [
+            { value: 2022, label: '2022' },
+            { value: 2023, label: '2023' },
+            { value: 2024, label: '2024' },
+            { value: 2025, label: '2025' },
+            { value: 2026, label: '2026' },
+            { value: 2027, label: '2027' },
+            { value: 2028, label: '2028' },
+            { value: 2029, label: '2029' },
+            { value: 2030, label: '2030' },
+            { value: 2031, label: '2031' }
+     
+          ]
 
     return <div className="Contenedor" >
 
-      <div className='verde text-center'>  <h1>Mis Reservas</h1></div>
-      <div className='blanco'>
-      {data.map(casa => (  <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Periodo</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
-</table>))}
+      <div className='verde text-center'><h1>Mis Gastos</h1></div>
+
+
+  
+        <div className='blanco '>
+
+          <div className="pt-3 bg-secondary text-white">
+            <div className="container">
+              <h3>Propietario: {dataUser.name} {dataUser.lastName}</h3>
+              <div className="d-flex justify-content-between">
+                <h6>Manzana: {dataProperty.block}</h6>
+                <h6>Lote:{dataProperty.lot}</h6>
+              </div>
+              <div className="d-flex justify-content-between">
+                <h6>Area (m2): {dataProperty.area}</h6>
+                <h6>Participacion(%): {dataProperty.participation}</h6>
+                        </div>
+            </div>
+
+          </div>
+          <div>
+              <form action="" className="formstyle py-4" onSubmit={buscarTipo}>
+              <select name="type" className=" selectstyle" onChange={(e)=> setMesSelected(e.target.value)}>
+
+                <option value=""> Mes</option>
+                {mes.map(fbb =>
+                    <option key={fbb.value} value={fbb.value}>{fbb.label}</option>
+                )};
+                </select>
+              <select name="type" className=" selectstyle" onChange={(e)=> setAñoSelected(e.target.value)}>
+
+                <option value=""> Año</option>
+                {Año.map(fbb =>
+                    <option key={fbb.value} value={fbb.value}>{fbb.label}</option>
+                )};
+                </select>
+                <button className="btn1" type="submit">Ver</button>
+              </form>
+            </div>
+             <div className="d-flex justify-content-between container">
+            <h6>Periodo</h6>
+            <h6>Total</h6>
+            <h6>Estado</h6>
+            <h6>Recibo</h6>
+          </div>
+
+
 {/*       
     {data.map(casa => (  <div>
         <div className="seccion">
