@@ -123,6 +123,44 @@ function ReservaEspacios() {
       </div>
       <hr className="linea-seccion2"></hr>
          {/* ----------------seccion --------------- */}
+       <div className="seccion">
+        <div className="row mt-3">
+          <h3>Salas de uso multiple</h3>
+          <div className="row mt-3">
+            <div className="col-6">
+              <img src={esparcimiento} alt="" className="foto" />
+            </div>
+            <div className="col-6">
+              <div className="row ">
+                <h5 className="Item-Description">Sala de conferencias, eventos, reuniones y exposiciones, cine y otras salas disponibles
+</h5>
+                <div className="boton-centrar"><button className="btn1">VER</button></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr className="linea-seccion2"></hr>
+         {/* ----------------seccion --------------- */}
+       <div className="seccion">
+        <div className="row mt-3">
+          <h3>Otros espacios disponibles</h3>
+          <div className="row mt-3">
+            <div className="col-6">
+              <img src={esparcimiento} alt="" className="foto" />
+            </div>
+            <div className="col-6">
+              <div className="row ">
+                <h5 className="Item-Description">Zonas y espacios de uso común exclusivos de tu condominio
+</h5>
+                <div className="boton-centrar"><button className="btn1">VER</button></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr className="linea-seccion2"></hr>
+         {/* ----------------seccion --------------- */}
     </div>
     
   </div>;

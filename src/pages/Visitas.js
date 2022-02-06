@@ -231,21 +231,27 @@ console.log(data);
     <div className='verde text-center'>  <h1>Registra tus visitas  </h1></div>
     <div className='blanco'>
       <div className="container">
+      <h1 className="text-center pt-5">Historial de Invitados</h1>
+
         <div className="d-flex justify-content-end"><button className="btn2 mt-3" onClick={()=>abrirCerrarModalInsertar()}>Agregar Invitado</button></div>
         {listo ?
           <div>
             {data.map(casa => (<div>
               <div className="seccion">
                 <div className="row mt-3">
-                  <h3> Nombre: {casa.name} {casa.lastName}</h3>
 
                 </div>
                 <div className="row mt-3">
 
-                  <p className="Item-Title">Documento: <span className="Item-Description">{casa.document}</span></p>
-                  <p className="Item-Title">Placa: <span className="Item-Description">{casa.licensePlate}</span></p>
-                  <p className="Item-Title">Fecha: <span className="Item-Description">{moment(casa.date).format("DD-MM-YYYY")}</span></p>
-                  <p className="Item-Title">Tipo de visita: <span className="Item-Description">Invitado</span></p>
+                  <h5 className="text-center"> Nombre: {casa.name}  {casa.lastName}</h5>
+                  <div className="d-flex justify-content-around">
+                    <p className="Item-Title">Documento: <span className="Item-Description">{casa.document}</span></p>
+                    <p className="Item-Title">Placa: <span className="Item-Description">{casa.licensePlate}</span></p>
+                    <p className="Item-Title">Fecha: <span className="Item-Description">{moment(casa.date).format("DD-MM-YYYY")}</span></p>
+                  </div>
+                  <div className="d-flex justify-content-around">
+                    {/* <p className="Item-Title">Tipo de visita: <span className="Item-Description">Invitado</span></p> */}
+                  </div>
 
                   {/* <p className="Item-Title">Fin de reserva: <span className="Item-Description">{End} hs</span></p> */}
 

@@ -29,7 +29,7 @@ const tabs = [
   label: "Trámites y Quejas"
 },
     {
-  route: "/Pagos",
+  route: "/Gastos",
   icon: "receipt_long",
   label: "Pagos y Gastos"
 },

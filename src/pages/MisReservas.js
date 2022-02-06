@@ -53,6 +53,8 @@ const [End, setEnd] = useState("");
 
   }, []);
 
+  console.log(data);
+
 
     return <div className="Contenedor" >
 
@@ -66,8 +68,8 @@ const [End, setEnd] = useState("");
 
             <div className="row mt-3">
        
-                <p className="Item-Title">Inicio de reserva: <span className="Item-Description">{moment(data.start).format('LLL')} hs</span></p>
-                <p className="Item-Title">Fin de reserva: <span className="Item-Description">{moment(data.end).format('LLL')} hs</span></p>
+                <p className="Item-Title">Inicio de reserva: <span className="Item-Description">{moment(casa.start).format('LLL')} hs</span></p>
+                <p className="Item-Title">Fin de reserva: <span className="Item-Description">{moment(casa.end).format('LLL')} hs</span></p>
 
                 {/* <p className="Item-Title">Fin de reserva: <span className="Item-Description">{End} hs</span></p> */}
 

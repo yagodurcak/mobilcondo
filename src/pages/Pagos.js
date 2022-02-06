@@ -9,6 +9,7 @@ import React, {useContext, useEffect, useRef, useState} from 'react';
 
 import AgregarEvento from '../components/AgregarEvento'
 import FullCalendar from '@fullcalendar/react' // must go before plugins
+import Table2 from "../components/Table2";
 import axios from "axios"
 import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
 import deportivo from "../IMG/deportivo.png"
@@ -21,6 +22,23 @@ import recreativos from "../IMG/recreativos.png"
 import { set } from "date-fns";
 import { userContext } from '../context/UserContext';
 import visitas from "../IMG/VISITAS.png"
+
+const customerTableHead = [
+
+  {
+      title:"Nombres",
+      field: "name"
+  },
+  {
+      title:"Apellidos",
+      field: "lastName",
+      
+  },
+  {
+      title:"Doc. de Identidad",
+      field: "document"
+  }
+  ]
 
 function Pagos() {
   const [modalOpen, setModalOpen] = useState(false)
@@ -97,6 +115,13 @@ const [End, setEnd] = useState("");
       
     {data.map(casa => (  <div>
         <div className="seccion">
+
+        <div className="mt-10"><Table2 
+                 title="" 
+                 columns={customerTableHead} 
+                 data={data}               
+
+                 /></div>
           <div className="row mt-3">
             <h3>{casa.consume}</h3>
 

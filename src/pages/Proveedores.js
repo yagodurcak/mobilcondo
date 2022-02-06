@@ -140,6 +140,7 @@ console.log(dataUser.id);
                   f.append("quantity", info.quantity) 
                   f.append("userId", dataUser.id) 
                   f.append("type", info.type) 
+                  f.append("licensePlate", info.licensePlate) 
                   f.append("visibility", "1") 
                 }else{
                     f.append("startingdate", fechas)
@@ -149,6 +150,7 @@ console.log(dataUser.id);
                     f.append("quantity", info.quantity) 
                     f.append("userId", dataUser.id) 
                     f.append("type", info.type) 
+                    f.append("licensePlate", info.licensePlate) 
     
                 }
       
@@ -205,7 +207,7 @@ console.log(dataUser.id);
                 setInfo({
        
                   name: "",
-                  lastName: "",
+            
                   document:"",
                   licensePlate:"",
                   quantity: "10"
@@ -257,11 +259,10 @@ console.log(dataUser.id);
 
                           <TextField name="document" onChange={handleChangeInsert} label="Doc. de Identidad*" />
 
-                          <TextField name="licensePlate" onChange={handleChangeInsert} label="Patente*" />
+                          <TextField name="licensePlate" onChange={handleChangeInsert} label="Placa*" />
 
                           <TextField name="quantity" type="number" onChange={handleChangeInsert} label="Cantidad de personas*" />
 
-                          <TextField name="licensePlate" onChange={handleChangeInsert} label="Patente*" />
 
 
                           <select name="type" className="mt-4" onChange={handleChangeInsert}>

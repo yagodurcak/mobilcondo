@@ -80,7 +80,7 @@ const [exito, setExito] = useState(false);
   
       const rtdo = await axios.get(url, {headers})
       setdataUser(JSON.parse(localStorage.getItem('user')))
-      setData((rtdo.data.data).filter(artista=> artista.space.spaceTypeId === "3"));
+      setData((rtdo.data.data).filter(artista=> artista.space.spaceTypeId === "30"));
     }
     
     console.log(data); 

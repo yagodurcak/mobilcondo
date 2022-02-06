@@ -8,7 +8,9 @@ import {
 
 import Calendar from './pages/Calendar';
 import Canchas from './pages/login/Canchas';
+import Comunicados from './pages/Comunicados';
 import ConfirmReserve from './pages/ConfirmReserve';
+import ElegirTipoInformes from './pages/ElegirTipoInformes';
 import ElegirTipoVisita from './pages/ElegirTipoVisita';
 import Espacios from './pages/Espacios';
 import EspaciosDeportivos from './pages/EspaciosDeportivos';
@@ -18,6 +20,8 @@ import Informes from './pages/Informes';
 import Login from './pages/login/Login';
 import MisReservas from './pages/MisReservas';
 import Navigation from './components/BottomNavigation';
+import Noticias from './pages/Noticias';
+import NoticiasyComunicados from './pages/NoticiasyComunicados';
 import Pagos from './pages/Pagos';
 import Proveedores from './pages/Proveedores';
 import ReservaEspacios from './pages/ReservaEspacios';
@@ -78,11 +82,23 @@ function App() {
               <Route exact path="/ElegirTipoVisita">
               <ElegirTipoVisita/>
               </Route>
+              <Route exact path="/ElegirTipoIformes">
+              <ElegirTipoInformes/>
+              </Route>
               <Route exact path="/Proveedores">
               <Proveedores/>
               </Route>
               <Route exact path="/Gastos">
               <Gastos/>
+              </Route>
+              <Route exact path="/NoticiasyComunicados">
+              <NoticiasyComunicados/>
+              </Route>
+              <Route exact path="/Noticias">
+              <Noticias/>
+              </Route>
+              <Route exact path="/Comunicados">
+              <Comunicados/>
               </Route>
             </div>
     </div>
