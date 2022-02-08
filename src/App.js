@@ -6,6 +6,7 @@ import {
   Switch
 } from "react-router-dom";
 
+import Archivos from './pages/Archivos';
 import Calendar from './pages/Calendar';
 import Canchas from './pages/login/Canchas';
 import Comunicados from './pages/Comunicados';
@@ -17,15 +18,20 @@ import EspaciosDeportivos from './pages/EspaciosDeportivos';
 import Gastos from './pages/Gastos';
 import Home from './pages/Home';
 import Informes from './pages/Informes';
+import InformesyQuejas from './pages/TramitesyQuejas';
 import Login from './pages/login/Login';
 import MisReservas from './pages/MisReservas';
 import Navigation from './components/BottomNavigation';
+import NewTramite from './pages/NewTramite';
 import Noticias from './pages/Noticias';
 import NoticiasyComunicados from './pages/NoticiasyComunicados';
 import Pagos from './pages/Pagos';
 import Proveedores from './pages/Proveedores';
+import Reclamos from './pages/Reclamos';
 import ReservaEspacios from './pages/ReservaEspacios';
+import Telefonos from './pages/Telefonos';
 import Tramites from './pages/Tramites';
+import TramitesyQuejas from './pages/TramitesyQuejas';
 import UserProvider from './context/UserContext';
 import Visitas from './pages/Visitas';
 
@@ -82,8 +88,11 @@ function App() {
               <Route exact path="/ElegirTipoVisita">
               <ElegirTipoVisita/>
               </Route>
-              <Route exact path="/ElegirTipoIformes">
+              <Route exact path="/ElegirTipoInformes">
               <ElegirTipoInformes/>
+              </Route>
+              <Route exact path="/TramitesyQuejas">
+              <TramitesyQuejas/>
               </Route>
               <Route exact path="/Proveedores">
               <Proveedores/>
@@ -99,6 +108,18 @@ function App() {
               </Route>
               <Route exact path="/Comunicados">
               <Comunicados/>
+              </Route>
+              <Route exact path="/Archivos">
+              <Archivos/>
+              </Route>
+              <Route exact path="/Telefonos">
+              <Telefonos/>
+              </Route>
+              <Route exact path="/Reclamos">
+              <Reclamos/>
+              </Route>
+              <Route exact path="/NewTramite">
+              <NewTramite/>
               </Route>
             </div>
     </div>

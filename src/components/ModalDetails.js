@@ -9,6 +9,7 @@ const ModalDetails = (props)=> {
         open={props.showmodalInsertar}
         onClose={props.functionShow}>
           {props.bodyAgregar}
+       
         </Modal>
         </div>
     )

@@ -50,14 +50,14 @@ function ElegirTipoInformes() {
             <div className="row">
                 <div className="d-flex justify-content-center mt-3">
    
-                        <h1>Elige el tipo de visita</h1>
+                        <h1>Elige el tipo de informe</h1>
         
                 </div>
             </div>
         </div>
       <div className="seccion">
         <div className="row mt-3">
-          <h3>Invitados</h3>
+          <h3>Archivos</h3>
           <div className="row mt-3">
             <div className="col-6">
               <img src={deportivo} alt="" className="foto" />
@@ -65,8 +65,8 @@ function ElegirTipoInformes() {
             <div className="col-6">
               <div className="row ">
                 <h5 className="Item-Description">Ver tus visitas confirmadas y da de alta nuevos invitados </h5>
-                <div className="boton-centrar"><button className="btn1">     <Link to="/Visitas" style={{ textDecoration: 'none' }}>
-                <NavLink className="logoContainter1 text-white" exact to="/Visitas" activeClassName="linkactivo" style={{ textDecoration: 'none' }}>
+                <div className="boton-centrar"><button className="btn1">     <Link to="/Archivos" style={{ textDecoration: 'none' }}>
+                <NavLink className="logoContainter1 text-white" exact to="/Archivos" activeClassName="linkactivo" style={{ textDecoration: 'none' }}>
                   
                   VER
                
@@ -82,7 +82,7 @@ function ElegirTipoInformes() {
       {/* ----------------seccion --------------- */}
       <div className="seccion">
         <div className="row mt-3">
-          <h3>Proveedores</h3>
+          <h3>Telefonos útiles</h3>
           <div className="row mt-3">
             <div className="col-6">
               <img src={recreativos} alt="" className="foto" />
@@ -90,8 +90,8 @@ function ElegirTipoInformes() {
             <div className="col-6">
               <div className="row ">
                 <h5 className="Item-Description">Observa y Registra tus proveedores de servicio</h5>
-                <div className="boton-centrar"><button className="btn1">     <Link to="/Proveedores" style={{ textDecoration: 'none' }}>
-                <NavLink className="logoContainter1 text-white" exact to="/Proveedores" activeClassName="linkactivo" style={{ textDecoration: 'none' }}>
+                <div className="boton-centrar"><button className="btn1">     <Link to="/Telefonos" style={{ textDecoration: 'none' }}>
+                <NavLink className="logoContainter1 text-white" exact to="/Telefonos" activeClassName="linkactivo" style={{ textDecoration: 'none' }}>
                   
                   VER
                

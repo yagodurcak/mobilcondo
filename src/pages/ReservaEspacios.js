@@ -10,7 +10,9 @@ import axios from "axios"
 import deportivo from "../IMG/deportivo.png"
 import espacios from "../IMG/espacioscomunes.png"
 import esparcimiento   from "../IMG/esparcimiento.png"
+import otros from "../IMG/ZonaDeportes1 1otros.png"
 import recreativos from "../IMG/recreativos.png"
+import salas from "../IMG/ZonaDeportes1 1usomultiple.png"
 import visitas from "../IMG/VISITAS.png"
 
 function ReservaEspacios() {
@@ -50,7 +52,6 @@ function ReservaEspacios() {
             <div className="row">
                 <div className="d-flex justify-content-center mt-3">
                     <div className="col-8 ml-2">
-                        <h1>Elige el tipo de espacio</h1>
                     </div>
                     <div className="col-4 mr-2"><button className="btn2"><Link to="/MisReservas" style={{ textDecoration: 'none' }}>
                 <NavLink className="logoContainter1 text-white" exact to="/MisReservas" activeClassName="linkactivo" style={{ textDecoration: 'none' }}>
@@ -128,7 +129,7 @@ function ReservaEspacios() {
           <h3>Salas de uso multiple</h3>
           <div className="row mt-3">
             <div className="col-6">
-              <img src={esparcimiento} alt="" className="foto" />
+              <img src={salas} alt="" className="foto" />
             </div>
             <div className="col-6">
               <div className="row ">
@@ -147,7 +148,7 @@ function ReservaEspacios() {
           <h3>Otros espacios disponibles</h3>
           <div className="row mt-3">
             <div className="col-6">
-              <img src={esparcimiento} alt="" className="foto" />
+              <img src={otros} alt="" className="foto" />
             </div>
             <div className="col-6">
               <div className="row ">

@@ -22,8 +22,7 @@ import visitas from "../IMG/VISITAS.png"
 const useStyles = makeStyles((theme) => ({
     modal: {
       position: 'absolute',
-      width: "100%",
-      height: "70%",
+      width: 400,
       backgroundColor: theme.palette.background.paper,
       border: '2px solid #000',
       boxShadow: theme.shadows[5],
@@ -41,44 +40,32 @@ const useStyles = makeStyles((theme) => ({
     }
   }));
 
-function Noticias() {
+function Reclamos() {
   const [modalOpen, setModalOpen] = useState(false)
   const [data, setData] = useState([])
   const calendarRef = useRef(null)
   const { dataUser, setdataUser } = useContext(userContext);
   const [respuesta, setRespuesta] = useState("");
   const [showModalDetails, setShowModalDetails] = useState(false);
-const [exito, setExito] = useState(false);
-    const onEventAdded = event => {
-      let calendarApi = calendarRef.current.getApi()
-      calendarApi.addEvent({
-          start: moment(event.start).toDate(),
-          end: moment(event.end).toDate(),
-          title: info.description,
-          spaceId: info.id,
-          userid: dataUser.id
-         
-        }
-        ) 
-        console.log(event.title)
-  }
- 
+  const [dataProperty, setDataProperty] = useState({})
+  const [dataProject, setDataProject] = useState({});
+
+
   const [info, setInfo] = useState({
-    title: "",
+    subject: "",
     description: "",
-    file:"" ,  
-    publicationDate: ""     
+    attached:""     
 
   })
 
-  console.log(info);
+  // console.log(info);
     
   const abrirCerrarModalDetails=()=>{
     setShowModalDetails(!showModalDetails);
   }
     const buscarTipo = async() => {
           
-      const url = `https://back2.tinpad.com.pe/public/api/new-release`;
+      const url = `https://back2.tinpad.com.pe/public/api/complaint-claim`;
   
       const headers = {
           'Content-Type': 'application/json',
@@ -87,17 +74,23 @@ const [exito, setExito] = useState(false);
       } 
   
       const rtdo = await axios.get(url, {headers})
-      setdataUser(JSON.parse(localStorage.getItem('user')))
+      // setdataUser(JSON.parse(localStorage.getItem('user')))
       console.log(rtdo.data.data)
-      setData((rtdo.data.data).filter(artista=> artista.typeReleaseId === "10"))
+      setData(rtdo.data.data)
 
     //   setData(rtdo.data)
     }
+
     
-    console.log(data); 
+
+    useEffect(() => {
+      setdataUser(JSON.parse(localStorage.getItem('user')))
+      setDataProperty(JSON.parse(localStorage.getItem('propiedad')))
+    }, []);
   useEffect(() => {
-   buscarTipo()
-  }, []);
+  buscarTipo()
+  }, [dataUser]);
+
 
 
   const styles= useStyles();
@@ -106,12 +99,22 @@ const [exito, setExito] = useState(false);
   const bodyDetails =(
     <div className={styles.modal}>
         <div className="estilosmodalDetails">
-   
-            <h1 className="text-center mt-3">{info&&info.title}</h1>
-            <h5 className="mt-3 ">Fecha: <span className="text-secondary">{info&&info.publicationDate}</span></h5>
-            <h5  className="mt-3 " > Detalle: <span className="text-secondary">{info&&info.description}</span></h5>
-            <a href={"https://back2.tinpad.com.pe/public/" + info.file} target="_blank"  className="linkdownload" >
-                <i className="material-icons file_download">file_download</i></a>
+    
+                <h1 className="text-center">{info&&info.subject}</h1>
+                <h5>Descripción: {info&&info.description}</h5>
+                <h5 >Estado: {info.state&&info.state.name}</h5>
+                {/* <h5 >Actualización: {(info.state&&info.state.updated_at).slice(0,10).split(" ")[0].split("-").reverse().join("-")}</h5> */}
+                <div className="d-flex">
+                    <h5>Descargar: </h5>
+                    <a href={"https://back2.tinpad.com.pe/public/" + info.attached} target="_blank"  className="linkdownload" >
+                        <i className="material-icons file_download">file_download</i></a>
+                </div>
+                <div className="text-center mt-3">
+                <button className="btn1 text-center">Ver Respuesta</button>
+
+                </div>
+
+
         </div>
     </div>
     )
@@ -127,29 +130,28 @@ const [exito, setExito] = useState(false);
 
     return <div className="Contenedor" >
 
-      <div className='verde text-center'>  <h1>Noticias</h1></div>
+      <div className='verde text-center'>  <h1>Quejas y Reclamos</h1></div>
       <div className='blanco'>
 
-
-    {data.map(casa => (  <div>
+    {data.map(casa => (  <div key={casa.id}>
         <div className="seccion">
-          <div className="row mt-3">
-            <h5>Fecha: {casa.publicationDate}</h5>
+          <div className="row mt-3 ">
+            <div className="d-flex justify-content-between">
+              <h3 key={casa.id}>{casa.subject}</h3>
+                <button className="linkdownload mr-5" onClick={()=>seleccionarUser(casa) }><i className="material-icons visibility">visibility</i></button>
+            </div>
 
             <div className="row mt-3">
-              <div className="col-6">
-                <img src={"https://back2.tinpad.com.pe/public/" + casa.path} alt="" className="foto" />
-              </div>
-         
+      
+        
                 <div className="row ">
                 <div className="d-flex justify-content-between">
-                    <h3 className="Item-Title">{casa.title}</h3>
-               <button className="linkdownload" onClick={()=>seleccionarUser(casa) }><i className="material-icons visibility">visibility</i></button>
-               <a href={"https://back2.tinpad.com.pe/public/" + casa.file} target="_blank"  className="linkdownload" ><i className="material-icons file_download">file_download</i></a>
+                    <h6 className="Item-Title">Fecha: {(casa.created_at).slice(0,10).split(" ")[0].split("-").reverse().join("-")}</h6>
+                    <h6 className="Item-Title">Estado: {casa.state.name}</h6>
                 </div>
 
                 </div>
-             
+            
             </div>
 
             <div className="boton-centrar">
@@ -164,7 +166,7 @@ const [exito, setExito] = useState(false);
 
 
     
-   
+  
     </div>
     <ModalDetails2
             showModalDetails={showModalDetails}
@@ -178,4 +180,4 @@ const [exito, setExito] = useState(false);
   </div>;
 }
 
-export default Noticias;
+export default Reclamos;

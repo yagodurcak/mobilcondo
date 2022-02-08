@@ -24,7 +24,7 @@ const tabs = [
   label: "Informes y Noticias"
 },
     {
-  route: "/Tramites",
+  route: "/TramitesyQuejas",
   icon: "article    ",
   label: "Trámites y Quejas"
 },

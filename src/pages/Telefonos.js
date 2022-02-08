@@ -22,8 +22,7 @@ import visitas from "../IMG/VISITAS.png"
 const useStyles = makeStyles((theme) => ({
     modal: {
       position: 'absolute',
-      width: "100%",
-      height: "70%",
+      width: 400,
       backgroundColor: theme.palette.background.paper,
       border: '2px solid #000',
       boxShadow: theme.shadows[5],
@@ -41,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
     }
   }));
 
-function Noticias() {
+function Telefonos() {
   const [modalOpen, setModalOpen] = useState(false)
   const [data, setData] = useState([])
   const calendarRef = useRef(null)
@@ -78,7 +77,7 @@ const [exito, setExito] = useState(false);
   }
     const buscarTipo = async() => {
           
-      const url = `https://back2.tinpad.com.pe/public/api/new-release`;
+      const url = `https://back2.tinpad.com.pe/public/api/useful-information`;
   
       const headers = {
           'Content-Type': 'application/json',
@@ -89,7 +88,7 @@ const [exito, setExito] = useState(false);
       const rtdo = await axios.get(url, {headers})
       setdataUser(JSON.parse(localStorage.getItem('user')))
       console.log(rtdo.data.data)
-      setData((rtdo.data.data).filter(artista=> artista.typeReleaseId === "10"))
+      setData((rtdo.data.data).filter(artista=> (artista.phone !== null && artista.phone !== "1")));
 
     //   setData(rtdo.data)
     }
@@ -105,13 +104,15 @@ const [exito, setExito] = useState(false);
   
   const bodyDetails =(
     <div className={styles.modal}>
-        <div className="estilosmodalDetails">
+        <div className="estilosmodalDetails text-center">
    
-            <h1 className="text-center mt-3">{info&&info.title}</h1>
-            <h5 className="mt-3 ">Fecha: <span className="text-secondary">{info&&info.publicationDate}</span></h5>
-            <h5  className="mt-3 " > Detalle: <span className="text-secondary">{info&&info.description}</span></h5>
-            <a href={"https://back2.tinpad.com.pe/public/" + info.file} target="_blank"  className="linkdownload" >
+            <h2 className="text-center">{info&&info.title}</h2>
+            <h6 className="text-center">{info&&info.publicationDate}</h6>
+            <h6 className="text-center">{info&&info.description}</h6>
+            <a href={"https://back2.tinpad.com.pe/public/" + info.attached} target="_blank"  className="linkdownload" >
                 <i className="material-icons file_download">file_download</i></a>
+
+
         </div>
     </div>
     )
@@ -127,27 +128,21 @@ const [exito, setExito] = useState(false);
 
     return <div className="Contenedor" >
 
-      <div className='verde text-center'>  <h1>Noticias</h1></div>
+      <div className='verde text-center'>  <h1>Archivos</h1></div>
       <div className='blanco'>
 
 
     {data.map(casa => (  <div>
         <div className="seccion">
           <div className="row mt-3">
-            <h5>Fecha: {casa.publicationDate}</h5>
+            <h2>{casa.description}</h2>
 
             <div className="row mt-3">
-              <div className="col-6">
-                <img src={"https://back2.tinpad.com.pe/public/" + casa.path} alt="" className="foto" />
-              </div>
+         
          
                 <div className="row ">
-                <div className="d-flex justify-content-between">
-                    <h3 className="Item-Title">{casa.title}</h3>
-               <button className="linkdownload" onClick={()=>seleccionarUser(casa) }><i className="material-icons visibility">visibility</i></button>
-               <a href={"https://back2.tinpad.com.pe/public/" + casa.file} target="_blank"  className="linkdownload" ><i className="material-icons file_download">file_download</i></a>
-                </div>
-
+                    <h5 className="Item-Title">Teléfono: {casa.phone}</h5>
+        
                 </div>
              
             </div>
@@ -178,4 +173,4 @@ const [exito, setExito] = useState(false);
   </div>;
 }
 
-export default Noticias;
+export default Telefonos;

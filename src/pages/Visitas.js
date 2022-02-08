@@ -234,35 +234,33 @@ console.log(data);
       <h1 className="text-center pt-5">Historial de Invitados</h1>
 
         <div className="d-flex justify-content-end"><button className="btn2 mt-3" onClick={()=>abrirCerrarModalInsertar()}>Agregar Invitado</button></div>
-        {listo ?
-          <div>
-            {data.map(casa => (<div>
-              <div className="seccion">
-                <div className="row mt-3">
+          {listo ?
+            <div>
+              {data.map(casa => (<div>
+                <div className="seccion">
+                  <div className="row mt-3">
+
+                  </div>
+                  <div className="row mt-3">
+
+                    <h5 > Nombre: {casa.name}  {casa.lastName}</h5>
+                    <div className="d-flex justify-content-around">
+                      <p className="Item-Title">Documento: <span className="Item-Description">{casa.document}</span></p>
+                      <p className="Item-Title">Placa: <span className="Item-Description">{casa.licensePlate}</span></p>
+                      <p className="Item-Title">Fecha: <span className="Item-Description">{moment(casa.date).format("DD-MM-YYYY")}</span></p>
+                    </div>
+                    <div className="d-flex justify-content-around">
+                    </div>
+
+
+                  </div>
 
                 </div>
-                <div className="row mt-3">
+                <hr className="linea-seccion2"></hr>
+              </div>))}
+            </div>
 
-                  <h5 className="text-center"> Nombre: {casa.name}  {casa.lastName}</h5>
-                  <div className="d-flex justify-content-around">
-                    <p className="Item-Title">Documento: <span className="Item-Description">{casa.document}</span></p>
-                    <p className="Item-Title">Placa: <span className="Item-Description">{casa.licensePlate}</span></p>
-                    <p className="Item-Title">Fecha: <span className="Item-Description">{moment(casa.date).format("DD-MM-YYYY")}</span></p>
-                  </div>
-                  <div className="d-flex justify-content-around">
-                    {/* <p className="Item-Title">Tipo de visita: <span className="Item-Description">Invitado</span></p> */}
-                  </div>
-
-                  {/* <p className="Item-Title">Fin de reserva: <span className="Item-Description">{End} hs</span></p> */}
-
-                </div>
-
-              </div>
-              <hr className="linea-seccion2"></hr>
-            </div>))}
-          </div>
-
-          : null}
+            : null}
       </div>
 
     </div>

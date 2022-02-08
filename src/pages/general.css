@@ -186,14 +186,14 @@ p {
 }
 .btn1{
     background-color:  #317143;
-    border-radius: 30px;
+    border-radius: 5px;
     color: white;
     padding: 5px 40px;
     width: fit-content;
 }
 .btn2{
     background-color:  #317143;
-    border-radius: 30px;
+    border-radius: 5px;
     color: white;
     padding: 5px 10px;
     width: fit-content;
@@ -343,7 +343,7 @@ border: 3px solid #317143;
 }
 .linkdownload i{
     color: #317143;
-    font-size: 30px;
+    font-size: 35px;
 }
 
 .formstyle{
@@ -356,4 +356,25 @@ border: 3px solid #317143;
     /* background-color: #317143; */
     height: 40px;
     /* color: white; */
+}
+.estilosmodalDetails{
+    padding: 30px 20px;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.eliminarImg{
+    width: fit-content;
+    background-color: #2a3eb1;
+    display: grid;
+    color: white;
+    /* font-size: px; */
+    justify-content: center;    
+    
+}
+.eliminarImg h4{
+color: aliceblue;
+    
 }

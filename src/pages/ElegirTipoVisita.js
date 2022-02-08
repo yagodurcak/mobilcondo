@@ -50,7 +50,7 @@ function ElegirTipoVisita() {
             <div className="row">
                 <div className="d-flex justify-content-center mt-3">
    
-                        <h1>Elige el tipo de visita</h1>
+            
         
                 </div>
             </div>

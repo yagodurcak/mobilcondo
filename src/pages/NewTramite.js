@@ -41,12 +41,13 @@ const useStyles = makeStyles((theme) => ({
     }
   }));
 
-function Noticias() {
+function NewTramite() {
   const [modalOpen, setModalOpen] = useState(false)
   const [data, setData] = useState([])
   const calendarRef = useRef(null)
   const { dataUser, setdataUser } = useContext(userContext);
   const [respuesta, setRespuesta] = useState("");
+  const [showModalInsertar, setShowModalInsertar] = useState(false);
   const [showModalDetails, setShowModalDetails] = useState(false);
 const [exito, setExito] = useState(false);
     const onEventAdded = event => {
@@ -70,6 +71,8 @@ const [exito, setExito] = useState(false);
     publicationDate: ""     
 
   })
+
+  const{description, title} = info;
 
   console.log(info);
     
@@ -99,7 +102,37 @@ const [exito, setExito] = useState(false);
    buscarTipo()
   }, []);
 
+//   const onSubmitInsertar = (e) => {
 
+//     e.preventDefault();
+
+//     if (description.trim() === "") {
+    
+//      setError(true);
+//      return
+//     }else {
+//         setError(false);
+
+//         peticionPost2()
+//         setInfo({
+//           consume: "",
+          
+//         });
+
+        // set1
+        // setTimeout(() => {
+        //   window.location.reload();
+        // }, 1000);
+    //     abrirCerrarModalInsertar()
+    //     buscarCotizacion()
+    //     buscarTotalLight()
+    //     SaveData()
+    // }
+//     setTimeout(() => {
+//       SaveData()
+//     }, 2000);
+    
+// }
   const styles= useStyles();
 
   
@@ -124,42 +157,48 @@ const [exito, setExito] = useState(false);
     
       }
 // console.log(info);
+    
+const abrirCerrarModalInsertar = () => {
+          
+    setShowModalInsertar(!showModalInsertar)
+  }
+
+  const handleChangeInsert = (e) => {
+    setInfo({
+      ...info,
+      [e.target.name]: e.target.value
+  })
+
+  }
 
     return <div className="Contenedor" >
 
-      <div className='verde text-center'>  <h1>Noticias</h1></div>
+      <div className='verde text-center'>  <h1>Registrar Trámite</h1></div>
       <div className='blanco'>
 
 
-    {data.map(casa => (  <div>
-        <div className="seccion">
-          <div className="row mt-3">
-            <h5>Fecha: {casa.publicationDate}</h5>
-
-            <div className="row mt-3">
-              <div className="col-6">
-                <img src={"https://back2.tinpad.com.pe/public/" + casa.path} alt="" className="foto" />
-              </div>
-         
-                <div className="row ">
-                <div className="d-flex justify-content-between">
-                    <h3 className="Item-Title">{casa.title}</h3>
-               <button className="linkdownload" onClick={()=>seleccionarUser(casa) }><i className="material-icons visibility">visibility</i></button>
-               <a href={"https://back2.tinpad.com.pe/public/" + casa.file} target="_blank"  className="linkdownload" ><i className="material-icons file_download">file_download</i></a>
-                </div>
-
-                </div>
-             
-            </div>
-
-            <div className="boton-centrar">
-    
-              </div>
-          </div>
+      <form action="" >
+          <div className={styles.modal}>
+            <h3 className="my-5">Agregar detalles de Consumo y gestión</h3>
           
-        </div>
-        <hr className="linea-seccion2"></hr>
-    </div> ))}
+            <label htmlFor="">Monto total*</label> <br />
+            <input type="number" name="amount" onChange={handleChangeInsert}  label="Monto total*" type="number" step="any"/>
+              <br />
+              <br />
+              <label htmlFor="">Costo Unitario kw*</label>
+            <input className={styles.inputMaterial} name="consume" onChange={handleChangeInsert} label="Costo Unitario kw*" type="number" step="any"/>
+         <br />
+              <br />
+              
+           
+              
+            <br /><br />
+            <div align="right">
+              <button color="primary" type="submit" >Insertar</button>
+              <button onClick= {abrirCerrarModalInsertar}> Cancelar</button>
+            </div>
+          </div>
+        </form>
 
 
 
@@ -178,4 +217,4 @@ const [exito, setExito] = useState(false);
   </div>;
 }
 
-export default Noticias;
+export default NewTramite;
