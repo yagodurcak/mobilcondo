@@ -12,6 +12,7 @@ import AgregarEvento from '../components/AgregarEvento'
 import FullCalendar from '@fullcalendar/react' // must go before plugins
 import ModalDetails from "../components/ModalDetails";
 import ModalDetails2 from "../components/ModalDetails2";
+import ModalDetails5 from "../components/ModalDetails5";
 import ModalInsertar from "../components/ModalInsertar";
 import axios from "axios"
 import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
@@ -19,6 +20,7 @@ import deportivo from "../IMG/deportivo.png"
 import esLocale from '@fullcalendar/core/locales/es';
 import espacios from "../IMG/espacioscomunes.png"
 import esparcimiento   from "../IMG/esparcimiento.png"
+import jsPDF from "jspdf"
 import listPlugin from '@fullcalendar/list'; //For List View
 import {makeStyles} from '@material-ui/core/styles';
 import moment from "moment"
@@ -79,9 +81,11 @@ const [mesSelected, setMesSelected] = useState(null);
 const [añoSelected, setAñoSelected] = useState(null);
 const fecha = new Date()
 const [showModalDetails, setShowModalDetails] = useState(false);
+const [showModalDetails5, setShowModalDetails5] = useState(false);
 const [showModalDetails4, setShowModalDetails4] = useState(false);
 const [showModalDetails3, setShowModalDetails3] = useState(false);
 const [exito, setExito] = useState(false);
+const [exito1, setExito1] = useState(false);
 const fecha1 =  moment(fecha).format("YYYY")
 const fecha2 =  moment(fecha).format("MM")
 const [respuesta, setRespuesta] = useState("");
@@ -104,6 +108,9 @@ const{file} = info2;
 
 const abrirCerrarModalDetails=()=>{
   setShowModalDetails(!showModalDetails);
+}
+const abrirCerrarModalDetails5=()=>{
+  setShowModalDetails5(!showModalDetails5);
 }
 const abrirCerrarModalDetails4=()=>{
   console.log("abrir");
@@ -153,6 +160,8 @@ const removeSelectedImage = () => {
 
     const buscarTipo = async(e) => {
 
+      setStart(false)
+
       e.preventDefault()
           
       const url = `https://back2.tinpad.com.pe/public/api/get-receipt`;
@@ -173,6 +182,7 @@ const removeSelectedImage = () => {
       setDataAgua(rtdo.data.data.waterExpenditure[0])
       setTotalGastosAgua(rtdo.data.data.totalWaterExpenditure[0])
       setTotalGastosLuz(rtdo.data.data.totalLightExpenditure[0])
+     
   
     }
     useEffect(() => {
@@ -204,6 +214,8 @@ const removeSelectedImage = () => {
       setStart(false)
       console.log("nosecumple");
     }
+
+    setExito1(true)
 
 
   }, [totalGastosLuz]);
@@ -265,6 +277,16 @@ const removeSelectedImage = () => {
       abrirCerrarModalDetails()
      }
 
+     const generatePDF = () => {
+       let doc = new jsPDF("p", "pt","a4" )
+       doc.html(document.querySelector("#content"), {
+         callback: function(pdf){
+           pdf.save("mypdf.pdf")
+         }
+       } )
+
+     }
+
         const mes = [
             { value: 1, label: 'Enero' },
             { value: 2, label: 'Febrero' },
@@ -295,21 +317,23 @@ const removeSelectedImage = () => {
      
           ]
 
-
+     
           const bodyDetails =(
-            <div className={styles.modal}>
-                <div className="estilosmodalDetails">
+            
+            <div >
+                <div className="estilosmodalDetails" >
           
-                    <h1 className="text-center">Nombre del Condomino</h1>
                     <div className="container">
                       <div className="row mt-2">
                        
+                    <h1 className="text-center">Nombre del Condomino</h1>
                           <div className="col-12 d-flex justify-content-between">
                             <div className="col-6">
                               <h6 className="text-gray-600">Periodo: {mesSelected}/{añoSelected}</h6>
                               <h6 className="text-gray-600">Proiedad: Mz {dataProperty.block} lt {dataProperty.lot}</h6>
                             </div>
-                            <a className="btn1 botonModal"><button>Descargar recibo</button></a>
+                            
+                            <button className="btn1" onClick={()=>abrirCerrarModalDetails5()}>Descargar recibo</button>
                           </div>
                      
                       
@@ -331,15 +355,19 @@ const removeSelectedImage = () => {
                             </div>
                       <div className="d-flex justify-content-between">
                               <h5 className="text-gray-600">Servicios de Agua: </h5>
-                              {dataAgua  ? 
-                              <h5 className="text-gray-600">${dataAgua.consume  * totalGastosAgua.consume  + parseFloat(dataAgua.transactionCost)}</h5>
-                              : null}
+
+                              { Start ? 
+                            <h5 className="text-gray-600">${dataAgua.consume  * totalGastosAgua.consume  + parseFloat(dataAgua.transactionCost)}</h5>
+
+                       
+                         
+                            :null}
                             </div>
                       <div className="d-flex justify-content-between">
                               <h5 className="text-gray-600">Servicios de Luz: </h5>
-                              {dataLuz   ? 
-                              <h5 className="text-gray-600">${dataLuz.consume  * totalGastosLuz.consume  + parseFloat(dataLuz.transactionCost)}</h5>
-                              :null}
+                              { Start ? 
+                            <h5 className="text-gray-600">${dataLuz.consume  * totalGastosLuz.consume  + parseFloat(dataLuz.transactionCost)}</h5> 
+                            :null}
                             </div> 
                       <div className="d-flex justify-content-between">
                               <h3 className="text-black">Total a pagar: </h3>
@@ -372,9 +400,88 @@ const removeSelectedImage = () => {
       
       
                 </div>
+                
             </div>
             )
-
+            const bodyDetails5 =(
+            
+              <div >
+                  <div className="estilosmodalDetails" >
+            
+                      <div className="container" id="content">
+                        <div className="row mt-2">
+                         
+                      <h1 className="text-center">Nombre del Condomino</h1>
+                            <div className="col-12 d-flex justify-content-between">
+                              <div className="col-6">
+                                <h6 className="text-gray-600">Periodo: {mesSelected}/{añoSelected}</h6>
+                                <h6 className="text-gray-600">Proiedad: Mz {dataProperty.block} lt {dataProperty.lot}</h6>
+                              </div>
+                              
+                            </div>
+                       
+                        
+                        </div>
+                        <div className="row mt-2">
+                          <h4 className="text-black">Gastos comunes del Condominio</h4>
+                          <div className="d-flex justify-content-between mt-1">
+                            <h5 className="text-gray-600">Total: ${sumadata} </h5>
+                          </div>
+  
+                        </div>
+                        <div className="row mt-2">
+                        <h4 className="font-weight-bold text-black">Gastos de la propiedad</h4>
+                        <div className="d-flex justify-content-between">
+                                <h5 className="text-gray-600">Gastos Comunes: </h5>
+                                <h5 className="text-gray-600">${sumadata}</h5>
+                              </div>
+                        <div className="d-flex justify-content-between">
+                                <h5 className="text-gray-600">Servicios de Agua: </h5>
+  
+                                { Start ? 
+                              <h5 className="text-gray-600">${dataAgua.consume  * totalGastosAgua.consume  + parseFloat(dataAgua.transactionCost)}</h5>
+  
+                         
+                           
+                              :null}
+                              </div>
+                        <div className="d-flex justify-content-between">
+                                <h5 className="text-gray-600">Servicios de Luz: </h5>
+                                { Start ? 
+                              <h5 className="text-gray-600">${dataLuz.consume  * totalGastosLuz.consume  + parseFloat(dataLuz.transactionCost)}</h5> 
+                              :null}
+                              </div> 
+                        <div className="d-flex justify-content-between">
+                                <h3 className="text-black">Total a pagar: </h3>
+                                <h3 className="text-black">${totalGastos}</h3>
+                              </div>
+  
+                              
+                        </div>
+  
+                        <div className="row mt-1">
+                         
+                         <div className="col-12">
+                       
+                             <h6 className="text-gray-600">Cta. Corrientes BCP Soles</h6>
+                             <h6 className="text-gray-600">XXX.XXXX.XXXX.XXXXX.XXXX</h6>
+                             <h6 className="text-gray-600">Cta. Corrientes BCP Soles</h6>
+                             <h6 className="text-gray-600">XXX.XXXX.XXXX.XXXXX.XXXX</h6>
+                    
+                         </div>
+                
+                     
+                     </div>
+                      </div>
+                       <div className="d-flex justify-content-center"><button className="btn1" onClick={generatePDF}>Descargar como PDF</button></div>
+                       <div className="d-flex justify-content-center"><button className="btn1" onClick={()=>abrirCerrarModalDetails5()}>Volver</button></div>
+  
+              
+        
+                  </div>
+                  
+              </div>
+              )
           const bodyDetails2 =(
             <div className={styles.modal}>
                 <div  className="mx-3 mt-5">
@@ -521,11 +628,20 @@ const removeSelectedImage = () => {
             : null 
           }
 
+          
+
             <ModalDetails2
               showModalDetails={showModalDetails}
               functionShow= {abrirCerrarModalDetails}
                 info={info}
               bodyDetails={bodyDetails}
+              />
+
+            <ModalDetails5
+              showModalDetails={showModalDetails5}
+              functionShow= {abrirCerrarModalDetails5}
+                info={info}
+              bodyDetails={bodyDetails5}
               />
             <ModalDetails
               showmodalInsertar={showModalDetails4}

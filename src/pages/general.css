@@ -360,8 +360,10 @@ border: 3px solid #317143;
 .estilosmodalDetails{
     padding: 30px 20px;
     display: grid;
+    height: 100vh;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    background-color: white;
 
 }
 
