@@ -321,7 +321,7 @@ const removeSelectedImage = () => {
           const bodyDetails =(
             
             <div >
-                <div className="estilosmodalDetails" >
+                <div className="estilosmodalDetails1" >
           
                     <div className="container">
                       <div className="row mt-2">
@@ -406,7 +406,7 @@ const removeSelectedImage = () => {
             const bodyDetails5 =(
             
               <div >
-                  <div className="estilosmodalDetails" >
+                  <div className="estilosmodalDetails1" >
             
                       <div className="container" id="content">
                         <div className="row mt-2">
@@ -509,7 +509,7 @@ const removeSelectedImage = () => {
             )
   const bodyInsertar = (
     <div >
-      <div className="estilosmodalDetails1">
+      <div className="estilosmodalDetails11">
 
         <form action="" onSubmit={onSubmitInsertar}>
 

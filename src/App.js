@@ -29,6 +29,7 @@ import Pagos from './pages/Pagos';
 import Proveedores from './pages/Proveedores';
 import Reclamos from './pages/Reclamos';
 import ReservaEspacios from './pages/ReservaEspacios';
+import RespuestaTramites from './pages/RespuestaTramites';
 import Telefonos from './pages/Telefonos';
 import Tramites from './pages/Tramites';
 import TramitesyQuejas from './pages/TramitesyQuejas';
@@ -120,6 +121,9 @@ function App() {
               </Route>
               <Route exact path="/NewTramite">
               <NewTramite/>
+              </Route>
+              <Route exact path="/RespuestaTramites">
+              <RespuestaTramites/>
               </Route>
             </div>
     </div>

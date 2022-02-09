@@ -10,6 +10,7 @@ import {
 import React, {useContext, useEffect, useState} from 'react';
 
 import ModalDetails from "../components/ModalDetails";
+import ModalDetails2 from "../components/ModalDetails2";
 import axios from "axios"
 import es from "date-fns/locale/es"; // the locale you want
 import {makeStyles} from '@material-ui/core/styles';
@@ -42,6 +43,7 @@ function Visitas() {
     const styles= useStyles();
     const { dataUser, setdataUser } = useContext(userContext);
     const [showModalInsertar, setShowModalInsertar] = useState(false);
+    const [showModalInsertar2, setShowModalInsertar2] = useState(false);
     const [data, setData] = useState(null);
     const [propietario, setPropietario] = useState({});
     const [listo, setListo] = useState(false);
@@ -117,6 +119,10 @@ console.log(data);
       const abrirCerrarModalInsertar = () => {
           
         setShowModalInsertar(!showModalInsertar)
+      }
+      const abrirCerrarModalInsertar2 = () => {
+          
+        setShowModalInsertar2(!showModalInsertar2)
       }
 
 
@@ -227,6 +233,32 @@ console.log(data);
             </div>
           )
 
+            
+  const bodyDetails =(
+    <div className={styles.modal}>
+        <div className="estilosmodalDetails">
+            <h1 className="text-center">Detalle de Visita</h1>
+            <div className="mt-4 text-gray-600">
+              <h4>Fecha de Visita: {info&&info.date}</h4>
+              <h4>Nombre: {info&&info.name}</h4>
+              <h4>Apellido: {info&&info.lastName}</h4>
+              <h4>Placa: {info&&info.licensePlate}</h4>
+              <h4>Documento: {info&&info.document}</h4>
+            </div>
+            <div className="d-flex justify-content-center mt-5"><button className="btn1" onClick={()=>abrirCerrarModalInsertar2()}>Volver</button></div>
+        </div>
+    </div>
+    )
+
+    
+    const seleccionarUser=(user, caso)=>{
+
+      setInfo(user);
+      // console.log(info.property.block);
+      abrirCerrarModalInsertar2()
+  
+    }
+
   return <div className="Contenedor" >
     <div className='verde text-center'>  <h1>Registra tus visitas  </h1></div>
     <div className='blanco'>
@@ -243,11 +275,17 @@ console.log(data);
                   </div>
                   <div className="row mt-3">
 
-                    <h5 > Nombre: {casa.name}  {casa.lastName}</h5>
-                    <div className="d-flex justify-content-around">
-                      <p className="Item-Title">Documento: <span className="Item-Description">{casa.document}</span></p>
-                      <p className="Item-Title">Placa: <span className="Item-Description">{casa.licensePlate}</span></p>
-                      <p className="Item-Title">Fecha: <span className="Item-Description">{moment(casa.date).format("DD-MM-YYYY")}</span></p>
+                    <div className="d-flex justify-content-between">
+                      <h5 > Nombre: {casa.name}  {casa.lastName}</h5>
+                      <button className="linkdownload"  onClick={()=>seleccionarUser(casa)}><i className="material-icons visibility">visibility</i></button>
+                    </div>
+
+                    <div>
+                      <div className="d-flex justify-content-between">
+                        <p className="Item-Title">Documento: <span className="Item-Description">{casa.document}</span></p>
+                        <p className="Item-Title">Placa: <span className="Item-Description">{casa.licensePlate}</span></p>
+                        {/* <p className="Item-Title">Fecha: <span className="Item-Description">{moment(casa.date).format("DD-MM-YYYY")}</span></p> */}
+                      </div>
                     </div>
                     <div className="d-flex justify-content-around">
                     </div>
@@ -270,9 +308,16 @@ console.log(data);
             handleChangeInsert={handleChangeInsert}
             onSubmitInsertar={onSubmitInsertar}
             error={error}
-            bodyAgregar={bodyAgregar}
-           
+            bodyAgregar={bodyAgregar} 
             
+            />
+        <ModalDetails2
+            showModalDetails={showModalInsertar2}
+            functionShow= {abrirCerrarModalInsertar2}
+            // handleChangeInsert={handleChangeInsert}
+            // onSubmitEditar={onSubmitEditar}
+            info={info}
+            bodyDetails={bodyDetails}
             />
   </div>;
 }

@@ -357,7 +357,7 @@ border: 3px solid #317143;
     height: 40px;
     /* color: white; */
 }
-.estilosmodalDetails{
+.estilosmodalDetails1{
     padding: 30px 20px;
     display: grid;
     height: 100vh;
@@ -365,6 +365,11 @@ border: 3px solid #317143;
     justify-content: space-between;
     background-color: white;
 
+}
+
+.detailsInfo{
+    color: #A8A8A8;
+    font-weight: 500;
 }
 
 .eliminarImg{

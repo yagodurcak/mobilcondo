@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
     }
   }));
 
-function Noticias() {
+function RespuestaTramites() {
   const [modalOpen, setModalOpen] = useState(false)
   const [data, setData] = useState([])
   const calendarRef = useRef(null)
@@ -49,6 +49,8 @@ function Noticias() {
   const [respuesta, setRespuesta] = useState("");
   const [showModalDetails, setShowModalDetails] = useState(false);
 const [exito, setExito] = useState(false);
+const [dataProperty, setDataProperty] = useState({})
+
     const onEventAdded = event => {
       let calendarApi = calendarRef.current.getApi()
       calendarApi.addEvent({
@@ -78,7 +80,7 @@ const [exito, setExito] = useState(false);
   }
     const buscarTipo = async() => {
           
-      const url = `https://back2.tinpad.com.pe/public/api/new-release`;
+      const url = `https://back2.tinpad.com.pe/public/api/process-observation`;
   
       const headers = {
           'Content-Type': 'application/json',
@@ -87,17 +89,23 @@ const [exito, setExito] = useState(false);
       } 
   
       const rtdo = await axios.get(url, {headers})
-      setdataUser(JSON.parse(localStorage.getItem('user')))
+    
       console.log(rtdo.data.data)
-      setData((rtdo.data.data).filter(artista=> artista.typeReleaseId === "10"))
+      setData((rtdo.data.data).filter(artista=> artista.owner_process.proyect.propertyId === (dataProperty.id).toString()))
 
     //   setData(rtdo.data)
     }
+console.log(data);
+console.log(dataProperty.id);
+    useEffect(() => {
+        setdataUser(JSON.parse(localStorage.getItem('user')))
+        setDataProperty(JSON.parse(localStorage.getItem('propiedad')))
+      }, []);
     
     console.log(data); 
   useEffect(() => {
    buscarTipo()
-  }, []);
+  }, [dataUser]);
 
 
   const styles= useStyles();
@@ -131,33 +139,27 @@ const [exito, setExito] = useState(false);
 
     return <div className="Contenedor" >
 
-      <div className='verde text-center'>  <h1>Noticias</h1></div>
+      <div className='verde text-center'>  <h1>Respuestas a Tramites</h1></div>
       <div className='blanco'>
 
-
-    {data.map(casa => (  <div>
+      
+     {data.map(casa => (  <div>
         <div className="seccion">
           <div className="row mt-3">
-            <h2>{casa.title}</h2>
+            <h2>Tramite: {casa.owner_process.proyect.name}</h2>
 
             <div className="row mt-3">
-              <div className="col-6">
-                <img src={"https://back2.tinpad.com.pe/public/" + casa.file} alt="" className="foto" />
-              </div>
-              <div className="col-6 text-gray-600">
-              <h6 className="Item-Title">Fecha: {casa.publicationDate}</h6>
+                       <div className=" text-gray-600">
+              <h6 className="Item-Title">Fecha: {moment(casa.created_at).format("YYYY-MM-DD")} </h6>
               <h6 className="Item-Title">Descripción: {casa.description}</h6>
+              <div className="d-flex justify-content-center mt-3">
+                <a href={"https://back2.tinpad.com.pe/public/" + casa.attached} target="_blank"  className="linkdownload" >
+                    <i className="material-icons file_download">file_download</i></a>
               </div>
-         
-                {/* <div className="row mt-4">
-                 
-                <div className="d-flex justify-content-between">
-               <button className="linkdownload" onClick={()=>seleccionarUser(casa) }><i className="material-icons visibility">visibility</i></button>
-               <div className="d-flex justify-content-center"><a href={"https://back2.tinpad.com.pe/public/" + casa.file} target="_blank"  className="linkdownload" ><i className="material-icons file_download">file_download</i></a></div>
-                </div>
+              </div>
 
-                </div> */}
-             
+         
+ 
             </div>
 
             <div className="boton-centrar">
@@ -167,7 +169,7 @@ const [exito, setExito] = useState(false);
           
         </div>
         <hr className="linea-seccion2"></hr>
-    </div> ))}
+    </div> ))}  
 
 
 
@@ -186,4 +188,4 @@ const [exito, setExito] = useState(false);
   </div>;
 }
 
-export default Noticias;
+export default RespuestaTramites;

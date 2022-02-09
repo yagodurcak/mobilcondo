@@ -104,16 +104,23 @@ const [exito, setExito] = useState(false);
   
   const bodyDetails =(
     <div className={styles.modal}>
-        <div className="estilosmodalDetails text-center">
+        <div className="estilosmodalDetails">
    
             <h2 className="text-center">{info&&info.title}</h2>
-            <h6 className="text-center">{info&&info.publicationDate}</h6>
-            <h6 className="text-center">{info&&info.description}</h6>
-            <a href={"https://back2.tinpad.com.pe/public/" + info.file} target="_blank"  className="linkdownload" >
-                <i className="material-icons file_download">file_download</i></a>
+            <div className="mt-4 text-gray-600">
+              <h6 >Fecha: {info&&info.publicationDate}</h6>
+              <h6 className="mt-3"> Descripción: {info&&info.description}</h6>
+            </div>
+            <div className="mt-3 text-center">
+              <a href={"https://back2.tinpad.com.pe/public/" + info.file} target="_blank"  className="linkdownload" >
+                  <i className="material-icons file_download">file_download</i></a>
+            </div>
 
 
         </div>
+
+        <div className="d-flex justify-content-center mt-3"><button className="btn1" onClick={()=>abrirCerrarModalDetails()}>Volver</button></div>
+
     </div>
     )
 
@@ -135,16 +142,14 @@ const [exito, setExito] = useState(false);
     {data.map(casa => (  <div>
         <div className="seccion">
           <div className="row mt-3">
-            <h3>{casa.title}</h3>
+          <h5>Fecha: {casa.publicationDate}</h5>
+         
 
             <div className="row mt-3">
-              <div className="col-6">
-                <img src={"https://back2.tinpad.com.pe/public/" + casa.path} alt="" className="foto" />
-              </div>
-         
+                   
                 <div className="row ">
                 <div className="d-flex justify-content-between">
-                    <h6 className="Item-Title">Fecha: {casa.publicationDate}</h6>
+                    <h3 className="Item-Title">{casa.title}</h3>
                <button className="linkdownload" onClick={()=>seleccionarUser(casa) }><i className="material-icons visibility">visibility</i></button>
                <a href={"https://back2.tinpad.com.pe/public/" + casa.file} target="_blank"  className="linkdownload" ><i className="material-icons file_download">file_download</i></a>
                 </div>

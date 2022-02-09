@@ -141,7 +141,7 @@ const [exito, setExito] = useState(false);
          
          
                 <div className="row ">
-                    <h5 className="Item-Title">Teléfono: {casa.phone}</h5>
+                    <h5 className="Item-Title text-gray-600">Teléfono: {casa.phone}</h5>
         
                 </div>
              

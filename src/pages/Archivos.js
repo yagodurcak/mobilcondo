@@ -106,14 +106,18 @@ const [exito, setExito] = useState(false);
     <div className={styles.modal}>
         <div className="estilosmodalDetails text-center">
    
-            <h2 className="text-center">{info&&info.title}</h2>
-            <h6 className="text-center">{info&&info.publicationDate}</h6>
-            <h6 className="text-center">{info&&info.description}</h6>
-            <a href={"https://back2.tinpad.com.pe/public/" + info.attached} target="_blank"  className="linkdownload" >
-                <i className="material-icons file_download">file_download</i></a>
+            <h2 className="text-center">{info&&info.description}</h2>
+            <h6 className="text-center mt-3">Fecha: {info&&info.publicationDate}</h6>
+            {/* <h6 className="text-center">Tamaño de Archivo: {info&&info.size}</h6> */}
+            <div className="mt-4">
+              <a href={"https://back2.tinpad.com.pe/public/" + info.attached} target="_blank"  className="linkdownload" >
+                  <i className="material-icons file_download">file_download</i></a>
+            </div>
 
 
         </div>
+        <div className="d-flex justify-content-center mt-4"><button className="btn1" onClick={()=>abrirCerrarModalDetails()}>Volver</button></div>
+
     </div>
     )
 

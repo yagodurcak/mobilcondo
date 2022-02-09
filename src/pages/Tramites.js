@@ -74,7 +74,7 @@ const useStyles = makeStyles((theme) => ({
       title: "",
       description: "",
       file:"" ,  
-      publicationDate: ""     
+      publicationDate: "",     
 
     })
 
@@ -83,6 +83,20 @@ const useStyles = makeStyles((theme) => ({
     const abrirCerrarModalDetails=()=>{
       setShowModalDetails(!showModalDetails);
     }
+    // const buscarRespuesta = async() => {
+            
+    //   const url = `https://back2.tinpad.com.pe/public/api/process-observation`;
+  
+    //   const headers = {
+    //       'Content-Type': 'application/json',
+    //       'Authorization': 'Bearer ' +  localStorage.getItem('Authorization')
+    //   } 
+  
+    //   const rtdo = await axios.get(url, {headers})
+    //   console.log(rtdo.data.data)
+    //   setData((rtdo.data.data).filter(artista=> artista.proyect.propertyId === (dataProperty.id).toString()))
+
+    // }
       const buscarTipo = async() => {
             
         const url = `https://back2.tinpad.com.pe/public/api/owner-process`;
@@ -121,14 +135,18 @@ const useStyles = makeStyles((theme) => ({
       <div className={styles.modal}>
           <div className="estilosmodalDetails">
     
-              <h1 className="text-center">{info&&info.description}</h1>
-              <h5 className="mt-5">Proyecto: {info.proyect&&info.proyect.name} </h5>
-              <h5 >Descripción: {info.proyect&&info.proyect.description}</h5>
-              {/* <h6 >Tipo de proyecto: {info.proyect.project_type.name && info.proyect.project_type.name}</h6> */}
-              <h5 >Estado: {info&&info.state}</h5>
-              <a href={"https://back2.tinpad.com.pe/public/" + info.file} target="_blank"  className="linkdownload" >
-                  <i className="material-icons file_download">file_download</i></a>
+              <h1 className="text-center mt-5">{info.proyect&&info.proyect.name}</h1>
+              <div className="text-gray-600 mt-5">
+                <h5 className="mt-4" >Descripción: {info.proyect&&info.proyect.description}</h5>
+                <h5 className="mt-3" >Estado: {info.state&&info.state.name}</h5>
+                <h5 className="mt-3" >Fecha: {info&&info.proyectDate}</h5>
+                {/* <h5 className="mt-3" >Adjunto: {info.attachments[0]&&info.attachments.id}.path</h5> */}
+                <div className="mt-4 text-center d-flex justify-content-between">
 
+                </div>
+              </div>
+
+              <div className="d-flex justify-content-center mt-5"><button className="btn1" onClick={()=>abrirCerrarModalDetails()}>Volver</button></div>
 
           </div>
       </div>
@@ -148,15 +166,26 @@ const useStyles = makeStyles((theme) => ({
         <div className='verde text-center'>  <h1>Tramites</h1></div>
         <div className='blanco'>
 
-        <div className="mx-3 py-3 text-end">
-          <button className="btn2">
-            <Link to="/NewTramite" style={{ textDecoration: 'none' }}>
-                <NavLink className="logoContainter1 text-white" exact to="/NewTramite" activeClassName="linkactivo" style={{ textDecoration: 'none' }}>
-                  
-                  REGISTRAR TRAMITE
-               
-                </NavLink>
-              </Link></button></div>
+        <div className="d-flex justify-content-between">
+          <div className="mx-3 py-3 text-end">
+            <button className="btn2">
+              <Link to="/NewTramite" style={{ textDecoration: 'none' }}>
+                  <NavLink className="logoContainter1 text-white" exact to="/NewTramite" activeClassName="linkactivo" style={{ textDecoration: 'none' }}>
+          
+                    REGISTRAR TRAMITE
+          
+                  </NavLink>
+                </Link></button></div>
+          <div className="mx-3 py-3 text-end">
+            <button className="btn2">
+              <Link to="/RespuestaTramites" style={{ textDecoration: 'none' }}>
+                  <NavLink className="logoContainter1 text-white" exact to="/RespuestaTramites" activeClassName="linkactivo" style={{ textDecoration: 'none' }}>
+          
+                    RESPUESTAS A TRAMITES
+          
+                  </NavLink>
+                </Link></button></div>
+        </div>
 
 
       {data.map(casa => (  <div>
@@ -171,11 +200,9 @@ const useStyles = makeStyles((theme) => ({
           
                   <div className="row ">
                   <div className="d-flex justify-content-between">
-                      <h3 className="Item-Title">Titulo: {casa.description}</h3>
-                
-                      <button className="linkdownload mr-5" onClick={()=>seleccionarUser(casa) }><i className="material-icons visibility">visibility</i></button>
-
-                {/* <a href={"https://back2.tinpad.com.pe/public/" + casa.file} target="_blank"  className="linkdownload" ><i className="material-icons file_download">file_download</i></a> */}
+                      <h5 className="Item-Title">Titulo: {casa.proyect.name}</h5>
+                      <button className="linkdownload " onClick={()=>seleccionarUser(casa) }><i className="material-icons visibility">visibility</i></button>
+                                {/* <a href={"https://back2.tinpad.com.pe/public/" + casa.file} target="_blank"  className="linkdownload" ><i className="material-icons file_download">file_download</i></a> */}
                   </div>
 
                   </div>

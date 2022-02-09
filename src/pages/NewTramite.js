@@ -1,10 +1,16 @@
 import "../pages/general.css"
 
+import {Button, Modal, TextField} from '@material-ui/core';
+import {
+  Link,
+  NavLink,
+} from "react-router-dom";
 import React, {useContext, useEffect, useRef, useState} from 'react';
 
 import AgregarEvento from '../components/AgregarEvento'
 import FullCalendar from '@fullcalendar/react' // must go before plugins
 import ModalDetails2 from "../components/ModalDetails2";
+import {Redirect} from 'react-router-dom';
 import axios from "axios"
 import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
 import deportivo from "../IMG/deportivo.png"
@@ -23,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     modal: {
       position: 'absolute',
       width: "100%",
-      height: "70%",
+      height: "100%",
       backgroundColor: theme.palette.background.paper,
       border: '2px solid #000',
       boxShadow: theme.shadows[5],
@@ -45,123 +51,49 @@ function NewTramite() {
   const [modalOpen, setModalOpen] = useState(false)
   const [data, setData] = useState([])
   const calendarRef = useRef(null)
+  const [dataProperty, setDataProperty] = useState({})
   const { dataUser, setdataUser } = useContext(userContext);
   const [respuesta, setRespuesta] = useState("");
   const [showModalInsertar, setShowModalInsertar] = useState(false);
   const [showModalDetails, setShowModalDetails] = useState(false);
+  const [selectedImage, setSelectedImage] = useState();
+  const [selectedFilesPost, setSelectedFilesPost] = useState();
+  const [error, setError] = useState(false);
+  const [projectId, setprojectId] = useState("");
+  const [processId, setProcessId] = useState("");
+  const [listoProyecto, setListoProyecto] = useState(false);
+  const [listoProyecto2, setListoProyecto2] = useState(false);
+  const [redirect, setRedirect] = useState(false);
 const [exito, setExito] = useState(false);
-    const onEventAdded = event => {
-      let calendarApi = calendarRef.current.getApi()
-      calendarApi.addEvent({
-          start: moment(event.start).toDate(),
-          end: moment(event.end).toDate(),
-          title: info.description,
-          spaceId: info.id,
-          userid: dataUser.id
-         
-        }
-        ) 
-        console.log(event.title)
-  }
- 
+   
   const [info, setInfo] = useState({
-    title: "",
+    name: "",
     description: "",
-    file:"" ,  
-    publicationDate: ""     
+    projectTypeId:""    
 
   })
 
-  const{description, title} = info;
+  useEffect(() => {
+    setdataUser(JSON.parse(localStorage.getItem('user')))
+    setDataProperty(JSON.parse(localStorage.getItem('propiedad')))
+
+   }, []);
+
+  const fechaActual = new Date
+const fechaActual1 = moment(fechaActual).format("YYYY-MM")
+const fechaActual2 = moment(fechaActual).format("YYYY-MM-DD")
+
+
+  const{description, name} = info;
 
   console.log(info);
-    
-  const abrirCerrarModalDetails=()=>{
-    setShowModalDetails(!showModalDetails);
-  }
-    const buscarTipo = async() => {
-          
-      const url = `https://back2.tinpad.com.pe/public/api/new-release`;
-  
-      const headers = {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' +  localStorage.getItem('Authorization'),
-  
-      } 
-  
-      const rtdo = await axios.get(url, {headers})
-      setdataUser(JSON.parse(localStorage.getItem('user')))
-      console.log(rtdo.data.data)
-      setData((rtdo.data.data).filter(artista=> artista.typeReleaseId === "10"))
 
-    //   setData(rtdo.data)
-    }
-    
-    console.log(data); 
-  useEffect(() => {
-   buscarTipo()
-  }, []);
+   
 
-//   const onSubmitInsertar = (e) => {
 
-//     e.preventDefault();
-
-//     if (description.trim() === "") {
-    
-//      setError(true);
-//      return
-//     }else {
-//         setError(false);
-
-//         peticionPost2()
-//         setInfo({
-//           consume: "",
-          
-//         });
-
-        // set1
-        // setTimeout(() => {
-        //   window.location.reload();
-        // }, 1000);
-    //     abrirCerrarModalInsertar()
-    //     buscarCotizacion()
-    //     buscarTotalLight()
-    //     SaveData()
-    // }
-//     setTimeout(() => {
-//       SaveData()
-//     }, 2000);
-    
-// }
   const styles= useStyles();
 
-  
-  const bodyDetails =(
-    <div className={styles.modal}>
-        <div className="estilosmodalDetails">
-   
-            <h1 className="text-center mt-3">{info&&info.title}</h1>
-            <h5 className="mt-3 ">Fecha: <span className="text-secondary">{info&&info.publicationDate}</span></h5>
-            <h5  className="mt-3 " > Detalle: <span className="text-secondary">{info&&info.description}</span></h5>
-            <a href={"https://back2.tinpad.com.pe/public/" + info.file} target="_blank"  className="linkdownload" >
-                <i className="material-icons file_download">file_download</i></a>
-        </div>
-    </div>
-    )
 
-    const seleccionarUser=(user, caso)=>{
-
-        setInfo(user);
-        // console.log(info.property.block);
-        abrirCerrarModalDetails()
-    
-      }
-// console.log(info);
-    
-const abrirCerrarModalInsertar = () => {
-          
-    setShowModalInsertar(!showModalInsertar)
-  }
 
   const handleChangeInsert = (e) => {
     setInfo({
@@ -170,50 +102,239 @@ const abrirCerrarModalInsertar = () => {
   })
 
   }
+  const peticionPost=async()=>{
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' +  localStorage.getItem('Authorization'),
 
-    return <div className="Contenedor" >
-
-      <div className='verde text-center'>  <h1>Registrar Trámite</h1></div>
-      <div className='blanco'>
+  }
 
 
-      <form action="" >
-          <div className={styles.modal}>
-            <h3 className="my-5">Agregar detalles de Consumo y gestión</h3>
-          
-            <label htmlFor="">Monto total*</label> <br />
-            <input type="number" name="amount" onChange={handleChangeInsert}  label="Monto total*" type="number" step="any"/>
-              <br />
-              <br />
-              <label htmlFor="">Costo Unitario kw*</label>
-            <input className={styles.inputMaterial} name="consume" onChange={handleChangeInsert} label="Costo Unitario kw*" type="number" step="any"/>
-         <br />
-              <br />
-              
-           
-              
-            <br /><br />
-            <div align="right">
-              <button color="primary" type="submit" >Insertar</button>
-              <button onClick= {abrirCerrarModalInsertar}> Cancelar</button>
-            </div>
-          </div>
-        </form>
 
+      await axios.post("https://back2.tinpad.com.pe/public/api/project", {...info, propertyId:dataProperty.id}, {headers})
+      .then(response=>{
+        console.log(response.data.data.id);
+        // abrirCerrarModalInsertar();
+        setprojectId(response.data.data.id)
+        setListoProyecto(true)
+      }).catch(error=>{
+        console.log(error);
+      })
+
+    }
+
+    
 
 
     
+    const proyectoID = projectId
+    console.log(proyectoID);
+
+  const peticionPost2=async()=>{
+    console.log("post2");
+  
+    const f = new FormData()   
+  
+  
+    
+    console.log(projectId);    // console.log(selectedFilesPost.length > 0);
+      
+
+  
+  
+        // f.append("propertyId", null)
+        f.append("title", info.name)
+        f.append("proyectDate", info.publicationDate)
+        f.append("description", info.description)
+        f.append("proyectId", projectId)
+        f.append("stateId", "3")
+        
+  
    
+   
+  
+      const headers = {
+        'Content-type': 'multipart/form-data',
+        'Authorization': 'Bearer ' +  localStorage.getItem('Authorization'),
+  
+    }
+  
+      const url1= "https://back2.tinpad.com.pe/public/api/owner-process"
+        await axios.post(url1, f, {headers})
+        .then(response=>{
+          // setdata(data.concat(response.data));
+          setProcessId(response.data.data.id)
+          setListoProyecto2(true)
+
+          console.log("exito -1");
+        }).catch(error=>{
+          console.log(error);
+
+        })
+     
+    }
+  const peticionPost3=async()=>{
+    console.log("post3");
+  
+    const f = new FormData()   
+
+        f.append("file", selectedFilesPost)
+        f.append("name", info.name)
+        f.append("ownerProcessId", processId)
+
+      const headers = {
+        'Content-type': 'multipart/form-data',
+        'Authorization': 'Bearer ' +  localStorage.getItem('Authorization'),
+  
+    }
+  
+      const url1= "https://back2.tinpad.com.pe/public/api/attachment-process"
+        await axios.post(url1, f, {headers})
+        .then(response=>{
+          // setdata(data.concat(response.data));
+       
+          setSelectedFilesPost()
+          console.log("exito -1");
+          setRedirect(true)
+        }).catch(error=>{
+          console.log(error);
+  
+          setSelectedFilesPost()
+        })
+
+        setListoProyecto2(false)
+        setListoProyecto(false)
+        
+  
+    }
+
+
+    const onSubmitInsertar = (e) => {
+
+      e.preventDefault();
+
+      if (name.trim() === ""  ) {
+      
+       setError(true);
+       return
+      }else {
+          setError(false);
+
+          peticionPost()  
+
+
+      }      
+  }
+  useEffect(() => {
+    peticionPost2()
+  }, [listoProyecto]);
+  useEffect(() => {
+    peticionPost3()
+  }, [listoProyecto2]);
+
+
+
+  const imageChange = (e) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setSelectedImage(e.target.files[0]);
+      console.log(e.target.files[0]);
+      setSelectedFilesPost(e.target.files[0])
+    }
+};
+
+const removeSelectedImage = () => {
+  setSelectedImage();
+};
+
+const gustos = [
+  { value: 3, label: 'Inst. sanitarias' },
+  { value: 5, label: 'Inst. eléctricas' },
+  { value: 4, label: 'Construcccion' }
+]
+
+
+if (redirect) {
+  return <Redirect to="/TramitesyQuejas"/>;
+}
+
+
+  return <div className="Contenedor" >
+
+    <div className='verde text-center'>  <h1>Registrar Trámite</h1></div>
+    <div className='blanco'>
+
+
+      <form action="" onSubmit={onSubmitInsertar}>
+        <div className="px-5 pt-4" >
+
+          {error ? <h4 className=" text-red-700">Completar todos los campos (*) del formulario</h4> : null}
+          <TextField className={styles.inputMaterial} name="name" onChange={handleChangeInsert} label="Titulo*" />
+          <br />
+          <TextField className={styles.inputMaterial} name="description" onChange={handleChangeInsert} label="Descripción*" />
+
+          <br />
+          <select name="projectTypeId" className="mt-4" onChange={handleChangeInsert}>
+
+            <option value=""> Seleccione tipo de Proyecto</option>
+            {gustos.map(fbb =>
+              <option key={fbb.value} value={fbb.value}>{fbb.label}</option>
+            )};
+          </select>
+
+          <label htmlFor="" className='mt-5'>Fecha de publicación</label>
+          <br />            
+
+          <input type="date" className={styles.inputMaterial} name="publicationDate" onChange={handleChangeInsert} label="Fecha de Publicación*" />
+
+          <br />
+
+          {/* <input type="text" className={styles.inputMaterial} name="role" value="2" className="hide" onChange={handleChangeInsert}/> */}
+          {/* <input type="text" className={styles.inputMaterial} name="role" value="2" className="hide" onChange={handleChangeInsert}/> */}
+
+          <div className='mt-5'>
+            {/* <label>Choose File to Upload: </label> */}
+            <input type="file" onChange={imageChange} id="file" name='file' />
+            <div className="label-holder">
+              <label htmlFor="file" className="label1">
+                <i className="material-icons">attach_file</i>
+              </label>
+            </div>
+          </div> <br />
+
+
+          {selectedImage && (
+            <div className='eliminarImg'>
+              <h6 ><span className="detailsInfo">{info && info.title}</span></h6>
+              <img
+                src={URL.createObjectURL(selectedImage)}
+                className='foto1'
+                alt="Thumb"
+              />
+              <button onClick={removeSelectedImage} style={styles.delete}>
+                Eliminar
+              </button>
+            </div>
+          )}
+          <br /><br />
+          <div>
+            <button className="btn1" type="submit" >Insertar</button >
+            <button className="btn1">     <Link to="/Tramites" style={{ textDecoration: 'none' }}>
+                <NavLink className="text-white" to="/Tramites" activeClassName='is-active' style={{ textDecoration: 'none' }}>
+                 CANCELAR
+               
+                </NavLink>
+              </Link></button>
+          </div>
+        </div>
+      </form>
+
+
+
+
+
     </div>
-    <ModalDetails2
-            showModalDetails={showModalDetails}
-            functionShow= {abrirCerrarModalDetails}
-            // handleChangeInsert={handleChangeInsert}
-            // onSubmitEditar={onSubmitEditar}
-            info={info}
-            bodyDetails={bodyDetails}
-            />
-    
+
+
   </div>;
 }
 
