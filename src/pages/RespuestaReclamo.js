@@ -53,20 +53,8 @@ function RespuestaReclamo() {
 const [exito, setExito] = useState(false);
 const [dataProperty, setDataProperty] = useState({})
 const [loading, setLoading] = useState(false);
+const [asoc, setAsoc] = useState("");
 
-    const onEventAdded = event => {
-      let calendarApi = calendarRef.current.getApi()
-      calendarApi.addEvent({
-          start: moment(event.start).toDate(),
-          end: moment(event.end).toDate(),
-          title: info.description,
-          spaceId: info.id,
-          userid: dataUser.id
-         
-        }
-        ) 
-        console.log(event.title)
-  }
  
   const [info, setInfo] = useState({
     title: "",
@@ -81,6 +69,29 @@ const [loading, setLoading] = useState(false);
   const abrirCerrarModalDetails=()=>{
     setShowModalDetails(!showModalDetails);
   }
+    const buscarAsociacion = async() => {
+      
+  
+          
+      const url = `https://back2.tinpad.com.pe/public/api/response-association`;
+  
+      const headers = {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' +  localStorage.getItem('Authorization'),
+  
+      } 
+  
+      const rtdo = await axios.get(url, {headers})
+    
+      console.log(rtdo.data.data)
+      setAsoc(rtdo.data.data)
+      // setData((rtdo.data.data).filter(artista=> artista.owner_process.proyect.propertyId === (dataProperty.id).toString()))
+
+    //   setData(rtdo.data)
+    }
+    useEffect(() => {
+      buscarAsociacion()
+    }, [data]);
     const buscarTipo = async() => {
       
       setLoading(true)

@@ -11,6 +11,7 @@ import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 import FullCalendar from '@fullcalendar/react' // must go before plugins
 import ModalDetails2 from "../components/ModalDetails2";
+import ModalDetails5 from "../components/ModalDetails5";
 import axios from "axios"
 import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
 import deportivo from "../IMG/deportivo.png"
@@ -53,10 +54,11 @@ function Reclamos() {
   const { dataUser, setdataUser } = useContext(userContext);
   const [respuesta, setRespuesta] = useState("");
   const [showModalDetails, setShowModalDetails] = useState(false);
+  const [showModalDetails5, setShowModalDetails5] = useState(false);
   const [dataProperty, setDataProperty] = useState({})
   const [dataProject, setDataProject] = useState({});
   const [loading, setLoading] = useState(false);
-
+ const [asoc, setAsoc] = useState({});
 
   const [info, setInfo] = useState({
     subject: "",
@@ -69,6 +71,9 @@ function Reclamos() {
     
   const abrirCerrarModalDetails=()=>{
     setShowModalDetails(!showModalDetails);
+  }
+  const abrirCerrarModalDetails5=()=>{
+    setShowModalDetails5(!showModalDetails5);
   }
     const buscarTipo = async() => {
 
@@ -105,11 +110,75 @@ function Reclamos() {
   buscarTipo()
   }, [dataUser]);
 
-
-
-  const styles= useStyles();
-
+  const buscarRespuesta = async () => {
+    abrirCerrarModalDetails5()
   
+
+      const url = `https://back2.tinpad.com.pe/public/api/response-association`;
+  
+      const headers = {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' +  localStorage.getItem('Authorization'),
+  
+      } 
+  
+      const rtdo = await axios.get(url, {headers})
+      setAsoc((rtdo.data.data).filter(artista=> artista.complaintClaimId === (info.id).toString()))
+      console.log(rtdo.data.data)
+      // setData(rtdo.data.data)
+
+  }
+  const buscarRespuesta2 = async () => {
+    
+  
+
+      const url = `https://back2.tinpad.com.pe/public/api/response`;
+  
+      const headers = {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' +  localStorage.getItem('Authorization'),
+  
+      } 
+  
+      const rtdo = await axios.get(url, {headers})
+      const rtdo2 = ((rtdo.data.data).filter(artista=> artista.id === parseInt(asoc[0].responseComplaintClaimId)  ))
+      setRespuesta(rtdo2[0])
+      console.log(rtdo.data.data)
+      // setData(rtdo.data.data)
+
+  }
+console.log(respuesta);
+  const styles= useStyles();
+ useEffect(() => {
+  buscarRespuesta2()
+ }, [asoc]);
+  
+  const bodyDetails5 =(
+    <div className={styles.modal}>
+        <div className="estilosmodalDetails">
+    
+                <h1 className="text-center">Respuesta</h1>
+                <div className="text-gray-600">
+               
+                  <h5>Descripcións: {asoc.subject}</h5>
+                
+                  {/* <h5 >Actualización: {(info.state&&info.state.updated_at).slice(0,10).split(" ")[0].split("-").reverse().join("-")}</h5> */}
+                  <div className="d-flex">
+                      <h5>Descargar: </h5>
+                      <a href={"https://back2.tinpad.com.pe/public/" + info.attached} target="_blank"  className="linkdownload" >
+                          <i className="material-icons file_download">file_download</i></a>
+                  </div>
+                </div>
+                <div className="d-flex justify-content-between mt-3">
+                <button className="btn1 text-center" onClick={()=>abrirCerrarModalDetails()} >Volver</button>
+                <button className="btn1 text-center" >Ver respuesta</button>
+
+                </div>
+
+
+        </div>
+    </div>
+    )
   const bodyDetails =(
     <div className={styles.modal}>
         <div className="estilosmodalDetails">
@@ -126,8 +195,9 @@ function Reclamos() {
                           <i className="material-icons file_download">file_download</i></a>
                   </div>
                 </div>
-                <div className="text-center mt-3">
+                <div className="d-flex justify-content-between mt-3">
                 <button className="btn1 text-center" onClick={()=>abrirCerrarModalDetails()} >Volver</button>
+                <button className="btn1 text-center" onClick={()=>buscarRespuesta()} >Ver respuesta</button>
 
                 </div>
 
@@ -217,6 +287,14 @@ function Reclamos() {
             // onSubmitEditar={onSubmitEditar}
             info={info}
             bodyDetails={bodyDetails}
+            />
+    <ModalDetails5
+            showModalDetails={showModalDetails5}
+            functionShow= {abrirCerrarModalDetails5}
+            // handleChangeInsert={handleChangeInsert}
+            // onSubmitEditar={onSubmitEditar}
+            info={asoc}
+            bodyDetails={bodyDetails5}
             />
     
   </div>;
