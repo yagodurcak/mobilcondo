@@ -29,6 +29,7 @@ function MisReservas() {
   const { dataUser, setdataUser } = useContext(userContext);
   const [Start, setStart] = useState("");
 const [End, setEnd] = useState("");
+const [existe, setExiste] = useState(false);
 
 
 
@@ -44,14 +45,25 @@ const [End, setEnd] = useState("");
   
   
       const rtdo = await axios.get(url, {headers})
-      setdataUser(JSON.parse(localStorage.getItem('user')))
+     
       setData((rtdo.data.data).filter(artista=> artista.user.id === dataUser.id));
     }
+    useEffect(() => {
+      setdataUser(JSON.parse(localStorage.getItem('user')))
+    }, []);
 
   useEffect(() => {
    buscarTipo()
 
-  }, []);
+  }, [dataUser]);
+
+  useEffect(() => {
+  if (data.length >= 1) {
+    setExiste(true)
+  } else {
+    setExiste(false)
+  }
+  }, [data]);
 
   console.log(data);
 
@@ -60,7 +72,9 @@ const [End, setEnd] = useState("");
 
       <div className='verde text-center'>  <h1>Mis Reservas</h1></div>
       <div className='blanco'>
-      
+
+        { existe ? <div>
+
     {data.map(casa => (  <div>
         <div className="seccion">
           <div className="row mt-3">
@@ -84,6 +98,14 @@ const [End, setEnd] = useState("");
         </div>
         <hr className="linea-seccion2"></hr>
     </div> ))}
+        </div>
+
+    : <div className="pt-5 text-center">
+      <h3>No tienes reservas para mostrar</h3>
+    </div>
+
+        }
+      
 
 
 

@@ -3,6 +3,8 @@ import "../pages/general.css"
 import React, {useContext, useEffect, useRef, useState} from 'react';
 
 import AgregarEvento from '../components/AgregarEvento'
+import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
 import FullCalendar from '@fullcalendar/react' // must go before plugins
 import ModalDetails2 from "../components/ModalDetails2";
 import axios from "axios"
@@ -43,6 +45,7 @@ const useStyles = makeStyles((theme) => ({
 function Archivos() {
   const [modalOpen, setModalOpen] = useState(false)
   const [data, setData] = useState([])
+  const [loading, setLoading] = useState(false);
   const calendarRef = useRef(null)
   const { dataUser, setdataUser } = useContext(userContext);
   const [respuesta, setRespuesta] = useState("");
@@ -76,6 +79,10 @@ const [exito, setExito] = useState(false);
     setShowModalDetails(!showModalDetails);
   }
     const buscarTipo = async() => {
+      setLoading(true)
+      setTimeout(() => {
+        setLoading(false)
+      }, 2000);
           
       const url = `https://back2.tinpad.com.pe/public/api/useful-information`;
   
@@ -134,7 +141,10 @@ const [exito, setExito] = useState(false);
 
       <div className='verde text-center'>  <h1>Archivos</h1></div>
       <div className='blanco'>
-
+      { loading ?  <Box sx={{ position: 'absolute' , left: 170, top:400, zIndex:1}}>
+           
+           <CircularProgress color="success" size={80}/>
+           </Box> : null}
 
     {data.map(casa => (  <div>
         <div className="seccion">

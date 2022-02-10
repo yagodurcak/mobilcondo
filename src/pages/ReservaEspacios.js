@@ -98,8 +98,13 @@ function ReservaEspacios() {
             <div className="col-6">
               <div className="row ">
                 <h5 className="Item-Description">Registra invitados para tus eventos o a tus proveedores de servicio</h5>
-                <div className="boton-centrar"><button className="btn1">VER</button></div>
-              </div>
+                <div className="boton-centrar"><button className="btn1">     <Link to="/EspaciosDeportivos" style={{ textDecoration: 'none' }}>
+                <NavLink className="logoContainter1 text-white" exact to="/EspaciosRecreativos" activeClassName="linkactivo" style={{ textDecoration: 'none' }}>
+                  
+                  VER
+               
+                </NavLink>
+              </Link></button></div>              </div>
             </div>
           </div>
         </div>
@@ -116,8 +121,13 @@ function ReservaEspacios() {
             <div className="col-6">
               <div className="row ">
                 <h5 className="Item-Description">Registra invitados para tus eventos o a tus proveedores de servicio</h5>
-                <div className="boton-centrar"><button className="btn1">VER</button></div>
-              </div>
+                <div className="boton-centrar"><button className="btn1">     <Link to="/EspaciosEsparcimiento" style={{ textDecoration: 'none' }}>
+                <NavLink className="logoContainter1 text-white" exact to="/EspaciosEsparcimiento" activeClassName="linkactivo" style={{ textDecoration: 'none' }}>
+                  
+                  VER
+               
+                </NavLink>
+              </Link></button></div>              </div>
             </div>
           </div>
         </div>
@@ -135,8 +145,13 @@ function ReservaEspacios() {
               <div className="row ">
                 <h5 className="Item-Description">Sala de conferencias, eventos, reuniones y exposiciones, cine y otras salas disponibles
 </h5>
-                <div className="boton-centrar"><button className="btn1">VER</button></div>
-              </div>
+<div className="boton-centrar"><button className="btn1">     <Link to="/EspaciosUsoMultiple" style={{ textDecoration: 'none' }}>
+                <NavLink className="logoContainter1 text-white" exact to="/EspaciosUsoMultiple" activeClassName="linkactivo" style={{ textDecoration: 'none' }}>
+                  
+                  VER
+               
+                </NavLink>
+              </Link></button></div>                 </div>
             </div>
           </div>
         </div>
@@ -154,8 +169,13 @@ function ReservaEspacios() {
               <div className="row ">
                 <h5 className="Item-Description">Zonas y espacios de uso común exclusivos de tu condominio
 </h5>
-                <div className="boton-centrar"><button className="btn1">VER</button></div>
-              </div>
+<div className="boton-centrar"><button className="btn1">     <Link to="/EspaciosOtros" style={{ textDecoration: 'none' }}>
+                <NavLink className="logoContainter1 text-white" exact to="/EspaciosOtros" activeClassName="linkactivo" style={{ textDecoration: 'none' }}>
+                  
+                  VER
+               
+                </NavLink>
+              </Link></button></div>              </div>
             </div>
           </div>
         </div>

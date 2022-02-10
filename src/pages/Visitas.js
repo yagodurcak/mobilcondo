@@ -9,6 +9,8 @@ import {
 } from "react-router-dom";
 import React, {useContext, useEffect, useState} from 'react';
 
+import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
 import ModalDetails from "../components/ModalDetails";
 import ModalDetails2 from "../components/ModalDetails2";
 import axios from "axios"
@@ -49,6 +51,7 @@ function Visitas() {
     const [listo, setListo] = useState(false);
     const [error, setError] = useState(false);
     const [startDate, setStartDate] = useState();
+    const [loading, setLoading] = useState(false);
     const [info, setInfo] = useState({
 
         name: "",
@@ -71,6 +74,11 @@ function Visitas() {
       }, []);
 
       const buscarTipo = async() => {
+
+        setLoading(true)
+        setTimeout(() => {
+          setLoading(false)
+        }, 2000);
           
         const url = `https://back2.tinpad.com.pe/public/api/guest`;
     
@@ -262,6 +270,10 @@ console.log(data);
   return <div className="Contenedor" >
     <div className='verde text-center'>  <h1>Registra tus visitas  </h1></div>
     <div className='blanco'>
+    { loading ?  <Box sx={{ position: 'absolute' , left: 170, top:400, zIndex:1}}>
+           
+           <CircularProgress color="success" size={80}/>
+           </Box> : null}
       <div className="container">
       <h1 className="text-center pt-5">Historial de Invitados</h1>
 

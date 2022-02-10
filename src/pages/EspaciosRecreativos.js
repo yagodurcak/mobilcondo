@@ -19,7 +19,7 @@ import { set } from "date-fns";
 import { userContext } from '../context/UserContext';
 import visitas from "../IMG/VISITAS.png"
 
-function EspaciosDeportivos() {
+function EspaciosRecreativos() {
   const [modalOpen, setModalOpen] = useState(false)
   const [data, setData] = useState([])
   const calendarRef = useRef(null)
@@ -72,11 +72,10 @@ const [exito, setExito] = useState(false);
 
     const buscarTipo = async() => {
 
-      setLoading(true)
-      setTimeout(() => {
-        setLoading(false)
-      }, 2000);
-        
+        setLoading(true)
+        setTimeout(() => {
+          setLoading(false)
+        }, 2000);
           
       const url = `https://back2.tinpad.com.pe/public/api/space-image`;
   
@@ -89,7 +88,7 @@ const [exito, setExito] = useState(false);
   
       const rtdo = await axios.get(url, {headers})
       setdataUser(JSON.parse(localStorage.getItem('user')))
-      setData((rtdo.data.data).filter(artista=> artista.space.spaceTypeId === "30"));
+      setData((rtdo.data.data).filter(artista=> artista.space.spaceTypeId === "31"));
     }
     
     console.log(data); 
@@ -125,12 +124,8 @@ console.log(info);
 		</div>
 	</div>
 </div>: null}
-      <div className='verde text-center'>  <h1>Reservar Espacio</h1></div>
+      <div className='verde text-center'>  <h1>Reservar Espacio Recreativo</h1></div>
       <div className='blanco'>
-      { loading ?  <Box sx={{ position: 'absolute' , left: 170, top:400, zIndex:1}}>
-           
-           <CircularProgress color="success" size={80}/>
-           </Box> : null}
       <div className='FullCalendar blind'>
                 <FullCalendar
                 locale={esLocale}
@@ -146,6 +141,10 @@ console.log(info);
                     // datesSet={(date )=> handleDateSet(date)}
                 />
             </div>
+            { loading ?  <Box sx={{ position: 'absolute' , left: 170, top:400, zIndex:1}}>
+           
+           <CircularProgress color="success" size={80}/>
+           </Box> : null}
     {data.map(casa => (  <div>
         <div className="seccion">
           <div className="row mt-3">
@@ -196,4 +195,4 @@ console.log(info);
   </div>;
 }
 
-export default EspaciosDeportivos;
+export default EspaciosRecreativos;

@@ -47,11 +47,11 @@ const useStyles = makeStyles((theme) => ({
     }
   }));
 
-function NewTramite() {
+function NewReclamo() {
   const [modalOpen, setModalOpen] = useState(false)
   const [data, setData] = useState([])
   const calendarRef = useRef(null)
-
+  const [dataProperty, setDataProperty] = useState({})
   const { dataUser, setdataUser } = useContext(userContext);
   const [respuesta, setRespuesta] = useState("");
   const [showModalInsertar, setShowModalInsertar] = useState(false);
@@ -65,11 +65,11 @@ function NewTramite() {
   const [listoProyecto2, setListoProyecto2] = useState(false);
   const [redirect, setRedirect] = useState(false);
 const [exito, setExito] = useState(false);
-const [dataProperty, setDataProperty] = useState({})
+// const [dataProperty, setDataProperty] = useState({}) 
   const [info, setInfo] = useState({
     name: "",
     description: "",
-    projectTypeId:""    
+    type:"" 
 
   })
 
@@ -148,6 +148,7 @@ const fechaActual2 = moment(fechaActual).format("YYYY-MM-DD")
         f.append("description", info.description)
         f.append("proyectId", projectId)
         f.append("stateId", "3")
+        f.append("type", info.type)
         
   
    
@@ -179,16 +180,18 @@ const fechaActual2 = moment(fechaActual).format("YYYY-MM-DD")
     const f = new FormData()   
 
         f.append("file", selectedFilesPost)
-        f.append("name", info.name)
-        f.append("ownerProcessId", processId)
-
+        f.append("subject", info.name)
+        f.append("description", info.description)
+        f.append("propertyId", dataProperty.id)
+        f.append("stateId", "3")
+        f.append("type", info.type)
       const headers = {
         'Content-type': 'multipart/form-data',
         'Authorization': 'Bearer ' +  localStorage.getItem('Authorization'),
   
     }
   
-      const url1= "https://back2.tinpad.com.pe/public/api/attachment-process"
+      const url1= "https://back2.tinpad.com.pe/public/api/complaint-claim"
         await axios.post(url1, f, {headers})
         .then(response=>{
           // setdata(data.concat(response.data));
@@ -220,17 +223,17 @@ const fechaActual2 = moment(fechaActual).format("YYYY-MM-DD")
       }else {
           setError(false);
 
-          peticionPost()  
+          peticionPost3()  
 
 
       }      
   }
-  useEffect(() => {
-    peticionPost2()
-  }, [listoProyecto]);
-  useEffect(() => {
-    peticionPost3()
-  }, [listoProyecto2]);
+//   useEffect(() => {
+//     peticionPost2()
+//   }, [listoProyecto]);
+//   useEffect(() => {
+//     peticionPost3()
+//   }, [listoProyecto2]);
 
 
 
@@ -247,9 +250,8 @@ const removeSelectedImage = () => {
 };
 
 const gustos = [
-  { value: 3, label: 'Inst. sanitarias' },
-  { value: 5, label: 'Inst. eléctricas' },
-  { value: 4, label: 'Construcccion' }
+  { value:'Queja', label: 'Queja' },
+  { value: 'Reclamo' , label: 'Reclamo' }
 ]
 
 
@@ -260,7 +262,7 @@ if (redirect) {
 
   return <div className="Contenedor" >
 
-    <div className='verde text-center'>  <h1>Registrar Trámite</h1></div>
+    <div className='verde text-center'>  <h1>Registrar Queja o Reclamo</h1></div>
     <div className='blanco'>
 
 
@@ -273,26 +275,17 @@ if (redirect) {
           <TextField className={styles.inputMaterial} name="description" onChange={handleChangeInsert} label="Descripción*" />
 
           <br />
-          <select name="projectTypeId" className="mt-4" onChange={handleChangeInsert}>
+          <select name="type" className="mt-4" onChange={handleChangeInsert}>
 
-            <option value=""> Seleccione tipo de Proyecto</option>
+            <option value=""> Seleccione queja o reclamo</option>
             {gustos.map(fbb =>
               <option key={fbb.value} value={fbb.value}>{fbb.label}</option>
             )};
           </select>
 
-          <label htmlFor="" className='mt-5'>Fecha de publicación</label>
-          <br />            
-
-          <input type="date" className={styles.inputMaterial} name="publicationDate" onChange={handleChangeInsert} label="Fecha de Publicación*" />
-
-          <br />
-
-          {/* <input type="text" className={styles.inputMaterial} name="role" value="2" className="hide" onChange={handleChangeInsert}/> */}
-          {/* <input type="text" className={styles.inputMaterial} name="role" value="2" className="hide" onChange={handleChangeInsert}/> */}
-
+         
           <div className='mt-5'>
-            {/* <label>Choose File to Upload: </label> */}
+
             <input type="file" onChange={imageChange} id="file" name='file' />
             <div className="label-holder">
               <label htmlFor="file" className="label1">
@@ -338,4 +331,4 @@ if (redirect) {
   </div>;
 }
 
-export default NewTramite;
+export default NewReclamo;

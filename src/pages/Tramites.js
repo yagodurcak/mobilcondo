@@ -7,6 +7,8 @@ import {
 import React, {useContext, useEffect, useRef, useState} from 'react';
 
 import AgregarEvento from '../components/AgregarEvento'
+import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
 import FullCalendar from '@fullcalendar/react' // must go before plugins
 import ModalDetails2 from "../components/ModalDetails2";
 import axios from "axios"
@@ -54,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
     const [showModalDetails, setShowModalDetails] = useState(false);
     const [dataProperty, setDataProperty] = useState({})
     const [dataProject, setDataProject] = useState({});
-
+    const [loading, setLoading] = useState(false);
   const [exito, setExito] = useState(false);
       const onEventAdded = event => {
         let calendarApi = calendarRef.current.getApi()
@@ -98,7 +100,10 @@ const useStyles = makeStyles((theme) => ({
 
     // }
       const buscarTipo = async() => {
-            
+        setLoading(true)
+        setTimeout(() => {
+          setLoading(false)
+        }, 2000);
         const url = `https://back2.tinpad.com.pe/public/api/owner-process`;
     
         const headers = {
@@ -165,6 +170,10 @@ const useStyles = makeStyles((theme) => ({
 
         <div className='verde text-center'>  <h1>Tramites</h1></div>
         <div className='blanco'>
+        { loading ?  <Box sx={{ position: 'absolute' , left: 170, top:400, zIndex:1}}>
+           
+           <CircularProgress color="success" size={80}/>
+           </Box> : null}
 
         <div className="d-flex justify-content-between">
           <div className="mx-3 py-3 text-end">

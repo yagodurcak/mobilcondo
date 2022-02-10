@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
     }
   }));
 
-function RespuestaTramites() {
+function RespuestaReclamo() {
   const [modalOpen, setModalOpen] = useState(false)
   const [data, setData] = useState([])
   const calendarRef = useRef(null)
@@ -53,6 +53,7 @@ function RespuestaTramites() {
 const [exito, setExito] = useState(false);
 const [dataProperty, setDataProperty] = useState({})
 const [loading, setLoading] = useState(false);
+
     const onEventAdded = event => {
       let calendarApi = calendarRef.current.getApi()
       calendarApi.addEvent({
@@ -81,12 +82,12 @@ const [loading, setLoading] = useState(false);
     setShowModalDetails(!showModalDetails);
   }
     const buscarTipo = async() => {
-
       
       setLoading(true)
       setTimeout(() => {
         setLoading(false)
       }, 2000);
+        
           
       const url = `https://back2.tinpad.com.pe/public/api/process-observation`;
   
@@ -147,14 +148,13 @@ console.log(dataProperty.id);
 
     return <div className="Contenedor" >
 
-      <div className='verde text-center'>  <h1>Respuestas a Tramites</h1></div>
+      <div className='verde text-center'>  <h1>Respuestas a Quejas o Reclamos</h1></div>
       <div className='blanco'>
+
       { loading ?  <Box sx={{ position: 'absolute' , left: 170, top:400, zIndex:1}}>
            
            <CircularProgress color="success" size={80}/>
            </Box> : null}
-
-      
      {data.map(casa => (  <div>
         <div className="seccion">
           <div className="row mt-3">
@@ -197,4 +197,4 @@ console.log(dataProperty.id);
   </div>;
 }
 
-export default RespuestaTramites;
+export default RespuestaReclamo;

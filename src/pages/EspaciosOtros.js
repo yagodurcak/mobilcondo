@@ -3,8 +3,6 @@ import "../pages/general.css"
 import React, {useContext, useEffect, useRef, useState} from 'react';
 
 import AgregarEvento from '../components/AgregarEvento'
-import Box from '@mui/material/Box';
-import CircularProgress from '@mui/material/CircularProgress';
 import FullCalendar from '@fullcalendar/react' // must go before plugins
 import axios from "axios"
 import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
@@ -19,13 +17,12 @@ import { set } from "date-fns";
 import { userContext } from '../context/UserContext';
 import visitas from "../IMG/VISITAS.png"
 
-function EspaciosDeportivos() {
+function EspaciosOtros() {
   const [modalOpen, setModalOpen] = useState(false)
   const [data, setData] = useState([])
   const calendarRef = useRef(null)
   const { dataUser, setdataUser } = useContext(userContext);
   const [respuesta, setRespuesta] = useState("");
-  const [loading, setLoading] = useState(false);
 const [exito, setExito] = useState(false);
     const onEventAdded = event => {
       let calendarApi = calendarRef.current.getApi()
@@ -71,12 +68,6 @@ const [exito, setExito] = useState(false);
 }
 
     const buscarTipo = async() => {
-
-      setLoading(true)
-      setTimeout(() => {
-        setLoading(false)
-      }, 2000);
-        
           
       const url = `https://back2.tinpad.com.pe/public/api/space-image`;
   
@@ -89,7 +80,7 @@ const [exito, setExito] = useState(false);
   
       const rtdo = await axios.get(url, {headers})
       setdataUser(JSON.parse(localStorage.getItem('user')))
-      setData((rtdo.data.data).filter(artista=> artista.space.spaceTypeId === "30"));
+      setData((rtdo.data.data).filter(artista=> artista.space.spaceTypeId === "34"));
     }
     
     console.log(data); 
@@ -125,12 +116,8 @@ console.log(info);
 		</div>
 	</div>
 </div>: null}
-      <div className='verde text-center'>  <h1>Reservar Espacio</h1></div>
+      <div className='verde text-center'>  <h1>Reservar Otros Espacios Disponibles</h1></div>
       <div className='blanco'>
-      { loading ?  <Box sx={{ position: 'absolute' , left: 170, top:400, zIndex:1}}>
-           
-           <CircularProgress color="success" size={80}/>
-           </Box> : null}
       <div className='FullCalendar blind'>
                 <FullCalendar
                 locale={esLocale}
@@ -196,4 +183,4 @@ console.log(info);
   </div>;
 }
 
-export default EspaciosDeportivos;
+export default EspaciosOtros;

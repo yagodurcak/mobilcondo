@@ -9,6 +9,8 @@ import {
 } from "react-router-dom";
 import React, {useContext, useEffect, useState} from 'react';
 
+import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
 import ModalDetails from "../components/ModalDetails";
 import axios from "axios"
 import es from "date-fns/locale/es"; // the locale you want
@@ -40,6 +42,7 @@ const useStyles = makeStyles((theme) => ({
 function Proveedores() {
 
     const styles= useStyles();
+    const [loading, setLoading] = useState(false);
     const { dataUser, setdataUser } = useContext(userContext);
     const [showModalInsertar, setShowModalInsertar] = useState(false);
     const [data, setData] = useState(null);
@@ -86,6 +89,10 @@ function Proveedores() {
       }, []);
 
       const buscarTipo = async() => {
+        setLoading(true)
+        setTimeout(() => {
+          setLoading(false)
+        }, 2000);
           
         const url = `https://back2.tinpad.com.pe/public/api/guest-provider`;
     
@@ -343,6 +350,10 @@ console.log(dataUser.id);
   return <div className="Contenedor" >
     <div className='verde text-center'>  <h1>Registra tus proveedores  </h1></div>
     <div className='blanco'>
+    { loading ?  <Box sx={{ position: 'absolute' , left: 170, top:400, zIndex:1}}>
+           
+           <CircularProgress color="success" size={80}/>
+           </Box> : null}
       <div className="container">
           <h1 className="text-center pt-5">Historial de Proveedores</h1>
         <div className="d-flex justify-content-end"><button className="btn2 mt-3" onClick={()=>abrirCerrarModalInsertar()}>Agregar Proveedores</button></div>
