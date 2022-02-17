@@ -89,7 +89,7 @@ const [exito, setExito] = useState(false);
   
       const rtdo = await axios.get(url, {headers})
       setdataUser(JSON.parse(localStorage.getItem('user')))
-      setData((rtdo.data.data).filter(artista=> artista.space.spaceTypeId === "30"));
+      setData((rtdo.data.data).filter(artista=> artista.space));
     }
     
     console.log(data); 
@@ -110,6 +110,10 @@ const [exito, setExito] = useState(false);
     console.log(casa);
     setInfo(casa)
   }
+
+ 
+
+
 console.log(info);
 
     return <div className="Contenedor" >
@@ -149,7 +153,7 @@ console.log(info);
     {data.map(casa => (  <div>
         <div className="seccion">
           <div className="row mt-3">
-            <h3>{casa.space.description}</h3>
+           
 
             <div className="row mt-3">
               <div className="col-6">
@@ -157,30 +161,18 @@ console.log(info);
               </div>
               <div className="col-6">
                 <div className="row ">
-                <p className="Item-Title">Tiempo previo de reserva: <span className="Item-Description">{casa.space.previusReservationTime} hs</span></p>
-
-                <p className="Item-Title">Horas máximas de reserva: <span className="Item-Description">{casa.space.maximiunReservationTime} hs</span></p>
-
-
+                    <h3>{casa.space.description}</h3>
                 </div>
-              </div>
-            </div>
-            <div className="row">
-            <h6 className="Item-Title">Normas de uso:</h6>
-            <p className="Item-Description">{ casa.space.rulesOfUse }</p>
-            </div>
-            
-            {/* <div className="boton-centrar"><button className="btn1">     <Link to="/Calendario" style={{ textDecoration: 'none' }}>
-                <NavLink className="logoContainter1 text-white" to="/Calendario" activeClassName='is-active' style={{ textDecoration: 'none' }}>
-                  
-                  RESERVAR
-               
-                </NavLink>
-              </Link></button></div> */}
-            <div className="boton-centrar">
+                <div className="boton-centrar">
               <button className="btn1" onClick={()=> DatosEspDep(casa.space)}>    RESERVAR </button>
     
               </div>
+              </div>
+            </div>
+       
+            
+        
+            
                           <AgregarEvento info={info} isOpen={modalOpen} onClose={()=> setModalOpen(false)} onEventAdded={event => onEventAdded(event)}/>
           </div>
           

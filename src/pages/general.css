@@ -199,6 +199,32 @@ p {
     width: fit-content;
 }
 
+.btn-yellow{
+    background-color:  #F9B500;
+    border-radius: 5px;
+    color: white;
+    padding: 5px 40px;
+    height: 70px;
+    width: 200px;
+}
+
+.btn-dark-blue{
+    background-color:  #10282b;
+    border-radius: 5px;
+    color: white;
+    padding: 5px 40px;
+    height: 70px;
+    width: 200px;
+}
+
+.btn-yellow a{
+    color: white;
+}
+
+.btn-dark-blue a{
+    color: white;
+}
+
 .seccion{
     display: grid;
     align-items: center;

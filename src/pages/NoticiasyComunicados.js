@@ -47,52 +47,48 @@ function NoticiasyComunicados() {
     <div className='verde text-center'>  <h1>Noticias y Comunicados</h1></div>
     <div className='blanco'>
 
-      <div className="seccion">
-        <div className="row mt-3">
-          <h3>Noticias</h3>
-          <div className="row mt-3">
-            <div className="col-6">
-              <img src={deportivo} alt="" className="foto" />
-            </div>
-            <div className="col-6">
-              <div className="row ">
-                <h5 className="Item-Description">Canchas de Futbol, tennis, basket y otros deportes disponibles en el condominio</h5>
-                <div className="boton-centrar"><button className="btn1">     <Link to="/Noticias" style={{ textDecoration: 'none' }}>
-                <NavLink className="logoContainter1 text-white" exact to="/Noticias" activeClassName="linkactivo" style={{ textDecoration: 'none' }}>
+    <div className="seccion">     
+                <div className="boton-centrar">
                   
-                  VER
-               
-                </NavLink>
-              </Link></button></div>
-            
-              </div>
-            </div>
-          </div>
+                  <button className="btn-yellow" >     
+                  <Link to="/Noticias" style={{ textDecoration: 'none' }}>
+                   Noticias
+                  </Link>
+              </button>    
         </div>
       </div>
-      <hr className="linea-seccion2"></hr>
-      {/* ----------------seccion --------------- */}
-      <div className="seccion">
-        <div className="row mt-3">
-          <h3>Comunicados</h3>
-          <div className="row mt-3">
-            <div className="col-6">
-              <img src={recreativos} alt="" className="foto" />
-            </div>
-            <div className="col-6">
-              <div className="row ">
-                <h5 className="Item-Description">Registra invitados para tus eventos o a tus proveedores de servicio</h5>
-                <div className="boton-centrar"><button className="btn1">     <Link to="/Comunicados" style={{ textDecoration: 'none' }}>
-                <NavLink className="logoContainter1 text-white" exact to="/Comunicados" activeClassName="linkactivo" style={{ textDecoration: 'none' }}>
-                  
-                  VER
-               
-                </NavLink>
-              </Link></button></div>              </div>
-            </div>
-          </div>
+
+      <div className="seccion">     
+                <div className="boton-centrar">   
+                  <button className="btn-dark-blue" >     
+                  <Link to="/Comunicados" style={{ textDecoration: 'none' }}>
+                   Comunicados
+                  </Link>
+              </button>    
         </div>
       </div>
+
+
+      <div className="seccion">     
+                <div className="boton-centrar">   
+                  <button className="btn-yellow" >     
+                  <Link to="/Archivos" style={{ textDecoration: 'none' }}>
+                   Documentos
+                  </Link>
+              </button>    
+        </div>
+      </div>
+
+      <div className="seccion">     
+                <div className="boton-centrar">   
+                  <button className="btn-dark-blue" >     
+                  <Link to="/Telefonos" style={{ textDecoration: 'none' }}>
+                   Teléfonos Utiles
+                  </Link>
+              </button>    
+        </div>
+      </div>
+      
       <hr className="linea-seccion2"></hr>
     
     </div>

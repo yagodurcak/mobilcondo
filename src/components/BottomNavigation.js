@@ -19,7 +19,7 @@ const tabs = [
   label: "Espacios e Invitados"
 },
     {
-  route: "/Informes",
+  route: "/NoticiasyComunicados",
   icon: "campaign",
   label: "Informes y Noticias"
 },

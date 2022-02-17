@@ -139,7 +139,7 @@ const [exito, setExito] = useState(false);
 
     return <div className="Contenedor" >
 
-      <div className='verde text-center'>  <h1>Archivos</h1></div>
+      <div className='verde text-center'>  <h1>Documentos</h1></div>
       <div className='blanco'>
       { loading ?  <Box sx={{ position: 'absolute' , left: 170, top:400, zIndex:1}}>
            

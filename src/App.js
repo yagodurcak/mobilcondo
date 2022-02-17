@@ -42,6 +42,7 @@ import TramitesyQuejas from './pages/TramitesyQuejas';
 import UserProvider from './context/UserContext';
 import Visitas from './pages/Visitas';
 
+
 function App() {
   return (
 
@@ -72,7 +73,7 @@ function App() {
               <Pagos/>
               </Route>
               <Route exact path="/ReservaEspacios">
-              <ReservaEspacios/>
+                <EspaciosDeportivos/>
               </Route>
               <Route exact path="/EspaciosDeportivos">
               <EspaciosDeportivos/>
