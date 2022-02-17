@@ -89,7 +89,7 @@ const [exito, setExito] = useState(false);
   
       const rtdo = await axios.get(url, {headers})
       setdataUser(JSON.parse(localStorage.getItem('user')))
-      setData((rtdo.data.data).filter(artista=> artista.space.spaceTypeId === "30"));
+      setData((rtdo.data.data).filter(artista=> artista.space.spaceTypeId === "30"&&artista.space.visibility==="1"));
     }
     
     console.log(data); 
@@ -117,9 +117,11 @@ console.log(info);
 	<div class="row no-gutters fixed-top">
 		<div class="col-lg-5 col-md-12">
 			<div class="alert alert-primary fade show" role="alert">
-				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-			    	<span aria-hidden="true">&times;</span>
-			  	</button>
+				<form action="" onSubmit={console.log("jola")}>
+          <button type="submit" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+        </form>
 			 	<h4 class="alert-heading text-center">{respuesta}</h4>
 			</div>
 		</div>
@@ -157,10 +159,11 @@ console.log(info);
               </div>
               <div className="col-6">
                 <div className="row ">
-                <p className="Item-Title">Tiempo previo de reserva: <span className="Item-Description">{casa.space.previusReservationTime} hs</span></p>
+                <p className="Item-Title">Tiempo previo de reserva: </p>
+                <p className="Item-Description">{casa.space.previusReservationTime} hs</p>
 
-                <p className="Item-Title">Horas máximas de reserva: <span className="Item-Description">{casa.space.maximiunReservationTime} hs</span></p>
-
+                <p className="Item-Title">Horas máximas de reserva: </p>
+                <p className="Item-Description">{casa.space.maximiunReservationTime} hs</p>
 
                 </div>
               </div>

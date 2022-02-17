@@ -128,33 +128,33 @@ const [exito, setExito] = useState(false);
 
     return <div className="Contenedor" >
 
-      <div className='verde text-center'>  <h1>Archivos</h1></div>
+      <div className='verde text-center'>  <h1>Teléfonos</h1></div>
       <div className='blanco'>
+      <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Concepto</th>
+                      <th scope="col">Teléfono</th>
+                     
+              
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {data.map(casa => (
 
+                    <tr>
+                      <th scope="row"> <p className="text-gray-600">{casa.description}:</p></th>
+                      <td>{casa.phone}</td>
 
-    {data.map(casa => (  <div>
-        <div className="seccion">
-          <div className="row mt-3">
-            <h2>{casa.description}</h2>
+                   
+                    </tr>
 
-            <div className="row mt-3">
-         
-         
-                <div className="row ">
-                    <h5 className="Item-Title text-gray-600">Teléfono: {casa.phone}</h5>
-        
-                </div>
-             
-            </div>
+))}
+              
+                  </tbody>
+                </table>
 
-            <div className="boton-centrar">
-    
-              </div>
-          </div>
-          
-        </div>
-        <hr className="linea-seccion2"></hr>
-    </div> ))}
+   
 
 
 

@@ -59,6 +59,7 @@ function Gastos() {
   const [unitCostAgua, setunitCostAgua] = useState(1);
   const [data, setData] = useState([])
   const [sumadata, setSumaData] = useState(0)
+  const [sumadata1, setSumaData1] = useState(0)
   const [dataLuz, setDataLuz] = useState([])
   const [selectedImage, setSelectedImage] = useState();
   const [selectedFilesPost, setSelectedFilesPost] = useState();
@@ -161,6 +162,7 @@ const removeSelectedImage = () => {
     const buscarTipo = async(e) => {
 
       setStart(false)
+      setDataProperty(JSON.parse(localStorage.getItem('propiedad')))
 
       e.preventDefault()
           
@@ -180,11 +182,12 @@ const removeSelectedImage = () => {
       setData(rtdo.data.data.condoExpense)
       setDataLuz(rtdo.data.data.lightExpenditure[0])
       setDataAgua(rtdo.data.data.waterExpenditure[0])
-      setTotalGastosAgua(rtdo.data.data.totalWaterExpenditure[0])
-      setTotalGastosLuz(rtdo.data.data.totalLightExpenditure[0])
+      setTotalGastosAgua(rtdo.data.data.totalWaterExpenditure[0].consume)
+      setTotalGastosLuz(rtdo.data.data.totalLightExpenditure[0].consume)
      
   
     }
+    console.log(totalGastosAgua);
     useEffect(() => {
       setdataUser(JSON.parse(localStorage.getItem('user')))
       setDataProperty(JSON.parse(localStorage.getItem('propiedad')))
@@ -203,13 +206,14 @@ const removeSelectedImage = () => {
     if (data.length >= 1 && dataLuz !== {} && dataAgua !== {}  && data[0].approved === "1") {
      
       for (let i = 0; i < data.length; i++) {
-      suma = suma + parseFloat(data[i].amount) 
+      suma = suma + parseFloat(data[i].amount) + parseFloat(data[i].transactionCost)
        console.log(data[i].amount);
      }
-     setSumaData(suma)
-     setTotalGastos(suma + dataLuz.consume  * totalGastosLuz.consume  + parseFloat(dataLuz.transactionCost) + dataAgua.consume  * totalGastosAgua.consume  + parseFloat(dataAgua.transactionCost) )
+     setSumaData1(suma)
+     setSumaData((suma * parseInt(dataProperty.participation))  / 100)
+     setTotalGastos(((suma * parseInt(dataProperty.participation))  / 100) + dataLuz.consume  * totalGastosLuz  + parseFloat(dataLuz.transactionCost) + dataAgua.consume  * totalGastosAgua + parseFloat(dataAgua.transactionCost) )
      setStart(true)
-     console.log("cumple!!!");
+     console.log(suma);
     } else{
       setStart(false)
       console.log("nosecumple");
@@ -341,7 +345,7 @@ const removeSelectedImage = () => {
                       <div className="row mt-2">
                         <h4 className="text-black">Gastos comunes del Condominio</h4>
                         <div className="d-flex justify-content-between mt-1">
-                          <h5 className="text-gray-600">Total: ${sumadata} </h5>
+                          <h5 className="text-gray-600">Total: ${sumadata1} </h5>
                           <h5 className="text-gray-600">-----</h5>
                           <div className="d-flex justify-content-center "><button className="linkdownload text-center" onClick={()=>abrirCerrarModalDetails4()} ><i className="material-icons visibility">visibility</i></button></div>
                         </div>
@@ -357,7 +361,7 @@ const removeSelectedImage = () => {
                               <h5 className="text-gray-600">Servicios de Agua: </h5>
 
                               { Start ? 
-                            <h5 className="text-gray-600">${dataAgua.consume  * totalGastosAgua.consume  + parseFloat(dataAgua.transactionCost)}</h5>
+                            <h5 className="text-gray-600">${dataAgua.consume  * totalGastosAgua + parseFloat(dataAgua.transactionCost) }</h5>
 
                        
                          
@@ -366,7 +370,7 @@ const removeSelectedImage = () => {
                       <div className="d-flex justify-content-between">
                               <h5 className="text-gray-600">Servicios de Luz: </h5>
                               { Start ? 
-                            <h5 className="text-gray-600">${dataLuz.consume  * totalGastosLuz.consume  + parseFloat(dataLuz.transactionCost)}</h5> 
+                            <h5 className="text-gray-600">${dataLuz.consume  * totalGastosLuz  + parseFloat(dataLuz.transactionCost)}</h5> 
                             :null}
                             </div> 
                       <div className="d-flex justify-content-between">
@@ -484,27 +488,51 @@ const removeSelectedImage = () => {
               )
           const bodyDetails2 =(
             <div className={styles.modal}>
-                <div  className="mx-3 mt-5">
-          
-                    <h1 className="text-center">Gastos Comunes</h1>
+              <div className="mx-3 mt-5">
 
-                    <div className="mt-5">
-                      {data.map(casa => (
-                      <div className="d-flex justify-content-between mt-2">
-                                <h5 className="text-gray-600">{casa.concept}:</h5>
-                                <h5 className="text-gray-600">$ {casa.amount}</h5>
-                             
-                                     <a href={"https://back2.tinpad.com.pe/public/" + casa.document} target="_blank"  className="linkdownload" ><i className="material-icons visibility">visibility</i></a>
-                              </div>
-                       ))}
+                <h1 className="text-center">Gastos Comunes</h1>
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Concepto</th>
+                      <th scope="col">Monto</th>
+                      <th scope="col">Detalle</th>
+              
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {data.map(casa => (
+
+                    <tr>
+                      <th scope="row"> <p className="text-gray-600">{casa.concept}:</p></th>
+                      <td>{casa.amount}</td>
+                      <td>                      <a href={"https://back2.tinpad.com.pe/public/" + casa.document} target="_blank" className="linkdownload" ><i className="material-icons visibility">visibility</i></a>
+</td>
+                   
+                    </tr>
+
+))}
+              
+                  </tbody>
+                </table>
+
+                {/* <div className="mt-5">
+                  {data.map(casa => (
+                    <div className="d-flex justify-content-between mt-2">
+                      <h5 className="text-gray-600">{casa.concept}:</h5>
+                      <h5 className="text-gray-600">$ {casa.amount}</h5>
+
+                      <a href={"https://back2.tinpad.com.pe/public/" + casa.document} target="_blank" className="linkdownload" ><i className="material-icons visibility">visibility</i></a>
                     </div>
-                    <div className="d-flex justify-content-between mt-3">
-                                <h2 className="text-black">Total:</h2>
-                                <h2 className="text-gray-600"> ${sumadata}</h2>
-                             
-                              </div>
-                        <div className="d-flex justify-content-center mt-4" ><button className="btn1" onClick={()=>abrirCerrarModalDetails4()} >VOLVER</button></div>
+                  ))}
+                </div> */}
+                <div className="d-flex justify-content-between mt-3">
+                  <h2 className="text-black">Total:</h2>
+                  <h2 className="text-gray-600"> ${sumadata}</h2>
+
                 </div>
+                <div className="d-flex justify-content-center mt-4" ><button className="btn1" onClick={() => abrirCerrarModalDetails4()} >VOLVER</button></div>
+              </div>
             </div>
             )
   const bodyInsertar = (

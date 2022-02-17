@@ -158,9 +158,9 @@ console.log(dataProperty.id);
      {data.map(casa => (  <div>
         <div className="seccion">
           <div className="row mt-3">
-            <h2>Tramite: {casa.owner_process.proyect.name}</h2>
-
-            <div className="row mt-3">
+            <h2 className="text-center">Tramite: {casa.owner_process.proyect.name}</h2>
+            <h5>Respuesta:</h5>
+            <div className="row mt-1">
                        <div className=" text-gray-600">
               <h6 className="Item-Title">Fecha: {moment(casa.created_at).format("YYYY-MM-DD")} </h6>
               <h6 className="Item-Title">Descripción: {casa.description}</h6>

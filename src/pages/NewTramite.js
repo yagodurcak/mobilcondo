@@ -50,10 +50,11 @@ const useStyles = makeStyles((theme) => ({
 function NewTramite() {
   const [modalOpen, setModalOpen] = useState(false)
   const [data, setData] = useState([])
-  const calendarRef = useRef(null)
-
-  const { dataUser, setdataUser } = useContext(userContext);
   const [respuesta, setRespuesta] = useState("");
+  const calendarRef = useRef(null)
+  // const [exito, setExito] = useState(false);
+  const { dataUser, setdataUser } = useContext(userContext);
+  // const [respuesta, setRespuesta] = useState("");
   const [showModalInsertar, setShowModalInsertar] = useState(false);
   const [showModalDetails, setShowModalDetails] = useState(false);
   const [selectedImage, setSelectedImage] = useState();
@@ -123,10 +124,7 @@ const fechaActual2 = moment(fechaActual).format("YYYY-MM-DD")
 
     }
 
-    
-
-
-    
+        
     const proyectoID = projectId
     console.log(proyectoID);
 
@@ -164,9 +162,15 @@ const fechaActual2 = moment(fechaActual).format("YYYY-MM-DD")
         .then(response=>{
           // setdata(data.concat(response.data));
           setProcessId(response.data.data.id)
+          setRespuesta(response.data.message)
           setListoProyecto2(true)
-
+          console.log(response);
           console.log("exito -1");
+          setExito(true)
+          setTimeout(() => {
+            setExito(false)
+          }, 2000);
+          setprojectId("")
         }).catch(error=>{
           console.log(error);
 
@@ -195,7 +199,9 @@ const fechaActual2 = moment(fechaActual).format("YYYY-MM-DD")
        
           setSelectedFilesPost()
           console.log("exito -1");
+          setProcessId()
           setRedirect(true)
+
         }).catch(error=>{
           console.log(error);
   
@@ -260,6 +266,19 @@ if (redirect) {
 
   return <div className="Contenedor" >
 
+{exito ? <div classs="container p-5">
+	<div class="row no-gutters fixed-top">
+		<div class="col-lg-5 col-md-12">
+			<div class="alert alert-primary fade show" role="alert">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			    	<span aria-hidden="true">&times;</span>
+			  	</button>
+			 	<h4 class="alert-heading text-center">{respuesta}</h4>
+			</div>
+		</div>
+	</div>
+</div>: null}
+
     <div className='verde text-center'>  <h1>Registrar Trámite</h1></div>
     <div className='blanco'>
 
@@ -316,8 +335,8 @@ if (redirect) {
             </div>
           )}
           <br /><br />
-          <div>
-            <button className="btn1" type="submit" >Insertar</button >
+          <div className="d-flex justify-content-between ">
+            <button className="btn1" type="submit" >REGISTRAR</button >
             <button className="btn1">     <Link to="/Tramites" style={{ textDecoration: 'none' }}>
                 <NavLink className="text-white" to="/Tramites" activeClassName='is-active' style={{ textDecoration: 'none' }}>
                  CANCELAR

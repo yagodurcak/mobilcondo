@@ -58,7 +58,11 @@ function Reclamos() {
   const [dataProperty, setDataProperty] = useState({})
   const [dataProject, setDataProject] = useState({});
   const [loading, setLoading] = useState(false);
- const [asoc, setAsoc] = useState({});
+ const [asoc, setAsoc] = useState({
+  subject: "",
+  description: ""     
+
+});
 
   const [info, setInfo] = useState({
     subject: "",
@@ -160,18 +164,19 @@ console.log(respuesta);
                 <h1 className="text-center">Respuesta</h1>
                 <div className="text-gray-600">
                
-                  <h5>Descripcións: {asoc.subject}</h5>
+                  <h5>Descripcións: {respuesta&&respuesta.subject}</h5>
                 
                   {/* <h5 >Actualización: {(info.state&&info.state.updated_at).slice(0,10).split(" ")[0].split("-").reverse().join("-")}</h5> */}
                   <div className="d-flex">
                       <h5>Descargar: </h5>
-                      <a href={"https://back2.tinpad.com.pe/public/" + info.attached} target="_blank"  className="linkdownload" >
-                          <i className="material-icons file_download">file_download</i></a>
+                      
+                      {/* <a href={"https://back2.tinpad.com.pe/public/" + respuesta.attached} target="_blank"  className="linkdownload" >
+                          <i className="material-icons file_download">file_download</i></a> */}
                   </div>
                 </div>
                 <div className="d-flex justify-content-between mt-3">
-                <button className="btn1 text-center" onClick={()=>abrirCerrarModalDetails()} >Volver</button>
-                <button className="btn1 text-center" >Ver respuesta</button>
+                <button className="btn1 text-center" onClick={()=>abrirCerrarModalDetails5()} >Volver</button>
+                {/* <button className="btn1 text-center" >Ver respuesta</button> */}
 
                 </div>
 
@@ -233,15 +238,7 @@ console.log(respuesta);
           
                   </NavLink>
                 </Link></button></div>
-          <div className="mx-3 py-3 text-end">
-            <button className="btn2">
-              <Link to="/RespuestaReclamo" style={{ textDecoration: 'none' }}>
-                  <NavLink className="logoContainter1 text-white" exact to="/RespuestaReclamo" activeClassName="linkactivo" style={{ textDecoration: 'none' }}>
-          
-                    RESPUESTAS DE QUEJAS/RECLAMOS
-          
-                  </NavLink>
-                </Link></button></div>
+ 
         </div>
 
     {data.map(casa => (  <div key={casa.id}>

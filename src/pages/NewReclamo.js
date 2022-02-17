@@ -195,10 +195,18 @@ const fechaActual2 = moment(fechaActual).format("YYYY-MM-DD")
         await axios.post(url1, f, {headers})
         .then(response=>{
           // setdata(data.concat(response.data));
-       
+          setRespuesta(response.data.message)
+          console.log(response.data.message);
           setSelectedFilesPost()
           console.log("exito -1");
-          setRedirect(true)
+          setExito(true)
+          setTimeout(() => {
+            setExito(false)
+          }, 2000);
+          setTimeout(() => {
+            
+            setRedirect(true)
+          }, 2000);
         }).catch(error=>{
           console.log(error);
   
@@ -262,6 +270,19 @@ if (redirect) {
 
   return <div className="Contenedor" >
 
+{exito ? <div classs="container p-5">
+	<div class="row no-gutters fixed-top">
+		<div class="col-lg-5 col-md-12">
+			<div class="alert alert-primary fade show" role="alert">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			    	<span aria-hidden="true">&times;</span>
+			  	</button>
+			 	<h4 class="alert-heading text-center">{respuesta}</h4>
+			</div>
+		</div>
+	</div>
+</div>: null}
+
     <div className='verde text-center'>  <h1>Registrar Queja o Reclamo</h1></div>
     <div className='blanco'>
 
@@ -309,10 +330,10 @@ if (redirect) {
             </div>
           )}
           <br /><br />
-          <div>
-            <button className="btn1" type="submit" >Insertar</button >
-            <button className="btn1">     <Link to="/Tramites" style={{ textDecoration: 'none' }}>
-                <NavLink className="text-white" to="/Tramites" activeClassName='is-active' style={{ textDecoration: 'none' }}>
+          <div className="d-flex justify-content-between" >
+            <button className="btn1" type="submit" >REGISTRAR</button >
+            <button className="btn1">     <Link to="/Reclamos" style={{ textDecoration: 'none' }}>
+                <NavLink className="text-white" to="/Reclamos" activeClassName='is-active' style={{ textDecoration: 'none' }}>
                  CANCELAR
                
                 </NavLink>

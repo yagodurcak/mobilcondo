@@ -3,6 +3,7 @@ import "./general.css";
 import React, {useContext, useEffect, useState} from 'react';
 
 import Navigation from "../components/BottomNavigation";
+import {Redirect} from 'react-router-dom';
 import axios from 'axios'
 import perfil from "../IMG/perfil.jpg"
 import { userContext } from '../context/UserContext';
@@ -16,7 +17,9 @@ function Home() {
     const { dataUser, setdataUser } = useContext(userContext);
     const [btnPersonal, setBtnPersonal] = useState(true);
     const [btnPropiedad, setBtnPropiedad] = useState(true);
+    const [profileImg, setProfileImg] = useState(null);
     const [data, setData] = useState([]);
+    const [redirect, setRedirect] = useState(false);
 
     const CambioPersonal = () => {
         setBtnPropiedad(!btnPropiedad)
@@ -31,6 +34,13 @@ function Home() {
       
         
       }
+
+
+      
+
+      useEffect(() => {
+        setProfileImg("https://back2.tinpad.com.pe/public/" + dataUser.avatar)
+      }, [dataUser]);
 
       const BuscarPropery = async() => {
         const url = `https://back2.tinpad.com.pe/public/api/property-user`;
@@ -52,21 +62,45 @@ function Home() {
 useEffect(() => {
     buscarCotizacion()
     BuscarPropery()
+ 
       }, []);
 
-      console.log(data);
+      if (redirect) {
+        return <Redirect to="/"/>;
+       
+      }
+
+
+      const logout = () => {
+        localStorage.setItem('user', "") 
+        localStorage.setItem('Authorization', "") 
+        setRedirect(true)
+      }
+
+      console.log(profileImg);
     return <div className="profile-page">
 
 
         <div className="page-header header-filter" data-parallax="true"></div>
         <div className="main main-raised">
             <div className="profile-content">
+                {/* <i class="material-icons edit">edit</i> */}
                 <div className="container">
                     <div className="row">
                         <div className="col-md-6 ml-auto mr-auto">
+                            <div className="d-flex justify-content-end ">
+                                <form action="" onSubmit={() => { console.log("hos") }}>
+                                    {/* <input type="file">Editar foto de perfil</input> */}
+                                </form>
+                            </div>
                             <div className="profile">
                                 <div className="avatar">
-                                    <img src={perfil} alt="Circle Image" className="img-raised rounded-circle img-fluid" />
+                                    <img
+                                        //  src={URL.createObjectURL(profileImg)}
+                                        src={profileImg}
+                                        alt="Circle Image" className="img-raised rounded-circle img-fluid" />
+
+                                    {/* <img src={dataUser.avatar} alt="Circle Image" className="img-raised rounded-circle img-fluid" /> */}
                                 </div>
                                 <div className="name">
                                     <h1 className="title text-center">{dataUser.name}</h1>
@@ -101,7 +135,7 @@ useEffect(() => {
                                                 <h3 className="description">Area: <span>{casa.property.area}</span></h3>
                                             </div>
                                             ))}
-                                 
+
                                         </div>
                                     }
 
@@ -114,7 +148,10 @@ useEffect(() => {
 
 
 
-
+                    <div className="mt-2 mb-5 d-flex justify-content-between">
+                        <button className="btn1 mb-3" >Editar</button>
+                        <button className="btn1 mb-3" onClick={logout}>Cerrar Sesión</button>
+                        </div>
                 </div>
             </div>
         </div>

@@ -33,11 +33,11 @@ function AgregarEvento({isOpen, onClose, onEventAdded, info}) {
                     <h5>{info.description}</h5>
                     <div>
                         <label htmlFor="" className='Item-Description mt-3'>Inicio</label>
-                        <Datetime value={start} onChange={date => setStart(date)} />
+                        <Datetime value={start} onChange={date => setStart(date)} timeFormat="HH" />
                     </div>
                     <div>
                         <label htmlFor="" className='Item-Description mt-3'>Final</label>
-                        <Datetime value={end} onChange={date => setEnd(date)} />
+                        <Datetime value={end} onChange={date => setEnd(date)} timeFormat="HH"/>
                     </div>
                     <div className='boton-centrar'><button className='btn1 mt-4'>Reservar Espacio</button></div>
                 </form>

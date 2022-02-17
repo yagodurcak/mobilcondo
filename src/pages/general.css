@@ -72,6 +72,7 @@ html *{
     transform: translate3d(0,-50%,0);
 }
 
+
 .img-raised {
     box-shadow: 0 5px 15px -8px rgba(0,0,0,.24), 0 8px 10px -5px rgba(0,0,0,.2);
 }
@@ -188,7 +189,7 @@ p {
     background-color:  #10282b;
     border-radius: 5px;
     color: white;
-    padding: 5px 40px;
+    padding: 5px 10px;
     width: fit-content;
 }
 .btn2{
@@ -384,4 +385,9 @@ border: 3px solid #f9b500;
 .eliminarImg h4{
 color: aliceblue;
     
+}
+
+.datetime{
+    border-radius: 5px !important;
+    background-color: #2a3eb1;
 }
