@@ -18,10 +18,19 @@ function Espacios() {
   return <div className="Contenedor" >
     <div className='verde text-center'>  <h1>Reserva espacios y registra visitas  </h1></div>
     <div className='blanco'>
-      <div className="seccion">
+      <div className="seccion ">
         <div className="row mt-3">
-          <h3>Espacios Comunes</h3>
-          <div className="row mt-3">
+          <button className="btn3">
+          <Link to="/EspaciosDeportivos" style={{ textDecoration: 'none' }}>
+                <NavLink className="logoContainter1 text-white" to="/EspaciosDeportivos" activeClassName='is-active' style={{ textDecoration: 'none' }}>
+                  
+                <h3>Espacios Comunes</h3>
+               
+                </NavLink>
+              </Link>
+           
+          </button>
+          {/* <div className="row mt-3">
             <div className="col-6">
               <img src={espacios} alt="" className="foto" />
             </div>
@@ -40,15 +49,23 @@ function Espacios() {
               </Link></button></div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
       <hr className="linea-seccion"></hr>
       {/* ----------------seccion --------------- */}
       <div className="seccion">
         <div className="row mt-3">
-          <h3>Registros de Visitas</h3>
-          <div className="row mt-3">
+          <button className="btn4">
+          <Link to="/Visitas" style={{ textDecoration: 'none' }}>
+                <NavLink className="logoContainter1 text-white" to="/Visitas" activeClassName='is-active' style={{ textDecoration: 'none' }}>
+                <h3>Registros de Visitas</h3>
+               
+                </NavLink>
+              </Link>
+   
+          </button>
+          {/* <div className="row mt-3">
             <div className="col-6">
               <img src={visitas} alt="" className="foto" />
             </div>
@@ -64,7 +81,7 @@ function Espacios() {
               </Link></button></div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
       <hr className="linea-seccion"></hr>

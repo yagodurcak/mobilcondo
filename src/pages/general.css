@@ -183,22 +183,63 @@ p {
     height: fit-content;
     max-width: 500%;
     background-color: white;
-    
+        text-transform: uppercase;
+}
+.btn4{
+    background-color:  #10282b;
+    border-radius: 25px;
+    color: white;
+    height: 140px;
+    width: 349px;
+
+
+    text-transform: uppercase;
+}
+.btn3{
+    background-color:  #F9B500;
+    border-radius: 25px;
+    color: white;
+    height: 140px;
+    width: 349px;
+
+
+
+    text-transform: uppercase;
 }
 .btn1{
     background-color:  #10282b;
     border-radius: 5px;
     color: white;
     padding: 5px 10px;
-    width: fit-content;
+    /* width: fit-content; */
 }
 .btn2{
-    background-color:  #10282b;
+    background-color:  #F9B500;
     border-radius: 5px;
-    color: white;
+    margin: 5px;
     padding: 5px 10px;
-    width: fit-content;
+    /* width: fit-content; */
+    color: #10282b;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
+.btn2a{
+    background-color:  #F9B500;
+    border-radius: 5px;
+    /* padding: 5px 10px; */
+    width: 77px;
+    height: 23px;
+    color: #10282b;
+    font-size: 12px;
+    text-align: center;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-weight: 600;
+}
+.btn2 h6{
+
+        color: #10282b;
+        font-weight: 600;
+}
+
 
 .seccion{
     display: grid;
@@ -390,4 +431,8 @@ color: aliceblue;
 .datetime{
     border-radius: 5px !important;
     background-color: #2a3eb1;
+}
+
+.grisdesc{
+    color: #858383;
 }
