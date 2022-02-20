@@ -111,41 +111,6 @@ const [exito, setExito] = useState(false);
   }
 console.log(info);
 
-const peticionPost=async()=>{
-  console.log("post2");
-
-  const f = new FormData()   
-
- 
-            f.append("file", selectedPdfPost)
-
-      f.append("userId", dataUser.id)
-
-      
-
-    // console.log(f);
-
-    const headers = {
-      'Content-type': 'multipart/form-data',
-      'Authorization': 'Bearer ' +  localStorage.getItem('Authorization'),
-
-  }
-
-    const url1= "https://back2.tinpad.com.pe/public/api/upload-avatar"
-      await axios.post(url1, f, {headers})
-      .then(response=>{
-        setSelectedFilesPost([])
-        console.log("exito -1");
-      }).catch(error=>{
-        console.log(error);
-
-        setSelectedFilesPost([])
-      })
-
-  // console.log(filesImg);
-    buscarTipo()
-  }
-
 
     return <div className="Contenedor" >
       {exito ? <div classs="container p-5">

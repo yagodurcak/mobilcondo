@@ -206,6 +206,27 @@ p {
 
     text-transform: uppercase;
 }
+.btn5{
+    background-color:  #10282b;
+    border-radius: 25px;
+    color: white;
+    height: 100px;
+    width: 350px;
+
+
+    text-transform: uppercase;
+}
+.btn6{
+    background-color:  #F9B500;
+    border-radius: 25px;
+    color: white;
+    height: 100px;
+    width: 350px;
+
+
+
+    text-transform: uppercase;
+}
 .btn1{
     background-color:  #10282b;
     border-radius: 5px;
