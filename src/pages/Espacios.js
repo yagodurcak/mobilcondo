@@ -17,11 +17,12 @@ function Espacios() {
 
   return <div className="Contenedor" >
     <div className='verde text-center'>  <h1>Reserva espacios y registra visitas  </h1></div>
-    <div className='blanco'>
+    <div className='blanco' >
+
       <div className="seccion">     
                 <div className="boton-centrar">
                   
-                  <button className="btn-yellow" >     
+                  <button className="btn-yellow-heavy" >     
                   <Link to="/ReservaEspacios" style={{ textDecoration: 'none' }}>
                    Espacios Comunes
                   </Link>
@@ -33,7 +34,7 @@ function Espacios() {
       <div className="seccion">     
                 <div className="boton-centrar">
                   
-                  <button className="btn-dark-blue" >     
+                  <button className="btn-dark-blue-heavy" >     
                   <Link to="/ElegirTipoVisita" style={{ textDecoration: 'none' }}>
                    Registro de visitas
                   </Link>

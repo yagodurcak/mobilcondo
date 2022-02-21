@@ -15,7 +15,7 @@ function TramitesyQuejas() {
     <div className='blanco'>
     <div className="seccion">     
                 <div className="boton-centrar">   
-                  <button className="btn-yellow" >     
+                  <button className="btn-yellow-heavy" >     
                   <Link to="/Tramites" style={{ textDecoration: 'none' }}>
                    Tramites
                   </Link>
@@ -25,7 +25,7 @@ function TramitesyQuejas() {
 
       <div className="seccion">     
                 <div className="boton-centrar">   
-                  <button className="btn-dark-blue" >     
+                  <button className="btn-dark-blue-heavy" >     
                   <Link to="/Reclamos" style={{ textDecoration: 'none' }}>
                    Quejas
                   </Link>

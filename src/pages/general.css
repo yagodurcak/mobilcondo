@@ -225,6 +225,35 @@ p {
     color: white;
 }
 
+
+.btn-yellow-heavy{
+    background-color:  #F9B500;
+    border-radius: 25px;
+    color: white;
+    padding: 5px 40px;
+    height: 140px;
+    width: 340px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.btn-dark-blue-heavy{
+    background-color:  #10282b;
+    border-radius: 25px;
+    color: white;
+    padding: 5px 40px;
+    height: 140px;
+    width: 340px;
+}
+
+.btn-yellow-heavy a{
+    color: white;
+}
+
+.btn-dark-blue-heavy a{
+    color: white;
+}
+
 .seccion{
     display: grid;
     align-items: center;
