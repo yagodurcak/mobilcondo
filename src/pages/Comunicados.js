@@ -117,7 +117,7 @@ const [exito, setExito] = useState(false);
    
             <h2 className="text-center">{info&&info.title}</h2>
             <div className="mt-4 text-gray-600">
-              <h6 >Fecha: {info&&info.publicationDate}</h6>
+              <h6 >Fecha: {moment(info&&info.publicationDate).format("DD-MM-YYYY")}</h6>
               <h6 className="mt-3"> Descripción: {info&&info.description}</h6>
             </div>
             <div className="mt-3 text-center">
@@ -154,7 +154,7 @@ const [exito, setExito] = useState(false);
     {data.map(casa => (  <div>
         <div className="seccion">
           <div className="row mt-3">
-          <h5>Fecha: {casa.publicationDate}</h5>
+          <h5>Fecha: {moment(casa.publicationDate).format("DD-MM-YYYY")} </h5>
          
 
             <div className="row mt-3">

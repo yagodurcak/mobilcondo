@@ -114,7 +114,7 @@ const [exito, setExito] = useState(false);
         <div className="estilosmodalDetails text-center">
    
             <h2 className="text-center">{info&&info.description}</h2>
-            <h6 className="text-center mt-3">Fecha: {info&&info.publicationDate}</h6>
+            <h6 className="text-center mt-3">Fecha:{moment(info&&info.publicationDate).format("DD-MM-YYYY")} </h6>
             {/* <h6 className="text-center">Tamaño de Archivo: {info&&info.size}</h6> */}
             <div className="mt-4">
               <a href={"https://back2.tinpad.com.pe/public/" + info.attached} target="_blank"  className="linkdownload" >
@@ -139,7 +139,7 @@ const [exito, setExito] = useState(false);
 
     return <div className="Contenedor" >
 
-      <div className='verde text-center'>  <h1>Archivos</h1></div>
+      <div className='verde text-center'>  <h1>Documentos</h1></div>
       <div className='blanco'>
       { loading ?  <Box sx={{ position: 'absolute' , left: 170, top:400, zIndex:1}}>
            
@@ -156,7 +156,7 @@ const [exito, setExito] = useState(false);
          
                 <div className="row ">
                 <div className="d-flex justify-content-between">
-                    <h6 className="Item-Title">Fecha: {casa.publicationDate}</h6>
+                    <h6 className="Item-Title">Fecha: {moment(casa.publicationDate).format("DD-MM-YYYY")}</h6>
                <button className="linkdownload" onClick={()=>seleccionarUser(casa) }><i className="material-icons visibility">visibility</i></button>
                <a href={"https://back2.tinpad.com.pe/public/" + casa.attached} target="_blank"  className="linkdownload" ><i className="material-icons file_download">file_download</i></a>
                 </div>

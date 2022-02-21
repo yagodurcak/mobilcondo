@@ -156,7 +156,7 @@ const [loading, setLoading] = useState(false);
                 <img src={"https://back2.tinpad.com.pe/public/" + casa.file} alt="" className="foto" />
               </div>
               <div className="col-6 text-gray-600">
-              <h6 className="Item-Title">Fecha: {casa.publicationDate}</h6>
+              <h6 className="Item-Title">Fecha:{moment(casa.publicationDate).format("DD-MM-YYYY")} </h6>
               <h6 className="Item-Title">Descripción: {casa.description}</h6>
               </div>
          

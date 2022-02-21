@@ -18,7 +18,7 @@ import es from "date-fns/locale/es"; // the locale you want
 import {makeStyles} from '@material-ui/core/styles';
 import moment from "moment";
 import { userContext } from "../context/UserContext"
-
+import { format } from 'date-fns';
 // i    mport Visita from "../IMG/Visitacomunes.png"
 const useStyles = makeStyles((theme) => ({
     modal: {
@@ -247,7 +247,7 @@ console.log(data);
         <div className="estilosmodalDetails">
             <h1 className="text-center">Detalle de Visita</h1>
             <div className="mt-4 text-gray-600">
-              <h4>Fecha de Visita: {info&&info.date}</h4>
+              <h4>Fecha de Visita: {moment(info&&info.date).format("DD-MM-YYYY")}</h4>
               <h4>Nombre: {info&&info.name}</h4>
               <h4>Apellido: {info&&info.lastName}</h4>
               <h4>Placa: {info&&info.licensePlate}</h4>
@@ -288,16 +288,14 @@ console.log(data);
                   <div className="row mt-3">
 
                     <div className="d-flex justify-content-between">
-                      <h5 > Nombre: {casa.name}  {casa.lastName}</h5>
+
+                      <h5 > Fecha: <span className="grisdesc">{moment(casa.date).format("DD-MM-YYYY")}</span></h5>
                       <button className="linkdownload"  onClick={()=>seleccionarUser(casa)}><i className="material-icons visibility">visibility</i></button>
                     </div>
+                      <h5 > Nombre: <span className="grisdesc">{casa.name}  {casa.lastName}</span></h5>
 
                     <div>
-                      <div className="d-flex justify-content-between">
-                        <p className="Item-Title">Documento: <span className="Item-Description">{casa.document}</span></p>
-                        <p className="Item-Title">Placa: <span className="Item-Description">{casa.licensePlate}</span></p>
-                        {/* <p className="Item-Title">Fecha: <span className="Item-Description">{moment(casa.date).format("DD-MM-YYYY")}</span></p> */}
-                      </div>
+
                     </div>
                     <div className="d-flex justify-content-around">
                     </div>

@@ -179,12 +179,24 @@ const fechaActual2 = moment(fechaActual).format("YYYY-MM-DD")
   
     const f = new FormData()   
 
-        f.append("file", selectedFilesPost)
-        f.append("subject", info.name)
-        f.append("description", info.description)
-        f.append("propertyId", dataProperty.id)
-        f.append("stateId", "3")
-        f.append("type", info.type)
+   
+    if (selectedFilesPost) {
+              
+      f.append("file", selectedFilesPost)
+
+      f.append("subject", info.name)
+      f.append("description", info.description)
+      f.append("propertyId", dataProperty.id)
+      f.append("stateId", "3")
+      f.append("type", info.type)
+    } else {
+      f.append("subject", info.name)
+      f.append("description", info.description)
+      f.append("propertyId", dataProperty.id)
+      f.append("stateId", "3")
+      f.append("type", info.type)
+    }
+
       const headers = {
         'Content-type': 'multipart/form-data',
         'Authorization': 'Bearer ' +  localStorage.getItem('Authorization'),
