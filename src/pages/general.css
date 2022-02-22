@@ -458,14 +458,3 @@ color: aliceblue;
     color: #858383;
 }
 
-.EditarAvatar{
-    position: absolute;
-    width: 100%;
-    /* margin: 0 auto; */
-    z-index: 200;
-    -webkit-transform: translate3d(60%,-150%,0);
-    -moz-transform: translate3d(60%,-150%,0);
-    -o-transform: translate3d(60%,-150%,0);
-    -ms-transform: translate3d(60%,-150%,0);
-    transform: translate3d(60%,-150%,0);
-}

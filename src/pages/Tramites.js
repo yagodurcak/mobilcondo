@@ -115,7 +115,6 @@ const useStyles = makeStyles((theme) => ({
         const rtdo = await axios.get(url, {headers})
         // setdataUser(JSON.parse(localStorage.getItem('user')))
         // console.log(rtdo.data.data)
-        setData((rtdo.data.data).filter(artista=> artista.proyect.propertyId === (dataProperty.id).toString()))
 
       //   setData(rtdo.data)
       }

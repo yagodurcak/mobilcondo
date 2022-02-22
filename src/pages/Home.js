@@ -1,5 +1,6 @@
 import "./general.css";
-
+import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
 import React, {useContext, useEffect, useState} from 'react';
 import ModalDetails2 from "../components/ModalDetails2";
 import {Button, Modal, TextField} from '@material-ui/core';
@@ -47,7 +48,8 @@ function Home() {
     const [redirect, setRedirect] = useState(false);
     const [showModalDetails, setShowModalDetails] = useState(false);
     const [imgPerfil, setImgPerfil] = useState(null);
-
+    const [editChange, setEditChange] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const styles= useStyles();
     const CambioPersonal = () => {
@@ -62,9 +64,16 @@ function Home() {
         setdataUser(JSON.parse(localStorage.getItem('user')))
 
     }, []);
-    
+
+
+
 
     const buscarCotizacion = async() => {
+        setLoading(true)
+        setTimeout(() => {
+          setLoading(false)
+        }, 2000);
+    
         
       const url = `https://back2.tinpad.com.pe/public/api/user`;
   
@@ -80,7 +89,10 @@ function Home() {
     //   setData1(rtdo.data.data)     
        setData1((rtdo.data.data).filter(artista=> (artista.id === dataUser.id)))
     //   setData1(data1[0])
+    setEditChange(true)
       }
+
+      console.log(data1);
 
 
 
@@ -99,11 +111,21 @@ function Home() {
 
       
 
+
       useEffect(() => {
-        setProfileImg("https://back2.tinpad.com.pe/public/" + dataUser.avatar)
+
+        if (data1.length >= 1) {
+
+            console.log(data1.length)
+            
+            setProfileImg("https://back2.tinpad.com.pe/public/" + data1[0].avatar)
+            setEditChange(false)
+        }
+
         // setInfo(dataUser)
-        buscarCotizacion()
-      }, [dataUser]);
+        // buscarCotizacion()
+        console.log("1");
+      }, [data1]);
 
       const BuscarPropery = async() => {
         const url = `https://back2.tinpad.com.pe/public/api/property-user`;
@@ -126,7 +148,7 @@ useEffect(() => {
     buscarCotizacion()
     BuscarPropery()
  
-      }, []);
+      }, [dataUser]);
 
       if (redirect) {
         return <Redirect to="/"/>;
@@ -176,7 +198,7 @@ useEffect(() => {
       
         const f = new FormData()    
                        
-                  f.append("file", imgPerfil)
+             f.append("file", imgPerfil)
 
       
             f.append("userId", dataUser.id)
@@ -259,6 +281,10 @@ useEffect(() => {
 
         <div className="page-header header-filter" data-parallax="true"></div>
         <div className="main main-raised">
+            { loading ?  <Box sx={{ position: 'absolute' , left: 100, top:100, zIndex:1}}>
+           
+           <CircularProgress color="success" size={80}/>
+           </Box> : null}
             <div className="profile-content">
                 {/* <i class="material-icons edit">edit</i> */}
                 <div className="container">
