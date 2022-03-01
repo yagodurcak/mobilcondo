@@ -12,7 +12,7 @@ import visitas from "../IMG/VISITAS.png"
 
 function Informes() {
   return <div className="Contenedor" >
-    <div className='verde text-center'>  <h1>Información Útil  </h1></div>
+    <div className='verde text-center'>  <h1>SUS NOTICIAS Y COMUNICADOS  </h1></div>
     <div className='blanco'>
     <div className="seccion">
         <div className="row mt-3">
@@ -51,7 +51,7 @@ function Informes() {
           <button className="btn6">
           <Link to="/Telefonos" style={{ textDecoration: 'none' }}>
                 <NavLink className="logoContainter1 text-white" to="/Telefonos" activeClassName='is-active' style={{ textDecoration: 'none' }}>
-                <h3>TELÉFONOS ÚTILES</h3>
+                <h3>INFORMACIÓN ÚTIL</h3>
                
                 </NavLink>
               </Link>
@@ -67,7 +67,7 @@ function Informes() {
           <button className="btn5">
           <Link to="/Archivos" style={{ textDecoration: 'none' }}>
                 <NavLink className="logoContainter1 text-white" to="/Archivos" activeClassName='is-active' style={{ textDecoration: 'none' }}>
-                <h3>DOCUMENTOS</h3>
+                <h3>DOCUMENTOS ÚTILES</h3>
                
                 </NavLink>
               </Link>

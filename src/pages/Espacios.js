@@ -17,7 +17,7 @@ function Espacios() {
 
 
   return <div className="Contenedor" >
-    <div className='verde text-center mx-5'>  <h1>Reserva espacios y registra invitados  </h1></div>
+    <div className='verde text-center mx-5'>  <h2>SUS RESERVACIONES, INVITADOS Y PROVEEDORES  </h2></div>
     <div className='blanco'>
       <div className="seccion ">
         <div className="row mt-3">
@@ -25,7 +25,7 @@ function Espacios() {
           <Link to="/EspaciosDeportivos" style={{ textDecoration: 'none' }}>
                 <NavLink className="logoContainter1 text-white" to="/EspaciosDeportivos" activeClassName='is-active' style={{ textDecoration: 'none' }}>
                   
-                <h3>Espacios Comunes</h3>
+                <h3>RESERVA DE ESPACIOS</h3>
                
                 </NavLink>
               </Link>
@@ -41,7 +41,7 @@ function Espacios() {
           <button className="btn5">
           <Link to="/Visitas" style={{ textDecoration: 'none' }}>
                 <NavLink className="logoContainter1 text-white" to="/Visitas" activeClassName='is-active' style={{ textDecoration: 'none' }}>
-                <h3>Registros de Visitas</h3>
+                <h3>INGRESO DE VISITAS</h3>
                
                 </NavLink>
               </Link>
@@ -58,7 +58,7 @@ function Espacios() {
     <Link to="/Proveedores" style={{ textDecoration: 'none' }}>
           <NavLink className="logoContainter1 text-white" to="/Proveedores" activeClassName='is-active' style={{ textDecoration: 'none' }}>
             
-          <h3>Registro de Proveedores</h3>
+          <h3>INGRESO DE PROVEEDORES</h3>
          
           </NavLink>
         </Link>

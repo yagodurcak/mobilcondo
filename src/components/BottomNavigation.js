@@ -16,12 +16,12 @@ const tabs = [
     {
   route: "/Espacios",
   icon: "groups",
-  label: "Espacios e Invitados"
+  label: "Reservas e Invitados"
 },
     {
   route: "/Informes",
   icon: "campaign",
-  label: "Informes y Noticias"
+  label: "Noticias y Comunicados"
 },
     {
   route: "/TramitesyQuejas",
@@ -31,7 +31,7 @@ const tabs = [
     {
   route: "/Gastos",
   icon: "receipt_long",
-  label: "Pagos y Gastos"
+  label: "Estado de Cuenta"
 },
 {
   route: "/Home",

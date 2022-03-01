@@ -599,7 +599,7 @@ const removeSelectedImage = () => {
 		</div>
 	</div>
 </div>: null}
-      <div className='verde text-center'><h1>Mis Gastos</h1></div>
+      <div className='verde text-center'><h1>ESTADO DE CUENTA</h1></div>
 
 
   
