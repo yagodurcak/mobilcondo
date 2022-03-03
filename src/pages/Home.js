@@ -1,16 +1,18 @@
 import "./general.css";
+
+import {Button, Modal, TextField} from '@material-ui/core';
+import React, {useContext, useEffect, useState} from 'react';
+
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
-import React, {useContext, useEffect, useState} from 'react';
 import ModalDetails2 from "../components/ModalDetails2";
-import {Button, Modal, TextField} from '@material-ui/core';
 import Navigation from "../components/BottomNavigation";
 import {Redirect} from 'react-router-dom';
 import axios from 'axios'
+import { getBottomNavigationUtilityClass } from "@mui/material";
+import {makeStyles} from '@material-ui/core/styles';
 import perfil from "../IMG/perfil.jpg"
 import { userContext } from '../context/UserContext';
-import {makeStyles} from '@material-ui/core/styles';
-import { getBottomNavigationUtilityClass } from "@mui/material";
 
 // import Navigation from "../components/BottomNavigation";
 const useStyles = makeStyles((theme) => ({
@@ -276,99 +278,108 @@ useEffect(() => {
 
 
 
-    return <div className="profile-page">
+    return          <div>
+         <div className="pt-3  d-flex justify-content-end mr-5">
 
 
-        <div className="page-header header-filter" data-parallax="true"></div>
+
+        <button className="btn1 mb-3" onClick={logout}>Cerrar Sesión</button>
+      </div>
+      <div className="profile-page">
+        <div className="page-header header-filter" data-parallax="true">
+        </div>
         <div className="main main-raised">
-            { loading ?  <Box sx={{ position: 'absolute' , left: 100, top:100, zIndex:1}}>
-           
-           <CircularProgress color="success" size={80}/>
-           </Box> : null}
-            <div className="profile-content">
-                {/* <i class="material-icons edit">edit</i> */}
-                <div className="container">
-                    <div className="row">
-                        <div className="col-md-6 ml-auto mr-auto">
-                            <div className="d-flex justify-content-end ">
-                                
-                     
-                            </div>
-                            {/* <div className="EditarAvatar"><i class="material-icons edit">edit</i></div> */}
-                            <div className="profile">
-                                <div className="avatar">
-                                    <img
-                                        //  src={URL.createObjectURL(profileImg)}
-                                        src={profileImg}
-                                        alt="Circle Image" className="img-raised rounded-circle img-fluid" />
 
-                                    {/* <img src={dataUser.avatar} alt="Circle Image" className="img-raised rounded-circle img-fluid" /> */}
-                                </div>
-                                
-                                <div className="name">
-                                    <h1 className="title text-center">{dataUser.name}</h1>
+          {loading ? <Box sx={{ position: 'absolute', left: 100, top: 100, zIndex: 1 }}>
 
-                                    <h6 className="subtitle text-center">Bienvenido a CondoApp!</h6>
-
-                                </div>
-
-                                <div>
-                                    <div className="row d-flex justify-content-center mt-3">
-                                        <div className="col-6">
-                                            <button className={btnPropiedad ? "btn active" : "btn"} onClick={() => { CambioPropiedad() }}>Datos Personales</button>
-                                        </div>
-                                        <div className="col-6">
-                                            <button className="btn" onClick={() => { CambioPersonal() }}>Datos Propiedad</button>
-                                        </div>
-                                    </div>
-                                    {btnPropiedad ? <div>
-                                        {data1.map(casa => (
-                                        <div>
-                                            <h3 className="description">Nombres: <span>{casa.name}</span></h3>
-                                            <h3 className="description">Apellidos: <span>{casa.lastName}</span></h3>
-                                            <h3 className="description">Dni: <span>{casa.document}</span></h3>
-                                            <h3 className="description">Correo: <span>{casa.email}</span></h3>
-                                            <h3 className="description">Teléfono: <span>{casa.phone}</span></h3>
-                                        </div>
-                                        ))}
-                                    </div> :
+            <CircularProgress color="success" size={80} />
+          </Box> : null}
+          <div className="profile-content">
+            {/* <i class="material-icons edit">edit</i> */}
+            <div className="container">
+              <div className="row">
+                <div className="col-md-6 ml-auto mr-auto">
+                  <div className="d-flex justify-content-end ">
 
 
-                                        <div>
-                                            {data.map(casa => (<div>
-                                                <h3 className="description">Manzana: <span>{casa.property.block}</span></h3>
-                                                <h3 className="description">Lote: <span>{casa.property.lot}</span></h3>
-                                                <h3 className="description">Area: <span>{casa.property.area}</span></h3>
-                                            </div>
-                                            ))}
-
-                                        </div>
-                                    }
-
-
-                                </div>
-                            </div>
-                        </div>
+                  </div>
+                  {/* <div className="EditarAvatar"><i class="material-icons edit">edit</i></div> */}
+                  <div className="profile">
+                    <div className="d-flex justify-content-end mt-2">
+                      <button className="btn1 " onClick={seleccionarUser}>     <span class="material-icons">
+                        edit
+                      </span></button>
                     </div>
 
+                    <div className="avatar">
+                      <img
+                        //  src={URL.createObjectURL(profileImg)}
+                        src={profileImg}
+                        alt="Circle Image" className="img-raised rounded-circle img-fluid" />
+                      {/* <img src={dataUser.avatar} alt="Circle Image" className="img-raised rounded-circle img-fluid" /> */}
+                    </div>
 
-
-
-                    <div className="mt-2 mb-5 d-flex justify-content-between">
-                        <button className="btn1 mb-3" onClick={seleccionarUser}>Editar</button>
-                        <button className="btn1 mb-3" onClick={logout}>Cerrar Sesión</button>
+                    <div className="name">
+                      <h1 className="title text-center">{dataUser.name}</h1>
+                      <h6 className="subtitle text-center">Bienvenido a CondoApp!</h6>
+                    </div>
+                    <div>
+                      <div className="row d-flex justify-content-center mt-3">
+                        <div className="col-6">
+                          <button className={btnPropiedad ? "btn active" : "btn"} onClick={() => { CambioPropiedad() }}>Datos Personales</button>
                         </div>
+                        <div className="col-6">
+                          <button className="btn" onClick={() => { CambioPersonal() }}>Datos Propiedad</button>
+                        </div>
+                      </div>
+                      {btnPropiedad ? <div>
+                        {data1.map(casa => (
+                          <div>
+                            <h3 className="description">Nombres: <span>{casa.name}</span></h3>
+                            <h3 className="description">Apellidos: <span>{casa.lastName}</span></h3>
+                            <h3 className="description">Dni: <span>{casa.document}</span></h3>
+                            <h3 className="description">Correo: <span>{casa.email}</span></h3>
+                            <h3 className="description">Teléfono: <span>{casa.phone}</span></h3>
+                          </div>
+                        ))}
+                      </div> :
+                        <div>
+                          {data.map(casa => (<div>
+                            <h3 className="description">Manzana: <span>{casa.property.block}</span></h3>
+                            <h3 className="description">Lote: <span>{casa.property.lot}</span></h3>
+                            <h3 className="description">Area: <span>{casa.property.area}</span></h3>
+                          </div>
+                          ))}
+                        </div>
+                      }
+                    </div>
+                  </div>
+                  <div className="pt-3 mr-5 d-flex justify-content-between">
+
+
+
+                    <button className="btn1 mb-3" onClick={logout}>Pagos Pendientes</button>
+                    <button className="btn1 mb-3" onClick={logout}>Noticias</button>
+                  </div>
+                  <div className="pt-3 mr-5 d-flex justify-content-between">
+                    <button className="btn1 mb-3" onClick={logout}>Comunicados</button>
+                    <button className="btn1 mb-3" onClick={logout}>Reservaciones</button>       </div>
+                    {/* <button className="btn1 mb-3" onClick={logout}>Avisos de Pago</button> */}
                 </div>
+              </div>
+
             </div>
+          </div>
         </div>
-        <ModalDetails2
-            showModalDetails={showModalDetails}
-            functionShow= {abrirCerrarModalDetails}
-            // handleChangeInsert={handleChangeInsert}
-            // onSubmitEditar={onSubmitEditar}
-            info={info}
-            bodyDetails={bodyDetails}
-            />
+          <ModalDetails2
+              showModalDetails={showModalDetails}
+              functionShow= {abrirCerrarModalDetails}
+              // handleChangeInsert={handleChangeInsert}
+              // onSubmitEditar={onSubmitEditar}
+              info={info}
+              bodyDetails={bodyDetails}
+              />
+      </div>
     </div>;
                     // <Navigation/>
 

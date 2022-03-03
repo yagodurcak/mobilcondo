@@ -6,9 +6,9 @@ import {
 } from "react-router-dom";
 
 import React from 'react';
+import Tramites from './Tramites';
 import espacios from "../IMG/espacioscomunes.png"
 import visitas from "../IMG/VISITAS.png"
-import Tramites from './Tramites';
 
 function TramitesyQuejas() {
   return <div className="Contenedor" >
@@ -20,7 +20,7 @@ function TramitesyQuejas() {
           <button className="btn6">
           <Link to="/Tramites" style={{ textDecoration: 'none' }}>
                 <NavLink className="logoContainter1 text-white" to="/Tramites" activeClassName='is-active' style={{ textDecoration: 'none' }}>
-                <h3>Trámites</h3>
+                <h3><span class="material-icons mr-3 mt-1 "> difference</span>Trámites</h3>
                
                 </NavLink>
               </Link>
@@ -37,7 +37,7 @@ function TramitesyQuejas() {
           <button className="btn5">
           <Link to="/Reclamos" style={{ textDecoration: 'none' }}>
                 <NavLink className="logoContainter1 text-white" to="/Reclamos" activeClassName='is-active' style={{ textDecoration: 'none' }}>
-                <h3>Quejas y Reclamos</h3>
+                <h3><span class="material-icons mr-3 mt-1 "> thumb_down_alt</span>Quejas y Reclamos</h3>
                
                 </NavLink>
               </Link>

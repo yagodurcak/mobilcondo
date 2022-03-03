@@ -56,6 +56,8 @@ function App() {
     <div className='pantalla'>
       <Navigation className="navegacion"/>
             <div className="screen">
+              
+
               <Route exact path="/Home">
               <Home/>
               </Route>

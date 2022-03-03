@@ -21,16 +21,18 @@ function Espacios() {
     <div className='blanco'>
       <div className="seccion ">
         <div className="row mt-3">
-          <button className="btn6">
-          <Link to="/EspaciosDeportivos" style={{ textDecoration: 'none' }}>
-                <NavLink className="logoContainter1 text-white" to="/EspaciosDeportivos" activeClassName='is-active' style={{ textDecoration: 'none' }}>
-                  
-                <h3>RESERVA DE ESPACIOS</h3>
-               
-                </NavLink>
-              </Link>
-           
-          </button>
+          <div div className="d-flex justify-content-between">
+            <button className="btn6">
+            <Link to="/EspaciosDeportivos" style={{ textDecoration: 'none' }}>
+                  <NavLink className="logoContainter1 text-white" to="/EspaciosDeportivos" activeClassName='is-active' style={{ textDecoration: 'none' }}>
+            
+                  <h3> <span class="material-icons mr-3 mt-1"> date_range</span> RESERVA DE ESPACIOS</h3>
+            
+                  </NavLink>
+                </Link>
+            
+            </button>
+          </div>
        
         </div>
       </div>
@@ -38,15 +40,20 @@ function Espacios() {
       {/* ----------------seccion --------------- */}
       <div className="seccion">
         <div className="row mt-3">
-          <button className="btn5">
-          <Link to="/Visitas" style={{ textDecoration: 'none' }}>
-                <NavLink className="logoContainter1 text-white" to="/Visitas" activeClassName='is-active' style={{ textDecoration: 'none' }}>
-                <h3>INGRESO DE VISITAS</h3>
-               
-                </NavLink>
-              </Link>
-   
-          </button>
+          <div className="d-flex justify-content-between">
+            <button className="btn5">
+            <Link to="/Visitas" style={{ textDecoration: 'none' }}>
+                  <NavLink className="logoContainter1 text-white" to="/Visitas" activeClassName='is-active' style={{ textDecoration: 'none' }}>
+                  <h3> <span class="material-icons mr-3 mt-1">
+                  group_add
+                      </span>  INGRESO DE VISITAS </h3>
+            
+                  </NavLink>
+                </Link>
+            </button>
+
+       
+          </div>
 
         </div>
       </div>
@@ -58,7 +65,7 @@ function Espacios() {
     <Link to="/Proveedores" style={{ textDecoration: 'none' }}>
           <NavLink className="logoContainter1 text-white" to="/Proveedores" activeClassName='is-active' style={{ textDecoration: 'none' }}>
             
-          <h3>INGRESO DE PROVEEDORES</h3>
+          <h3><span class="material-icons mr-3 mt-1"> assignment_ind</span> INGRESO PROVEEDORES</h3>
          
           </NavLink>
         </Link>

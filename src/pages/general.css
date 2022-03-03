@@ -39,11 +39,11 @@ html *{
 }
 
 .header-filter::before {
-    background: #f9b500;
+    /* background: #f9b500; */
 }
 
 .main-raised {
-    margin: -50px 30px 200px 30px ;
+    margin: -130px 30px 400px 30px ;
 
     border-radius: 6px;
     height: 100%;
