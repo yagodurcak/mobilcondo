@@ -1,6 +1,10 @@
 import "./general.css";
 
 import {Button, Modal, TextField} from '@material-ui/core';
+import {
+  Link,
+  NavLink,
+} from "react-router-dom";
 import React, {useContext, useEffect, useState} from 'react';
 
 import Box from '@mui/material/Box';
@@ -12,6 +16,7 @@ import axios from 'axios'
 import comunicados from "../IMG//comunicados 1.svg"
 import { getBottomNavigationUtilityClass } from "@mui/material";
 import {makeStyles} from '@material-ui/core/styles';
+import moment from 'moment'
 import noticias from "../IMG/noticias1.svg"
 import pago from "../IMG/reserva1.svg"
 import reserva from "../IMG//PagoPendiente 1.svg"
@@ -45,10 +50,10 @@ function Home() {
 
     const { dataUser, setdataUser } = useContext(userContext);
     const [data1, setData1] = useState([]);
-    const [Pagos, setPagos] = useState([]);
-    const [Noticias, setNoticias] = useState([]);
-    const [Comunicados, setComunicados] = useState([]);
-    const [Reservas, setReserva] = useState([]);
+    const [Pagos, setPagos] = useState(0);
+    const [Noticias, setNoticias] = useState(0);
+    const [Comunicados, setComunicados] = useState(0);
+    const [Reservas, setReserva] = useState(0);
 
     const [btnPersonal, setBtnPersonal] = useState(false);
     const [btnPropiedad, setBtnPropiedad] = useState(false);
@@ -153,19 +158,48 @@ function Home() {
 
       useEffect(() => {
     BuscarPropery()
+    BuscarNoticias()
+    BuscarReservas()
 }, [btnPropiedad]);
 
-const BuscarPagos = async() => {
-  const url = `https://back2.tinpad.com.pe/public/api/property-user`;
+const fechaActual = new Date()
+const fechaFormat = moment(fechaActual).format('YYYY-MM')
+console.log(fechaFormat);
+const BuscarNoticias = async() => {
+  const url = `https://back2.tinpad.com.pe/public/api/new-release`;
   const headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' +  localStorage.getItem('Authorization'),
   }
   const rtdo = await axios.get(url, {headers})
-  const rtdo2 = (rtdo.data.data).filter(artista=> artista.user.id === dataUser.id)
-  localStorage.setItem('propiedad', JSON.stringify(rtdo2[0].property)) 
+
+  setData((rtdo.data.data).filter(artista=> artista.typeReleaseId === "10"))
+
+  const rtdo2 = (rtdo.data.data).filter(artista=> (artista.publicationDate).slice(0,7) === fechaFormat)
+  const rtdo3 = (rtdo2).filter(artista=> artista.typeReleaseId === "10")
+  const rtdo4 = (rtdo2).filter(artista=> artista.typeReleaseId !== "10")
+  console.log(rtdo2.length);
+  console.log(rtdo3.length);
+  setNoticias(rtdo3.length)
+  setComunicados(rtdo4.length)
+}
+const BuscarReservas = async() => {
+  const url = `https://back2.tinpad.com.pe/public/api/reservation`;
+  const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' +  localStorage.getItem('Authorization'),
+  }
+  const rtdo = await axios.get(url, {headers})
+
   
-  setData(rtdo2)
+
+  const rtdo2 = (rtdo.data.data).filter(artista=> (artista.start).slice(0,7) === fechaFormat)
+  const rtdo3 = (rtdo2).filter(artista=> artista.user.id === dataUser.id)
+
+  console.log(rtdo2.length);
+  console.log(rtdo3.length);
+  setReserva(rtdo3.length)
+
 }
 
 useEffect(() => {
@@ -379,8 +413,10 @@ useEffect(() => {
                   </div>
 
                     <div className="row mt-5">
-        
-                      <div className="d-flex justify-content-between NotList">
+                    <button>
+      <Link to="/Gastos" style={{ textDecoration: 'none' }}>
+            <NavLink className="logoContainter1 text-black" to="/Gastos" activeClassName='is-active' style={{ textDecoration: 'none' }}>
+            <div className="d-flex justify-content-between NotList">
                         <img src={reserva} alt="" className="imgList" />
                         <h5>Pagos Pendientes</h5>
                         <h5>3</h5>
@@ -388,39 +424,71 @@ useEffect(() => {
                         keyboard_arrow_right
                       </span></button>
                       </div>
+      
+            </NavLink>
+          </Link>
+      </button>
+        
+                      
                       <div className="NotList">
                         <hr className="separador"/>
                       </div>
+                      <button>
+      <Link to="/Noticias" style={{ textDecoration: 'none' }}>
+            <NavLink className="logoContainter1 text-black" to="/Noticias" activeClassName='is-active' style={{ textDecoration: 'none' }}>
+            
+      
                       <div className="d-flex justify-content-between NotList">
                         <img src={noticias} alt="" className="imgList" />
                         <h5>Noticias del mes </h5>
-                        <h5>3</h5>
+                        <h5>{Noticias}</h5>
                         <button>     <span class="material-icons md-48">
                         keyboard_arrow_right
                       </span></button>
                       </div>
+            </NavLink>
+          </Link>
+      </button>
                       <div className="NotList">
                         <hr className="separador"/>
                       </div>
+
+                      <button>
+      <Link to="/Comunicados" style={{ textDecoration: 'none' }}>
+            <NavLink className="logoContainter1 text-black" to="/Comunicados" activeClassName='is-active' style={{ textDecoration: 'none' }}>
+      
+      
                       <div className="d-flex justify-content-between NotList">
                         <img src={comunicados} alt="" className="imgList" />
                         <h5>Comunicados</h5>
-                        <h5>3</h5>
+                        <h5>{Comunicados}</h5>
                         <button>     <span class="material-icons md-48">
                         keyboard_arrow_right
                       </span></button>
                       </div>
+            </NavLink>
+          </Link>
+      </button>
                       <div className="NotList">
                         <hr className="separador"/>
                       </div>
+
+                      <button>
+      <Link to="/MisReservas" style={{ textDecoration: 'none' }}>
+            <NavLink className="logoContainter1 text-black" to="/MisReservas" activeClassName='is-active' style={{ textDecoration: 'none' }}>
+
                       <div className="d-flex justify-content-between NotList">
                         <img src={pago} alt="" className="imgList" />
                         <h5>Reservas próximas </h5>
-                        <h5>3</h5>
+                        <h5>{Reservas}</h5>
                         <button>     <span class="material-icons md-48">
                         keyboard_arrow_right
                       </span></button>
                       </div>
+      
+            </NavLink>
+          </Link>
+      </button>
                       <div className="NotList">
                         <hr className="separador"/>
                       </div>
