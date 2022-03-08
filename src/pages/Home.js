@@ -9,9 +9,12 @@ import ModalDetails2 from "../components/ModalDetails2";
 import Navigation from "../components/BottomNavigation";
 import {Redirect} from 'react-router-dom';
 import axios from 'axios'
+import comunicados from "../IMG//comunicados 1.svg"
 import { getBottomNavigationUtilityClass } from "@mui/material";
 import {makeStyles} from '@material-ui/core/styles';
-import perfil from "../IMG/perfil.jpg"
+import noticias from "../IMG/noticias1.svg"
+import pago from "../IMG/reserva1.svg"
+import reserva from "../IMG//PagoPendiente 1.svg"
 import { userContext } from '../context/UserContext';
 
 // import Navigation from "../components/BottomNavigation";
@@ -42,9 +45,13 @@ function Home() {
 
     const { dataUser, setdataUser } = useContext(userContext);
     const [data1, setData1] = useState([]);
+    const [Pagos, setPagos] = useState([]);
+    const [Noticias, setNoticias] = useState([]);
+    const [Comunicados, setComunicados] = useState([]);
+    const [Reservas, setReserva] = useState([]);
 
-    const [btnPersonal, setBtnPersonal] = useState(true);
-    const [btnPropiedad, setBtnPropiedad] = useState(true);
+    const [btnPersonal, setBtnPersonal] = useState(false);
+    const [btnPropiedad, setBtnPropiedad] = useState(false);
     const [profileImg, setProfileImg] = useState(null);
     const [data, setData] = useState([]);
     const [redirect, setRedirect] = useState(false);
@@ -55,10 +62,12 @@ function Home() {
 
     const styles= useStyles();
     const CambioPersonal = () => {
-        setBtnPropiedad(!btnPropiedad)
+      setBtnPersonal(true)
+      setBtnPropiedad(false)
     }
     const CambioPropiedad = () => {
-        setBtnPropiedad(!btnPropiedad)
+        setBtnPropiedad(true)
+        setBtnPersonal(false)
     }
 
     useEffect(() => {
@@ -145,6 +154,19 @@ function Home() {
       useEffect(() => {
     BuscarPropery()
 }, [btnPropiedad]);
+
+const BuscarPagos = async() => {
+  const url = `https://back2.tinpad.com.pe/public/api/property-user`;
+  const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' +  localStorage.getItem('Authorization'),
+  }
+  const rtdo = await axios.get(url, {headers})
+  const rtdo2 = (rtdo.data.data).filter(artista=> artista.user.id === dataUser.id)
+  localStorage.setItem('propiedad', JSON.stringify(rtdo2[0].property)) 
+  
+  setData(rtdo2)
+}
 
 useEffect(() => {
     buscarCotizacion()
@@ -326,13 +348,13 @@ useEffect(() => {
                     <div>
                       <div className="row d-flex justify-content-center mt-3">
                         <div className="col-6">
-                          <button className={btnPropiedad ? "btn active" : "btn"} onClick={() => { CambioPropiedad() }}>Datos Personales</button>
+                          <button className={btnPersonal ? "btn active" : "btn"} onClick={() => { CambioPersonal() }}>Datos Personales</button>
                         </div>
                         <div className="col-6">
-                          <button className="btn" onClick={() => { CambioPersonal() }}>Datos Propiedad</button>
+                          <button className={btnPropiedad ? "btn active" : "btn"} onClick={() => { CambioPropiedad() }}>Datos Propiedad</button>
                         </div>
                       </div>
-                      {btnPropiedad ? <div>
+                      {btnPersonal && <div>
                         {data1.map(casa => (
                           <div>
                             <h3 className="description">Nombres: <span>{casa.name}</span></h3>
@@ -342,29 +364,71 @@ useEffect(() => {
                             <h3 className="description">Teléfono: <span>{casa.phone}</span></h3>
                           </div>
                         ))}
-                      </div> :
-                        <div>
+                      </div>} 
+
+                      { btnPropiedad &&  <div>
                           {data.map(casa => (<div>
                             <h3 className="description">Manzana: <span>{casa.property.block}</span></h3>
                             <h3 className="description">Lote: <span>{casa.property.lot}</span></h3>
                             <h3 className="description">Area: <span>{casa.property.area}</span></h3>
-                          </div>
-                          ))}
-                        </div>
-                      }
+                          </div>   ))}  </div>
+                    }
+
+                      
                     </div>
                   </div>
-                  <div className="pt-3 mr-5 d-flex justify-content-between">
 
+                    <div className="row mt-5">
+        
+                      <div className="d-flex justify-content-between NotList">
+                        <img src={reserva} alt="" className="imgList" />
+                        <h5>Pagos Pendientes</h5>
+                        <h5>3</h5>
+                        <button>     <span class="material-icons md-48">
+                        keyboard_arrow_right
+                      </span></button>
+                      </div>
+                      <div className="NotList">
+                        <hr className="separador"/>
+                      </div>
+                      <div className="d-flex justify-content-between NotList">
+                        <img src={noticias} alt="" className="imgList" />
+                        <h5>Noticias del mes </h5>
+                        <h5>3</h5>
+                        <button>     <span class="material-icons md-48">
+                        keyboard_arrow_right
+                      </span></button>
+                      </div>
+                      <div className="NotList">
+                        <hr className="separador"/>
+                      </div>
+                      <div className="d-flex justify-content-between NotList">
+                        <img src={comunicados} alt="" className="imgList" />
+                        <h5>Comunicados</h5>
+                        <h5>3</h5>
+                        <button>     <span class="material-icons md-48">
+                        keyboard_arrow_right
+                      </span></button>
+                      </div>
+                      <div className="NotList">
+                        <hr className="separador"/>
+                      </div>
+                      <div className="d-flex justify-content-between NotList">
+                        <img src={pago} alt="" className="imgList" />
+                        <h5>Reservas próximas </h5>
+                        <h5>3</h5>
+                        <button>     <span class="material-icons md-48">
+                        keyboard_arrow_right
+                      </span></button>
+                      </div>
+                      <div className="NotList">
+                        <hr className="separador"/>
+                      </div>
+  
+                 
+                    </div>
+   
 
-
-                    <button className="btn1 mb-3" onClick={logout}>Pagos Pendientes</button>
-                    <button className="btn1 mb-3" onClick={logout}>Noticias</button>
-                  </div>
-                  <div className="pt-3 mr-5 d-flex justify-content-between">
-                    <button className="btn1 mb-3" onClick={logout}>Comunicados</button>
-                    <button className="btn1 mb-3" onClick={logout}>Reservaciones</button>       </div>
-                    {/* <button className="btn1 mb-3" onClick={logout}>Avisos de Pago</button> */}
                 </div>
               </div>
 

@@ -458,3 +458,32 @@ color: aliceblue;
     color: #858383;
 }
 
+.botonMenu{
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    justify-items: center;
+    align-items: center;
+    /* background-color: chartreuse; */
+    height: 180px;
+    width: 160px;
+    text-align: center;
+
+}
+
+.imgList{
+    height: 40px;
+    width: 40px;
+}
+
+.NotList{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.separador{
+
+    width: 90%;
+    border: 3px solid #f9b500;
+    text-align:center
+}

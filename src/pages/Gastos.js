@@ -67,7 +67,7 @@ function Gastos() {
 
   const [dataAgua, setDataAgua] = useState([])
   const [totalGastos, setTotalGastos] = useState(0)
-
+const [bankaccount, setbankaccount] = useState([]);
   const [error, setError] = useState(false)
 
   const [totalGastosLuz, setTotalGastosLuz] = useState({})
@@ -139,6 +139,24 @@ const buscarUnitCostLuz = async() => {
 
 //   setData(rtdo.data)
 }
+const buscarbankaccount = async() => {
+            
+  const url = `https://back2.tinpad.com.pe/public/api/account-bank`;
+
+  const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' +  localStorage.getItem('Authorization'),
+
+  } 
+
+  const rtdo = await axios.get(url, {headers})
+  // setdataUser(JSON.parse(localStorage.getItem('user')))
+  setbankaccount(rtdo.data.data)
+  console.log(rtdo.data.data)
+  // setData((rtdo.data.data).filter(artista=> artista.proyect.propertyId === (dataProperty.id).toString()))
+
+//   setData(rtdo.data)
+}
 const handleChangeInsert = (e) => {
 
   setInfo({
@@ -192,6 +210,7 @@ const removeSelectedImage = () => {
       setdataUser(JSON.parse(localStorage.getItem('user')))
       setDataProperty(JSON.parse(localStorage.getItem('propiedad')))
       buscarUnitCostLuz()
+      buscarbankaccount()
      }, []);
 
   useEffect(() => {
@@ -385,10 +404,13 @@ const removeSelectedImage = () => {
                        
                        <div className="col-12">
                      
-                           <h6 className="text-gray-600">Cta. Corrientes BCP Soles</h6>
-                           <h6 className="text-gray-600">XXX.XXXX.XXXX.XXXXX.XXXX</h6>
-                           <h6 className="text-gray-600">Cta. Corrientes BCP Soles</h6>
-                           <h6 className="text-gray-600">XXX.XXXX.XXXX.XXXXX.XXXX</h6>
+                       {bankaccount.map(casa => (
+
+                        <div>
+                          <h6 className="text-gray-600">Banco: {casa.title}</h6>
+                          <h6 className="text-gray-600">Cuenta: {casa.accountNumber}</h6>
+                        </div>
+                        ))}
                   
                        </div>
                          <div className="text-center mt-2  d-flex justify-content-between" >
@@ -466,6 +488,7 @@ const removeSelectedImage = () => {
                         <div className="row mt-1">
                          
                          <div className="col-12">
+                           
                        
                              <h6 className="text-gray-600">Cta. Corrientes BCP Soles</h6>
                              <h6 className="text-gray-600">XXX.XXXX.XXXX.XXXXX.XXXX</h6>
