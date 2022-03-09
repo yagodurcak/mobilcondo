@@ -58,7 +58,7 @@ function Home() {
     const [btnPersonal, setBtnPersonal] = useState(false);
     const [btnPropiedad, setBtnPropiedad] = useState(false);
     const [profileImg, setProfileImg] = useState(null);
-    const [data, setData] = useState([]);
+    const [data, setData] = useState({});
     const [redirect, setRedirect] = useState(false);
     const [showModalDetails, setShowModalDetails] = useState(false);
     const [imgPerfil, setImgPerfil] = useState(null);
@@ -78,6 +78,7 @@ function Home() {
     useEffect(() => {
 
         setdataUser(JSON.parse(localStorage.getItem('user')))
+        
 
     }, []);
 
@@ -152,9 +153,11 @@ function Home() {
         const rtdo = await axios.get(url, {headers})
         const rtdo2 = (rtdo.data.data).filter(artista=> artista.user.id === dataUser.id)
         localStorage.setItem('propiedad', JSON.stringify(rtdo2[0].property)) 
-        
-        setData(rtdo2)
+        console.log(rtdo2[0].property);
+        setData(rtdo2[0].property)
       }
+
+      console.log(data);
 
       useEffect(() => {
     BuscarPropery()
@@ -401,11 +404,11 @@ useEffect(() => {
                       </div>} 
 
                       { btnPropiedad &&  <div>
-                          {data.map(casa => (<div>
-                            <h3 className="description">Manzana: <span>{casa.property.block}</span></h3>
-                            <h3 className="description">Lote: <span>{casa.property.lot}</span></h3>
-                            <h3 className="description">Area: <span>{casa.property.area}</span></h3>
-                          </div>   ))}  </div>
+                          <div>
+                            <h3 className="description">Manzana: <span>{data.block}</span></h3>
+                            <h3 className="description">Lote: <span>{data.lot}</span></h3>
+                            <h3 className="description">Area: <span>{data.area}</span></h3>
+                          </div>    </div>
                     }
 
                       
@@ -419,7 +422,7 @@ useEffect(() => {
             <div className="d-flex justify-content-between NotList">
                         <img src={reserva} alt="" className="imgList" />
                         <h5>Pagos Pendientes</h5>
-                        <h5>3</h5>
+                        <h5>0</h5>
                         <button>     <span class="material-icons md-48">
                         keyboard_arrow_right
                       </span></button>
