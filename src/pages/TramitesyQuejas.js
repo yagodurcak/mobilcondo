@@ -47,8 +47,19 @@ function TramitesyQuejas() {
         </div>
       </div>
       <hr className="linea-seccion"></hr>
-
+      <div className="botonMenu">
+        <button>
+        <Link to="/Noticias" style={{ textDecoration: 'none' }}>
+              <NavLink className="logoContainter1 text-black" to="/Noticias" activeClassName='is-active' style={{ textDecoration: 'none' }}>
+                <img src="" alt="" />
       
+              </NavLink>
+            </Link>
+        </button>
+        <h6>Noticias</h6>
+      </div>
+      
+
     </div>
     
   </div>;

@@ -257,7 +257,7 @@ const bodyDetails =(
               <div className="col-6">
                 <div className="row">
                 
-                  <h6>{casa.space.description}</h6>
+                  <h6 className="espaciodesc">{casa.space.description}</h6>
                   <div className="d-flex justify-content-end">
                    
                     <button className="btn2a mt-5" onClick={()=>seleccionarUser(casa.space) }>  RESERVAR</button></div>

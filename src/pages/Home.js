@@ -176,7 +176,7 @@ const BuscarNoticias = async() => {
   }
   const rtdo = await axios.get(url, {headers})
 
-  setData((rtdo.data.data).filter(artista=> artista.typeReleaseId === "10"))
+  // setData((rtdo.data.data).filter(artista=> artista.typeReleaseId === "10"))
 
   const rtdo2 = (rtdo.data.data).filter(artista=> (artista.publicationDate).slice(0,7) === fechaFormat)
   const rtdo3 = (rtdo2).filter(artista=> artista.typeReleaseId === "10")
