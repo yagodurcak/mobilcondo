@@ -481,6 +481,11 @@ color: aliceblue;
     justify-content: center;
     align-items: center;
 }
+.YesList{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
 .separador{
 
     width: 90%;
